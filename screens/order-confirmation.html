@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body { background: linear-gradient(180deg, #FFF0F9 0%, #FAFAFA 300px); }
+
+/* ── HEADER ── */
+.confirm-header { background: #fff; border-bottom: 1px solid var(--n100); padding: 18px 0; }
+.confirm-header-inner { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
+
+/* ── SUCCESS HERO ── */
+.confirm-hero { max-width: 680px; margin: 60px auto 0; padding: 0 32px; text-align: center; }
+.success-ring {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  border: 4px solid var(--green); display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px; position: relative;
+}
+.success-ring i { font-size: 2.5rem; color: var(--green); }
+.success-ring::before {
+  content: ''; position: absolute; inset: -12px; border-radius: 50%;
+  border: 2px solid rgba(16,185,129,0.2);
+}
+.confirm-eyebrow { font-size: 0.78rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.confirm-h1 { font-size: 2.2rem; font-weight: 900; color: var(--n900); letter-spacing: -0.02em; margin-bottom: 10px; }
+.confirm-h1 span { color: var(--pink); }
+.confirm-sub { font-size: 0.95rem; color: var(--n500); line-height: 1.7; max-width: 480px; margin: 0 auto 28px; }
+.confirm-num {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; border: 1.5px solid var(--n200); border-radius: 12px;
+  padding: 12px 24px; font-size: 0.875rem; margin-bottom: 28px;
+}
+.confirm-num .label { color: var(--n500); }
+.confirm-num .num { font-weight: 800; color: var(--n900); font-size: 1rem; }
+.confirm-email-note { font-size: 0.82rem; color: var(--n500); }
+.confirm-email-note strong { color: var(--pink); }
+
+/* ── TIMELINE ── */
+.order-timeline { max-width: 680px; margin: 40px auto 0; padding: 0 32px; }
+.timeline-header { font-size: 1.05rem; font-weight: 800; color: var(--n900); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+.timeline-header i { color: var(--pink); }
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-step { display: flex; gap: 18px; }
+.timeline-left { display: flex; flex-direction: column; align-items: center; }
+.tl-circle {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+}
+.tl-circle.done   { background: var(--green); color: #fff; }
+.tl-circle.active { background: var(--pink); color: #fff; box-shadow: 0 0 0 4px rgba(233,30,140,0.15); }
+.tl-circle.todo   { background: var(--n100); color: var(--n400); }
+.tl-line { width: 2px; flex: 1; background: var(--n200); margin: 4px 0; min-height: 32px; }
+.tl-line.done { background: var(--green); }
+.timeline-step:last-child .tl-line { display: none; }
+.timeline-content { padding-bottom: 28px; flex: 1; }
+.tl-title { font-size: 0.9rem; font-weight: 700; color: var(--n900); margin-bottom: 3px; }
+.tl-title.todo { color: var(--n500); font-weight: 600; }
+.tl-time  { font-size: 0.75rem; color: var(--n400); margin-bottom: 4px; }
+.tl-desc  { font-size: 0.8rem; color: var(--n500); line-height: 1.6; }
+.tl-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 6px; }
+.tl-badge.green { background: rgba(16,185,129,0.1); color: var(--green); }
+.tl-badge.pink  { background: var(--pink-pale); color: var(--pink); }
+.tl-badge.grey  { background: var(--n100); color: var(--n500); }
+
+/* ── ORDER DETAILS CARD ── */
+.confirm-cards { max-width: 680px; margin: 40px auto 0; padding: 0 32px; display: flex; flex-direction: column; gap: 20px; }
+.confirm-card { background: #fff; border: 1px solid var(--n100); border-radius: 18px; overflow: hidden; }
+.confirm-card-header { padding: 16px 22px; border-bottom: 1px solid var(--n100); display: flex; align-items: center; justify-content: space-between; }
+.confirm-card-header h3 { font-size: 0.9rem; font-weight: 800; color: var(--n900); }
+.confirm-card-header a { font-size: 0.78rem; color: var(--pink); font-weight: 600; }
+.confirm-card-body { padding: 20px 22px; }
+
+/* Order items in confirm */
+.confirm-order-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--n100); align-items: center; }
+.confirm-order-item:last-child { border-bottom: none; }
+.confirm-item-img { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+.confirm-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.confirm-item-img-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.confirm-item-info { flex: 1; }
+.confirm-item-name { font-size: 0.85rem; font-weight: 700; color: var(--n900); margin-bottom: 3px; }
+.confirm-item-opts { font-size: 0.72rem; color: var(--n400); }
+.confirm-item-price { font-size: 0.9rem; font-weight: 800; color: var(--n900); }
+
+/* Summary rows */
+.confirm-sum-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 6px 0; }
+.confirm-sum-row .k { color: var(--n500); }
+.confirm-sum-row .v { font-weight: 600; color: var(--n800); }
+.confirm-sum-row.discount .v { color: var(--green); }
+.confirm-sum-total { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--n100); margin-top: 8px; }
+.confirm-sum-total .k { font-weight: 800; color: var(--n900); }
+.confirm-sum-total .v { font-size: 1.1rem; font-weight: 900; color: var(--n900); }
+
+/* Address & payment cards */
+.confirm-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 680px; margin: 0 auto; padding: 0 32px; }
+.mini-card { background: #fff; border: 1px solid var(--n100); border-radius: 18px; padding: 20px 22px; }
+.mini-card h4 { font-size: 0.82rem; font-weight: 800; color: var(--n900); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.mini-card h4 i { color: var(--teal); font-size: 0.85rem; }
+.mini-card p { font-size: 0.82rem; color: var(--n600); line-height: 1.8; }
+
+/* ── CTA SECTION ── */
+.confirm-cta { max-width: 680px; margin: 40px auto 80px; padding: 0 32px; }
+.confirm-cta-box {
+  background: linear-gradient(135deg, var(--pink) 0%, #FF7AC4 50%, var(--pink-medium) 100%);
+  border-radius: 22px; padding: 40px; text-align: center; position: relative; overflow: hidden;
+}
+.confirm-cta-box::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 55%);
+}
+.confirm-cta-box h3 { font-size: 1.4rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+.confirm-cta-box p  { font-size: 0.875rem; color: rgba(255,255,255,0.8); margin-bottom: 22px; }
+.confirm-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: #fff; color: var(--pink); font-weight: 800; padding: 12px 28px; border-radius: 12px; font-size: 0.875rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-white:hover { background: rgba(255,255,255,0.92); transform: translateY(-1px); }
+.btn-white-outline { background: transparent; color: #fff; font-weight: 700; padding: 12px 28px; border-radius: 12px; font-size: 0.875rem; border: 2px solid rgba(255,255,255,0.6); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-white-outline:hover { background: rgba(255,255,255,0.1); }
+
+@media (max-width: 600px) {
+  .confirm-2col { grid-template-columns: 1fr; }
+  .confirm-h1 { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="confirm-header">
+  <div class="confirm-header-inner">
+    <a href="home.html" style="display:flex;align-items:center;gap:10px;">
+      <div class="logo-icon" style="width:36px;height:36px;font-size:0.85rem;"><i class="fa-solid fa-cake-candles"></i></div>
+      <div>
+        <div style="font-size:0.9rem;font-weight:800;color:var(--n900);">Newy Edible Toppers</div>
+        <div style="font-size:0.62rem;color:var(--n400);">Custom Edible Prints</div>
+      </div>
+    </a>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <a href="my-account.html" style="font-size:0.8rem;color:var(--n500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-user"></i> My Account</a>
+      <a href="shop.html" class="btn btn-pink btn-sm"><i class="fa-solid fa-cart-shopping"></i> Keep Shopping</a>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS HERO -->
+<div class="confirm-hero">
+  <div class="success-ring"><i class="fa-solid fa-check"></i></div>
+  <div class="confirm-eyebrow"><i class="fa-solid fa-circle-check" style="margin-right:5px;"></i>Order Placed Successfully</div>
+  <h1 class="confirm-h1">Thank you, <span>Sarah!</span></h1>
+  <p class="confirm-sub">Your order has been received and is already in the queue to be printed fresh in our Newcastle studio. You'll receive a confirmation email shortly.</p>
+  <div class="confirm-num">
+    <span class="label">Order number</span>
+    <span class="num">#NET-2025-04782</span>
+    <i class="fa-regular fa-copy" style="color:var(--teal);cursor:pointer;font-size:0.85rem;" title="Copy order number"></i>
+  </div>
+  <p class="confirm-email-note">
+    <i class="fa-regular fa-envelope" style="color:var(--pink);margin-right:5px;"></i>
+    Confirmation sent to <strong>sarah@example.com.au</strong>
+  </p>
+</div>
+
+<!-- TIMELINE -->
+<div class="order-timeline" style="margin-top:50px;">
+  <div class="timeline-header"><i class="fa-solid fa-timeline"></i>Order Progress</div>
+  <div class="timeline">
+
+    <div class="timeline-step">
+      <div class="timeline-left">
+        <div class="tl-circle done"><i class="fa-solid fa-check" style="font-size:0.8rem;"></i></div>
+        <div class="tl-line done"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="tl-title">Order Received</div>
+        <div class="tl-time">Today, 28 Apr 2025 · 10:42 AM AEST</div>
+        <div class="tl-desc">Your order has been received and payment confirmed.</div>
+        <div class="tl-badge green"><i class="fa-solid fa-circle-check" style="font-size:0.6rem;"></i> Completed</div>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="timeline-left">
+        <div class="tl-circle active"><i class="fa-solid fa-print" style="font-size:0.8rem;"></i></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="tl-title">Printing &amp; Quality Check</div>
+        <div class="tl-time">Estimated: Today, 28 Apr 2025 · by 12pm</div>
+        <div class="tl-desc">Your custom designs are being printed on premium edible paper and checked for quality by our team.</div>
+        <div class="tl-badge pink"><i class="fa-solid fa-spinner" style="font-size:0.6rem;"></i> In Progress</div>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="timeline-left">
+        <div class="tl-circle todo"><i class="fa-solid fa-box" style="font-size:0.8rem;"></i></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="tl-title todo">Packed &amp; Dispatched</div>
+        <div class="tl-time">Estimated: Today, 28 Apr 2025 · by 4pm</div>
+        <div class="tl-desc">Your order will be carefully packed and handed to AusPost Express.</div>
+        <div class="tl-badge grey">Upcoming</div>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="timeline-left">
+        <div class="tl-circle todo"><i class="fa-solid fa-truck-fast" style="font-size:0.8rem;"></i></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="tl-title todo">In Transit</div>
+        <div class="tl-time">Estimated: Tue 29 Apr 2025</div>
+        <div class="tl-desc">Your order will be on its way with an AusPost Express tracking number emailed to you.</div>
+        <div class="tl-badge grey">Upcoming</div>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="timeline-left">
+        <div class="tl-circle todo"><i class="fa-solid fa-house" style="font-size:0.8rem;"></i></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="tl-title todo">Delivered</div>
+        <div class="tl-time">Estimated: Wed 30 Apr – Thu 1 May 2025</div>
+        <div class="tl-desc">Your toppers will arrive at 14 Darby Street, Newcastle NSW 2300.</div>
+        <div class="tl-badge grey">Upcoming</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ORDER DETAILS CARD -->
+<div class="confirm-cards">
+  <div class="confirm-card">
+    <div class="confirm-card-header">
+      <h3><i class="fa-solid fa-bag-shopping" style="color:var(--pink);margin-right:8px;font-size:0.85rem;"></i>Items Ordered (3)</h3>
+      <a href="my-account.html">View in My Account</a>
+    </div>
+    <div class="confirm-card-body">
+
+      <div class="confirm-order-item">
+        <div class="confirm-item-img"><img src="../category_birthday_toppers_1777369655244.png" alt=""></div>
+        <div class="confirm-item-info">
+          <div class="confirm-item-name">Round Birthday Topper — 8cm Wafer</div>
+          <div class="confirm-item-opts">Qty: 1 · "Happy Birthday Sarah! 🎉"</div>
+        </div>
+        <div class="confirm-item-price">$8.95</div>
+      </div>
+
+      <div class="confirm-order-item">
+        <div class="confirm-item-img">
+          <div class="confirm-item-img-ph" style="background:linear-gradient(135deg,#FAF5FF,#E9D5FF);border-radius:10px;width:56px;height:56px;">
+            <i class="fa-solid fa-star" style="color:#9333EA;font-size:1.4rem;"></i>
+          </div>
+        </div>
+        <div class="confirm-item-info">
+          <div class="confirm-item-name">Unicorn Birthday Topper — 6cm Wafer</div>
+          <div class="confirm-item-opts">Qty: 2 · "Happy Birthday Lily! 🦄"</div>
+        </div>
+        <div class="confirm-item-price">$19.90</div>
+      </div>
+
+      <div class="confirm-order-item">
+        <div class="confirm-item-img"><img src="../category_corporate_toppers_1777369672917.png" alt=""></div>
+        <div class="confirm-item-info">
+          <div class="confirm-item-name">Corporate Logo Toppers — 12 Pack Fondant</div>
+          <div class="confirm-item-opts">Qty: 1 · AussieTech_Logo_Final.png</div>
+        </div>
+        <div class="confirm-item-price">$18.95</div>
+      </div>
+
+      <div style="border-top:1px solid var(--n100);margin-top:10px;padding-top:16px;">
+        <div class="confirm-sum-row"><span class="k">Subtotal</span><span class="v">$47.80</span></div>
+        <div class="confirm-sum-row discount"><span class="k"><i class="fa-solid fa-tag" style="font-size:0.7rem;margin-right:3px;"></i>SWEET10 (10% off)</span><span class="v">−$4.78</span></div>
+        <div class="confirm-sum-row"><span class="k">Express Shipping</span><span class="v">$14.95</span></div>
+        <div class="confirm-sum-row"><span class="k">GST (10%)</span><span class="v">$5.27</span></div>
+        <div class="confirm-sum-total"><span class="k">Total Charged</span><span class="v">$57.97 AUD</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADDRESS & PAYMENT 2-col -->
+<div class="confirm-2col" style="margin-top:20px;">
+  <div class="mini-card">
+    <h4><i class="fa-solid fa-location-dot"></i>Shipping To</h4>
+    <p>
+      <strong>Sarah Mitchell</strong><br>
+      14 Darby Street<br>
+      Newcastle NSW 2300<br>
+      Australia<br>
+      <span style="color:var(--teal);font-weight:600;">+61 412 345 678</span>
+    </p>
+    <div style="margin-top:12px;padding:10px;background:var(--teal-pale);border-radius:10px;font-size:0.75rem;color:var(--teal);font-weight:600;">
+      <i class="fa-solid fa-truck-fast" style="margin-right:5px;"></i>AusPost Express · Est. Delivery 30 Apr – 1 May
+    </div>
+  </div>
+  <div class="mini-card">
+    <h4><i class="fa-solid fa-credit-card"></i>Payment Method</h4>
+    <p>
+      <i class="fa-brands fa-cc-visa" style="font-size:1.4rem;color:#1A1F71;margin-right:6px;"></i>
+      <strong>Visa ending in 4242</strong><br>
+      <span style="font-size:0.78rem;color:var(--n500);">Sarah Mitchell · Exp 09/28</span>
+    </p>
+    <div style="margin-top:12px;padding:10px;background:rgba(16,185,129,0.08);border-radius:10px;font-size:0.75rem;color:var(--green);font-weight:600;">
+      <i class="fa-solid fa-lock" style="margin-right:5px;"></i>Payment confirmed · $57.97 AUD
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="confirm-cta">
+  <div class="confirm-cta-box">
+    <div style="font-size:2.5rem;margin-bottom:12px;">🎂</div>
+    <h3>Your toppers are going to look amazing!</h3>
+    <p>While you wait, browse more designs or share the love with friends who bake.</p>
+    <div class="confirm-cta-btns">
+      <a href="my-account.html" class="btn-white"><i class="fa-solid fa-clipboard-list"></i> Track My Order</a>
+      <a href="shop.html" class="btn-white-outline"><i class="fa-solid fa-cart-shopping"></i> Shop More</a>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN NAV -->
+<div class="screen-nav">
+  <a href="checkout.html"><i class="fa-solid fa-chevron-left"></i> Checkout</a>
+  <span class="screen-nav-center">Screen 13 / 15 — Order Confirmation</span>
+  <a href="my-account.html">My Account <i class="fa-solid fa-chevron-right"></i></a>
+</div>
+
+</body>
+</html>

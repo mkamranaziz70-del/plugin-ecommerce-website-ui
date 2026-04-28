@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ── SHOP LAYOUT ── */
+.shop-body { max-width: 1320px; margin: 0 auto; padding: 0 32px 80px; display: grid; grid-template-columns: 272px 1fr; gap: 36px; align-items: start; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, #FFF0F9 0%, #FFDFF2 50%, #F0FBFF 100%);
+  border-bottom: 1px solid var(--n100); padding: 36px 0 28px;
+}
+.page-header-inner { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--n400); margin-bottom: 14px; }
+.breadcrumb a { color: var(--n500); transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--pink); }
+.breadcrumb i { font-size: 0.6rem; color: var(--n300); }
+.page-h1 { font-size: 1.9rem; font-weight: 900; color: var(--n900); letter-spacing: -0.02em; margin-bottom: 6px; }
+.page-h1 span { color: var(--pink); }
+.page-count { font-size: 0.875rem; color: var(--n500); }
+
+/* ── SORT BAR ── */
+.sort-bar {
+  display: flex; align-items: center; gap: 14px; padding: 14px 0 20px;
+  border-bottom: 1px solid var(--n100); flex-wrap: wrap;
+}
+.sort-bar-left { display: flex; align-items: center; gap: 10px; flex: 1; flex-wrap: wrap; }
+.filter-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--pink-pale); border: 1.5px solid rgba(233,30,140,0.2);
+  color: var(--pink); font-size: 0.78rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all 0.2s;
+}
+.filter-chip:hover { background: rgba(233,30,140,0.12); }
+.filter-chip .chip-x { color: rgba(233,30,140,0.5); font-size: 0.7rem; }
+.filter-chip.clear-all { background: var(--n100); border-color: var(--n200); color: var(--n600); }
+.filter-chip.clear-all:hover { background: var(--n200); }
+.sort-bar-right { display: flex; align-items: center; gap: 10px; }
+.sort-label { font-size: 0.82rem; color: var(--n500); white-space: nowrap; }
+.sort-select {
+  padding: 8px 32px 8px 12px; border: 1.5px solid var(--n200);
+  border-radius: 8px; font-family: var(--font); font-size: 0.82rem;
+  color: var(--n800); background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none; cursor: pointer;
+}
+.view-btns { display: flex; gap: 4px; }
+.view-btn { width: 34px; height: 34px; border: 1.5px solid var(--n200); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--n400); cursor: pointer; transition: all 0.2s; }
+.view-btn.active { border-color: var(--pink); color: var(--pink); background: var(--pink-pale); }
+
+/* ── SIDEBAR ── */
+.sidebar { position: sticky; top: 90px; }
+.filter-panel { background: #fff; border: 1px solid var(--n100); border-radius: 16px; overflow: hidden; }
+.filter-header { padding: 18px 20px; border-bottom: 1px solid var(--n100); display: flex; align-items: center; justify-content: space-between; }
+.filter-header h3 { font-size: 0.95rem; font-weight: 800; color: var(--n900); }
+.filter-header a { font-size: 0.78rem; color: var(--pink); font-weight: 600; }
+.filter-section { padding: 18px 20px; border-bottom: 1px solid var(--n100); }
+.filter-section:last-child { border-bottom: none; }
+.filter-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; margin-bottom: 14px;
+}
+.filter-section-head h4 { font-size: 0.82rem; font-weight: 700; color: var(--n800); text-transform: uppercase; letter-spacing: 0.05em; }
+.filter-section-head i { font-size: 0.7rem; color: var(--n400); transition: transform 0.2s; }
+.filter-option {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 0; cursor: pointer;
+}
+.filter-option:hover .option-label { color: var(--pink); }
+.option-left { display: flex; align-items: center; gap: 10px; }
+.option-check {
+  width: 18px; height: 18px; border: 2px solid var(--n200); border-radius: 5px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
+}
+.option-check.checked { background: var(--pink); border-color: var(--pink); }
+.option-check.checked::after { content: ''; width: 5px; height: 8px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+.option-label { font-size: 0.84rem; color: var(--n700); }
+.option-count { font-size: 0.72rem; color: var(--n400); background: var(--n100); padding: 2px 7px; border-radius: 999px; }
+
+/* Price range */
+.price-range-inputs { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.price-input-wrap { flex: 1; position: relative; }
+.price-input-wrap span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--n400); font-size: 0.8rem; }
+.price-input {
+  width: 100%; padding: 8px 10px 8px 22px; border: 1.5px solid var(--n200); border-radius: 8px;
+  font-family: var(--font); font-size: 0.82rem; color: var(--n800);
+}
+.price-sep { color: var(--n400); font-size: 0.8rem; }
+.price-slider { width: 100%; margin: 4px 0; accent-color: var(--pink); cursor: pointer; }
+
+/* Colour swatches */
+.colour-swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.colour-sw {
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+  border: 2.5px solid transparent; transition: all 0.2s; position: relative;
+}
+.colour-sw.selected { border-color: var(--pink); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--pink); }
+.colour-sw:hover { transform: scale(1.15); }
+
+/* Rating filter */
+.rating-option { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; }
+.rating-stars { color: #F59E0B; font-size: 0.78rem; }
+.rating-txt { font-size: 0.8rem; color: var(--n600); }
+.rating-option:hover .rating-txt { color: var(--pink); }
+
+/* ── PRODUCT GRID ── */
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.product-card {
+  background: #fff; border: 1px solid var(--n100); border-radius: 18px;
+  overflow: hidden; transition: all 0.25s; cursor: pointer; position: relative;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-color: transparent; }
+.product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+.product-img-wrap { position: relative; overflow: hidden; }
+.product-img-wrap img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.product-img-placeholder {
+  width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.product-img-placeholder .img-inner {
+  width: 60%; aspect-ratio: 1; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  border: 3px solid rgba(255,255,255,0.5); position: relative; z-index: 1;
+}
+.product-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+}
+.badge-new     { background: var(--teal); color: #fff; }
+.badge-sale    { background: var(--pink); color: #fff; }
+.badge-hot     { background: #FF6B35; color: #fff; }
+.badge-popular { background: #9333EA; color: #fff; }
+.wishlist-btn {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  width: 34px; height: 34px; background: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--n300); font-size: 0.85rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s; cursor: pointer;
+}
+.wishlist-btn:hover, .wishlist-btn.active { color: var(--pink); }
+.product-actions {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  padding: 20px 14px 14px;
+  display: flex; gap: 8px;
+  opacity: 0; transform: translateY(8px); transition: all 0.25s;
+}
+.btn-quick-view {
+  flex: 1; padding: 9px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+  border-radius: 8px; font-size: 0.78rem; font-weight: 700; color: var(--n800);
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.btn-quick-view:hover { background: #fff; }
+.btn-add-cart {
+  flex: 1; padding: 9px; background: var(--pink); color: #fff;
+  border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+  border: none; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-add-cart:hover { background: var(--pink-medium); }
+
+.product-info { padding: 16px; }
+.product-category-tag { font-size: 0.7rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.product-name { font-size: 0.9rem; font-weight: 700; color: var(--n900); line-height: 1.35; margin-bottom: 7px; }
+.product-stars { display: flex; align-items: center; gap: 5px; margin-bottom: 9px; }
+.stars-row { color: #F59E0B; font-size: 0.72rem; letter-spacing: 1px; }
+.stars-count { font-size: 0.72rem; color: var(--n400); }
+.product-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 11px; }
+.price-current { font-size: 1.1rem; font-weight: 900; color: var(--n900); }
+.price-was { font-size: 0.82rem; color: var(--n400); text-decoration: line-through; }
+.price-save { font-size: 0.72rem; font-weight: 700; color: var(--green); background: var(--green-pale); padding: 2px 7px; border-radius: 999px; }
+.product-variants { display: flex; gap: 6px; flex-wrap: wrap; }
+.variant-pill {
+  font-size: 0.7rem; font-weight: 600; color: var(--n600);
+  border: 1px solid var(--n200); padding: 3px 9px; border-radius: 999px;
+  cursor: pointer; transition: all 0.2s;
+}
+.variant-pill:hover, .variant-pill.active { border-color: var(--pink); color: var(--pink); background: var(--pink-pale); }
+.variant-pill.size-active { background: var(--pink); color: #fff; border-color: var(--pink); }
+
+/* ── PAGINATION ── */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 48px; }
+.page-btn {
+  min-width: 40px; height: 40px; padding: 0 14px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--n200); border-radius: 10px; font-size: 0.875rem;
+  font-weight: 600; color: var(--n600); cursor: pointer; transition: all 0.2s;
+}
+.page-btn:hover { border-color: var(--pink); color: var(--pink); }
+.page-btn.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+.page-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+.page-dots { color: var(--n400); font-size: 0.875rem; padding: 0 4px; }
+
+/* ── PROMO BANNER ── */
+.promo-banner {
+  background: linear-gradient(135deg, var(--pink) 0%, #FF7AC4 100%);
+  border-radius: 16px; padding: 24px 28px; margin-top: 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  color: #fff;
+}
+.promo-banner-text h4 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+.promo-banner-text p { font-size: 0.82rem; opacity: 0.85; }
+.btn-promo { background: #fff; color: var(--pink); padding: 10px 22px; border-radius: 999px; font-size: 0.82rem; font-weight: 800; white-space: nowrap; transition: all 0.2s; display: inline-block; }
+.btn-promo:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+
+/* ── RECENTLY VIEWED ── */
+.recently-viewed { margin-top: 56px; }
+.section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.section-title-row h2 { font-size: 1.3rem; font-weight: 800; color: var(--n900); }
+.section-title-row a { font-size: 0.82rem; color: var(--pink); font-weight: 600; }
+.recent-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.recent-card { display: flex; flex-direction: column; gap: 8px; cursor: pointer; }
+.recent-img { border-radius: 12px; overflow: hidden; aspect-ratio: 1; }
+.recent-name { font-size: 0.78rem; font-weight: 600; color: var(--n800); line-height: 1.3; }
+.recent-price { font-size: 0.82rem; font-weight: 800; color: var(--n900); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .shop-body { grid-template-columns: 240px 1fr; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .shop-body { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .recent-row { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-pills">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping Australia-Wide</span>
+      <span><i class="fa-solid fa-gift"></i> Use code <strong>SWEET10</strong> for 10% off your first order</span>
+    </div>
+    <div class="top-bar-actions">
+      <a href="login.html">My Account</a>
+      <a href="cart.html"><i class="fa-solid fa-cart-shopping" style="font-size:0.75rem;"></i> Cart (2)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="home.html" class="site-logo">
+      <div class="logo-icon"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="logo-words">
+        <div class="logo-name">Newy Edible Toppers</div>
+        <div class="logo-sub">Custom Edible Prints · Newcastle, NSW</div>
+      </div>
+    </a>
+    <nav class="primary-nav">
+      <a href="home.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <a href="shop.html" class="nav-link active">Shop <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+        <div class="nav-dropdown-panel">
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-birthday-cake"></i> Birthday Toppers</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-child-reaching"></i> Kids Themes</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-briefcase"></i> Corporate Logos</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-snowflake"></i> Seasonal Designs</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-heart"></i> Wedding &amp; Events</a>
+        </div>
+      </div>
+
+      <a href="#" class="nav-link">About Us</a>
+      <a href="#" class="nav-link">FAQ</a>
+      <a href="#" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="header-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search products..." value="birthday">
+      </div>
+      <a href="my-account.html" class="icon-btn"><i class="fa-regular fa-user"></i></a>
+      <div class="icon-btn"><i class="fa-regular fa-heart"></i><span class="count">3</span></div>
+      <a href="cart.html" class="icon-btn"><i class="fa-solid fa-cart-shopping"></i><span class="count">2</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="home.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span style="color:var(--n700);">Shop All Products</span>
+    </div>
+    <h1 class="page-h1">All <span>Edible Toppers</span></h1>
+    <p class="page-count">Showing <strong>36</strong> of <strong>84</strong> products — 3 filters active</p>
+  </div>
+</div>
+
+<!-- SHOP BODY -->
+<div class="shop-body" style="margin-top:32px;">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="filter-panel">
+
+      <div class="filter-header">
+        <h3><i class="fa-solid fa-sliders" style="color:var(--pink);margin-right:8px;font-size:0.85rem;"></i>Filters</h3>
+        <a href="#">Clear all</a>
+      </div>
+
+      <!-- Category -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Category</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check checked"></div><span class="option-label">Birthday Toppers</span></div>
+          <span class="option-count">28</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check checked"></div><span class="option-label">Kids Themes</span></div>
+          <span class="option-count">14</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Wedding &amp; Events</span></div>
+          <span class="option-count">9</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Corporate Logos</span></div>
+          <span class="option-count">11</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Seasonal &amp; Holidays</span></div>
+          <span class="option-count">12</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Cupcake Sheets</span></div>
+          <span class="option-count">10</span>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Price Range</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="price-range-inputs">
+          <div class="price-input-wrap"><span>$</span><input class="price-input" type="number" value="0" min="0" max="100"></div>
+          <span class="price-sep">—</span>
+          <div class="price-input-wrap"><span>$</span><input class="price-input" type="number" value="50" min="0" max="100"></div>
+        </div>
+        <input type="range" class="price-slider" min="0" max="100" value="50">
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--n400);margin-top:4px;">
+          <span>$0</span><span>$100+</span>
+        </div>
+      </div>
+
+      <!-- Size -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Topper Size</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">6cm Round</span></div>
+          <span class="option-count">22</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check checked"></div><span class="option-label">8cm Round</span></div>
+          <span class="option-count">31</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">10cm Round</span></div>
+          <span class="option-count">18</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Rectangle (Custom)</span></div>
+          <span class="option-count">13</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">A4 Sheet (24 cupcakes)</span></div>
+          <span class="option-count">10</span>
+        </div>
+      </div>
+
+      <!-- Occasion -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Occasion</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check checked"></div><span class="option-label">Birthday</span></div>
+          <span class="option-count">28</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Wedding</span></div>
+          <span class="option-count">9</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Baby Shower</span></div>
+          <span class="option-count">7</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Graduation</span></div>
+          <span class="option-count">5</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Christmas</span></div>
+          <span class="option-count">8</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Corporate Event</span></div>
+          <span class="option-count">11</span>
+        </div>
+      </div>
+
+      <!-- Paper Type -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Paper Type</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check checked"></div><span class="option-label">Wafer Paper</span></div>
+          <span class="option-count">42</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Fondant Sheet</span></div>
+          <span class="option-count">28</span>
+        </div>
+        <div class="filter-option">
+          <div class="option-left"><div class="option-check"></div><span class="option-label">Sugar Sheet</span></div>
+          <span class="option-count">14</span>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="filter-section">
+        <div class="filter-section-head">
+          <h4>Customer Rating</h4>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="rating-option">
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-txt">5 stars (48)</span>
+        </div>
+        <div class="rating-option">
+          <span class="rating-stars">★★★★<span style="color:var(--n200);">★</span></span>
+          <span class="rating-txt">4+ stars (72)</span>
+        </div>
+        <div class="rating-option">
+          <span class="rating-stars">★★★<span style="color:var(--n200);">★★</span></span>
+          <span class="rating-txt">3+ stars (81)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Promo banner in sidebar -->
+    <div class="promo-banner" style="flex-direction:column;text-align:center;margin-top:20px;">
+      <div style="font-size:2rem;margin-bottom:8px;">🎂</div>
+      <div class="promo-banner-text">
+        <h4>First Order?</h4>
+        <p>Get 10% off with<br>code <strong>SWEET10</strong></p>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="btn-promo" style="background:rgba(255,255,255,0.95);color:var(--pink);">Copy Code</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div>
+
+    <!-- Sort bar -->
+    <div class="sort-bar">
+      <div class="sort-bar-left">
+        <span style="font-size:0.82rem;color:var(--n500);font-weight:600;">Active filters:</span>
+        <div class="filter-chip">Birthday Toppers <i class="fa-solid fa-xmark chip-x"></i></div>
+        <div class="filter-chip">Kids Themes <i class="fa-solid fa-xmark chip-x"></i></div>
+        <div class="filter-chip">8cm Round <i class="fa-solid fa-xmark chip-x"></i></div>
+        <div class="filter-chip clear-all"><i class="fa-solid fa-rotate-left" style="font-size:0.7rem;"></i> Clear all</div>
+      </div>
+      <div class="sort-bar-right">
+        <span class="sort-label">Sort by:</span>
+        <select class="sort-select">
+          <option>Most Popular</option>
+          <option>Newest First</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Highest Rated</option>
+          <option>Best Selling</option>
+        </select>
+        <div class="view-btns">
+          <div class="view-btn active" title="Grid view"><i class="fa-solid fa-grid-2" style="font-size:0.75rem;"></i></div>
+          <div class="view-btn" title="List view"><i class="fa-solid fa-bars" style="font-size:0.75rem;"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product grid -->
+    <div class="product-grid">
+
+      <!-- CARD 1: Birthday Circle Topper -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="../category_birthday_toppers_1777369655244.png" alt="Birthday Circle Topper">
+          <span class="product-badge badge-hot"><i class="fa-solid fa-fire" style="font-size:0.6rem;"></i> Hot</span>
+          <div class="wishlist-btn active"><i class="fa-solid fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Birthday</div>
+          <div class="product-name">Round Birthday Cake Topper — Custom Name</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(142 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$8.95</span>
+            <span class="price-was">$11.00</span>
+            <span class="price-save">Save 19%</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">6cm</span>
+            <span class="variant-pill">8cm</span>
+            <span class="variant-pill">10cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Cupcake Toppers 24 Pack -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFF0F9 0%,#FFDFF2 50%,#FFE8F5 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.5) 0%,transparent 60%);"></div>
+            <div class="img-inner" style="background:rgba(233,30,140,0.12);border-color:rgba(233,30,140,0.3);color:var(--pink);">
+              <i class="fa-solid fa-layer-group" style="font-size:1.8rem;color:var(--pink);margin-bottom:4px;"></i>
+              <span style="color:var(--pink);font-size:0.65rem;letter-spacing:0.1em;">24 PACK</span>
+            </div>
+          </div>
+          <span class="product-badge badge-popular"><i class="fa-solid fa-medal" style="font-size:0.6rem;"></i> Popular</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Cupcake Sheets</div>
+          <div class="product-name">Birthday Cupcake Toppers — Pack of 24</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(98 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$14.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">Standard</span>
+            <span class="variant-pill">Mini</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Custom Photo Topper -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#E8F9FB 0%,#C8F5F9 50%,#B2EFF7 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(0,180,204,0.12);border-color:rgba(0,180,204,0.35);color:var(--teal);">
+              <i class="fa-solid fa-camera" style="font-size:1.8rem;color:var(--teal);margin-bottom:4px;"></i>
+              <span style="color:var(--teal);font-size:0.65rem;letter-spacing:0.1em;">PHOTO</span>
+            </div>
+          </div>
+          <span class="product-badge badge-new">New</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Custom Photo</div>
+          <div class="product-name">Custom Photo Cake Topper — Your Image</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(213 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$12.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill">Round</span>
+            <span class="variant-pill size-active">Square</span>
+            <span class="variant-pill">Heart</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Kids Dinosaur -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#F0FFF4 0%,#DCFCE7 50%,#BBF7D0 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(255,255,255,0.4) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(22,163,74,0.1);border-color:rgba(22,163,74,0.3);color:#16A34A;">
+              <i class="fa-solid fa-dragon" style="font-size:1.8rem;color:#16A34A;margin-bottom:4px;"></i>
+              <span style="color:#16A34A;font-size:0.65rem;letter-spacing:0.1em;">KIDS</span>
+            </div>
+          </div>
+          <span class="product-badge badge-hot"><i class="fa-solid fa-fire" style="font-size:0.6rem;"></i> Hot</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Kids Themes</div>
+          <div class="product-name">Dinosaur Adventure Kids Birthday Topper</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(67 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$9.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">6cm</span>
+            <span class="variant-pill">8cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Unicorn -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FAF5FF 0%,#F3E8FF 50%,#E9D5FF 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(147,51,234,0.1);border-color:rgba(147,51,234,0.3);color:#9333EA;">
+              <i class="fa-solid fa-star" style="font-size:1.8rem;color:#9333EA;margin-bottom:4px;"></i>
+              <span style="color:#9333EA;font-size:0.65rem;letter-spacing:0.1em;">UNICORN</span>
+            </div>
+          </div>
+          <span class="product-badge badge-popular"><i class="fa-solid fa-medal" style="font-size:0.6rem;"></i> Popular</span>
+          <div class="wishlist-btn active"><i class="fa-solid fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Kids Themes</div>
+          <div class="product-name">Magical Unicorn Rainbow Birthday Topper</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(119 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$9.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">6cm</span>
+            <span class="variant-pill">8cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6: Corporate Logo -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="../category_corporate_toppers_1777369672917.png" alt="Corporate Logo Topper">
+          <span class="product-badge badge-new">New</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Corporate</div>
+          <div class="product-name">Corporate Logo Branded Toppers — Bulk 12 Pack</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★<i class="fa-regular fa-star" style="font-size:0.72rem;"></i></span>
+            <span class="stars-count">(44 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$18.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">12 Pack</span>
+            <span class="variant-pill">24 Pack</span>
+            <span class="variant-pill">48 Pack</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 7: Baby Shower -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 50%,#FED7AA 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(234,88,12,0.1);border-color:rgba(234,88,12,0.25);color:#EA580C;">
+              <i class="fa-solid fa-baby" style="font-size:1.8rem;color:#EA580C;margin-bottom:4px;"></i>
+              <span style="color:#EA580C;font-size:0.65rem;letter-spacing:0.1em;">BABY</span>
+            </div>
+          </div>
+          <span class="product-badge badge-new">New</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Baby Shower</div>
+          <div class="product-name">Sweet Baby Shower Cake Topper — Custom Name</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(56 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$13.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">Round</span>
+            <span class="variant-pill">Rectangle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 8: Anniversary -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFF1F5 0%,#FFE4EC 50%,#FECDD3 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 70%,rgba(255,255,255,0.45) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(225,29,72,0.1);border-color:rgba(225,29,72,0.3);color:#E11D48;">
+              <i class="fa-solid fa-heart" style="font-size:1.8rem;color:#E11D48;margin-bottom:4px;"></i>
+              <span style="color:#E11D48;font-size:0.65rem;letter-spacing:0.1em;">ANNIVERSARY</span>
+            </div>
+          </div>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Anniversary</div>
+          <div class="product-name">Golden Anniversary Milestone Cake Topper</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(38 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$15.95</span>
+            <span class="price-was">$19.00</span>
+            <span class="price-save">Save 16%</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">8cm</span>
+            <span class="variant-pill">10cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 9: Christmas -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#F0FFF4 0%,#DCFCE7 35%,#F0FFF4 60%,#FFF1F5 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(220,38,38,0.1);border-color:rgba(220,38,38,0.3);color:#DC2626;">
+              <i class="fa-solid fa-snowflake" style="font-size:1.8rem;color:#DC2626;margin-bottom:4px;"></i>
+              <span style="color:#DC2626;font-size:0.65rem;letter-spacing:0.1em;">XMAS</span>
+            </div>
+          </div>
+          <span class="product-badge badge-sale">Sale</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Seasonal</div>
+          <div class="product-name">Christmas Festive Topper Pack — 6 Designs</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(77 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$11.95</span>
+            <span class="price-was">$16.95</span>
+            <span class="price-save">Save 30%</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">6-Pack</span>
+            <span class="variant-pill">12-Pack</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 10: Wedding Monogram -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(145deg,#FDEEF5 0%,#F9D0E6 40%,#F0B3D4 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.4) 0%,transparent 60%);"></div>
+            <div class="img-inner" style="background:rgba(255,255,255,0.25);backdrop-filter:blur(8px);border-color:rgba(255,255,255,0.7);color:#C2177A;">
+              <i class="fa-solid fa-heart" style="font-size:1.8rem;color:#E91E8C;margin-bottom:4px;"></i>
+              <span style="color:#C2177A;font-size:0.65rem;letter-spacing:0.1em;">WEDDING</span>
+            </div>
+          </div>
+          <span class="product-badge badge-popular"><i class="fa-solid fa-medal" style="font-size:0.6rem;"></i> Popular</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Wedding &amp; Events</div>
+          <div class="product-name">Wedding Monogram Cake Topper — Floral Design</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(91 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$22.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">8cm</span>
+            <span class="variant-pill">10cm</span>
+            <span class="variant-pill">12cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 11: Graduation -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 50%,#FDE68A 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(217,119,6,0.1);border-color:rgba(217,119,6,0.3);color:#D97706;">
+              <i class="fa-solid fa-graduation-cap" style="font-size:1.8rem;color:#D97706;margin-bottom:4px;"></i>
+              <span style="color:#D97706;font-size:0.65rem;letter-spacing:0.1em;">GRAD</span>
+            </div>
+          </div>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Graduation</div>
+          <div class="product-name">Class of 2025 Graduation Celebration Topper</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(29 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$10.95</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">8cm</span>
+            <span class="variant-pill">10cm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 12: Cupcake Sheets Full Sheet -->
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <div class="product-img-placeholder" style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 50%,#BFDBFE 100%);">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+            <div class="img-inner" style="background:rgba(37,99,235,0.1);border-color:rgba(37,99,235,0.3);color:#2563EB;">
+              <i class="fa-solid fa-table-cells" style="font-size:1.8rem;color:#2563EB;margin-bottom:4px;"></i>
+              <span style="color:#2563EB;font-size:0.65rem;letter-spacing:0.1em;">A4 SHEET</span>
+            </div>
+          </div>
+          <span class="product-badge badge-sale">Sale</span>
+          <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+          <div class="product-actions">
+            <button class="btn-quick-view"><i class="fa-regular fa-eye" style="margin-right:5px;"></i>Quick View</button>
+            <button class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category-tag">Cupcake Sheets</div>
+          <div class="product-name">A4 Full Custom Cupcake Sheet — 15–24 Toppers</div>
+          <div class="product-stars">
+            <span class="stars-row">★★★★★</span>
+            <span class="stars-count">(53 reviews)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="price-current">$16.95</span>
+            <span class="price-was">$21.00</span>
+            <span class="price-save">Save 19%</span>
+          </div>
+          <div class="product-variants">
+            <span class="variant-pill size-active">Wafer</span>
+            <span class="variant-pill">Fondant</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /product-grid -->
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <div class="page-btn disabled"><i class="fa-solid fa-chevron-left" style="font-size:0.7rem;"></i></div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn">3</div>
+      <span class="page-dots">...</span>
+      <div class="page-btn">7</div>
+      <div class="page-btn"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></div>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div class="recently-viewed">
+      <div class="section-title-row">
+        <h2>Recently Viewed</h2>
+        <a href="#">View All</a>
+      </div>
+      <div class="recent-row">
+        <div class="recent-card">
+          <div class="recent-img" style="background:linear-gradient(135deg,#FFF0F9,#FFDFF2);">
+            <img src="../category_birthday_toppers_1777369655244.png" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;">
+          </div>
+          <div class="recent-name">Round Birthday Topper</div>
+          <div class="recent-price">$8.95</div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-img">
+            <img src="../category_corporate_toppers_1777369672917.png" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;">
+          </div>
+          <div class="recent-name">Corporate Logo Pack</div>
+          <div class="recent-price">$18.95</div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-img" style="background:linear-gradient(135deg,#FDEEF5,#F9D0E6);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-heart" style="font-size:2rem;color:#E91E8C;"></i>
+          </div>
+          <div class="recent-name">Wedding Monogram Topper</div>
+          <div class="recent-price">$22.95</div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-img" style="background:linear-gradient(135deg,#FAF5FF,#E9D5FF);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-star" style="font-size:2rem;color:#9333EA;"></i>
+          </div>
+          <div class="recent-name">Unicorn Birthday Topper</div>
+          <div class="recent-price">$9.95</div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-img" style="background:linear-gradient(135deg,#FFFBEB,#FDE68A);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-graduation-cap" style="font-size:2rem;color:#D97706;"></i>
+          </div>
+          <div class="recent-name">Graduation Topper 2025</div>
+          <div class="recent-price">$10.95</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /shop-body -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-icon" style="width:40px;height:40px;font-size:1rem;"><i class="fa-solid fa-cake-candles"></i></div>
+        <div class="logo-words">
+          <div class="logo-name" style="font-size:0.95rem;">Newy Edible Toppers</div>
+          <div class="logo-sub">Newcastle, NSW, Australia</div>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--n500);line-height:1.7;margin-top:14px;max-width:260px;">Handcrafted edible prints made with love in Newcastle. Delivered fresh to your door, Australia-wide.</p>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <div class="social-icon"><i class="fa-brands fa-instagram"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-facebook-f"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-tiktok"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-pinterest-p"></i></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Shop</h4>
+      <a href="shop.html" class="footer-link">Birthday Toppers</a>
+      <a href="shop.html" class="footer-link">Kids Themes</a>
+      <a href="shop.html" class="footer-link">Wedding &amp; Events</a>
+      <a href="shop.html" class="footer-link">Corporate Logos</a>
+      <a href="shop.html" class="footer-link">Seasonal Packs</a>
+
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Help</h4>
+      <a href="#" class="footer-link">FAQ</a>
+      <a href="#" class="footer-link">Shipping Info</a>
+      <a href="#" class="footer-link">Returns &amp; Refunds</a>
+      <a href="#" class="footer-link">Contact Us</a>
+      <a href="#" class="footer-link">Design Guidelines</a>
+      <a href="#" class="footer-link">Track My Order</a>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Account</h4>
+      <a href="login.html" class="footer-link">Sign In</a>
+      <a href="register.html" class="footer-link">Create Account</a>
+      <a href="my-account.html" class="footer-link">My Orders</a>
+      <a href="my-account.html" class="footer-link">Saved Designs</a>
+      <a href="my-account.html" class="footer-link">Wishlist</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p style="font-size:0.78rem;color:var(--n400);">© 2025 Newy Edible Toppers. All rights reserved. ABN 12 345 678 901</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="#" style="font-size:0.78rem;color:var(--n400);">Privacy Policy</a>
+        <a href="#" style="font-size:0.78rem;color:var(--n400);">Terms of Service</a>
+        <a href="#" style="font-size:0.78rem;color:var(--n400);">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCREEN NAV -->
+<div class="screen-nav">
+  <a href="register.html"><i class="fa-solid fa-chevron-left"></i> Register</a>
+  <span class="screen-nav-center">Screen 09 / 15 — Shop / Product Listing</span>
+  <a href="product-detail.html">Product Detail <i class="fa-solid fa-chevron-right"></i></a>
+</div>
+
+</body>
+</html>

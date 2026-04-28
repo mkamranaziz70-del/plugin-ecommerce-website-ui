@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newy Edible Toppers | Professional Enterprise Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="pink-theme">
+
+    <div class="announcement">✨ LUXURY EDIBLE PRINTING | FAST SHIPPING AUSTRALIA-WIDE ✨</div>
+
+    <nav>
+        <div class="logo-container" onclick="switchView('home')" style="cursor:pointer">
+            <div class="logo-text">NEWY EDIBLE</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="switchView('home')">Home</a></li>
+            <li><a href="#" onclick="switchView('shop')">Collections</a></li>
+            <li><a href="#" onclick="switchView('editor')">Design Studio</a></li>
+            <li><a href="#" onclick="switchView('about')">Our Story</a></li>
+            <li><a href="#" onclick="switchView('admin')">Admin</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div onclick="switchView('cart')" style="cursor: pointer; position: relative;">
+                <i data-lucide="shopping-cart" style="color: #FF4081; width: 28px; height: 28px;"></i>
+                <span id="cart-badge" style="position: absolute; top: -12px; right: -12px; background: #FF4081; color: white; font-size: 11px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; border: 2.5px solid white;">0</span>
+            </div>
+            <button class="btn btn-primary" onclick="switchView('editor')">START CREATING</button>
+        </div>
+    </nav>
+
+    <!-- HOME VIEW -->
+    <main id="home-view" class="view active">
+        <section class="hero">
+            <div class="hero-content">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+                    <div style="width: 50px; height: 3px; background: #FF4081;"></div>
+                    <span style="font-weight: 800; text-transform: uppercase; letter-spacing: 4px; font-size: 12px; color: #FF4081;">Enterprise Edible Tech</span>
+                </div>
+                <h1>Bespoke Designs <br>For <span style="color: #FF4081;">Masterpiece</span> Cakes</h1>
+                <p>Leading Newcastle's edible print industry with high-definition technology. Professional quality for bakeries, corporate branding, and luxury events.</p>
+                <div style="display:flex; gap:25px; margin-top: 30px;">
+                    <button class="btn btn-primary" style="padding: 22px 50px; font-size: 14px;" onclick="switchView('shop')">Explore All Collections</button>
+                    <button class="btn btn-outline" style="padding: 22px 50px; font-size: 14px;" onclick="switchView('editor')">Design Custom Topper</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="hero_cupcakes_toppers_1777369631881.png" alt="Hero Photography">
+            </div>
+        </section>
+
+        <!-- FEATURED GRID -->
+        <section style="padding: 120px 0;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-size: 48px;">Signature Collections</h2>
+                <p style="color: var(--text-muted); font-size: 20px;">Precision-crafted edible art for every milestone.</p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="category_birthday_toppers_1777369655244.png" alt="Birthday">
+                    <h3>Birthday Celebration</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_corporate_toppers_1777369672917.png" alt="Corporate">
+                    <h3>Corporate Branding</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_kids_toppers_extra.png" alt="Kids">
+                    <h3>Kids Party Themes</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_anniversary_toppers_extra.png" alt="Anniversary">
+                    <h3>Anniversary Elegance</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_cupcake_sheets_extra.png" alt="Sheets">
+                    <h3>Bulk Icing Sheets</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+                <div class="category-card">
+                    <div style="width:100%;height:300px;border-radius:16px;margin-bottom:25px;background:linear-gradient(145deg,#FDEEF5 0%,#F9D0E6 40%,#F0B3D4 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.4) 0%,transparent 60%);"></div>
+                        <div style="width:160px;height:160px;border-radius:50%;border:3px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.25);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 8px 32px rgba(255,64,129,0.15);">
+                            <i data-lucide="heart" style="width:36px;height:36px;color:#E91E8C;stroke-width:1.5;"></i>
+                            <span style="font-size:13px;font-weight:800;color:#C2177A;letter-spacing:1px;">WEDDING</span>
+                            <span style="font-size:9px;color:rgba(194,23,122,0.6);font-weight:600;letter-spacing:0.1em;">MONOGRAMS</span>
+                        </div>
+                        <div style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="sparkles" style="width:13px;height:13px;color:#E91E8C;"></i>
+                        </div>
+                        <div style="position:absolute;bottom:14px;left:14px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="sparkles" style="width:10px;height:10px;color:#E91E8C;"></i>
+                        </div>
+                    </div>
+                    <h3>Wedding Monograms</h3>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="switchView('shop')">View Collection</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SHOP VIEW - FULL WIDTH -->
+    <div id="shop-view" class="view">
+        <div style="padding: 60px 8%;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
+                <div>
+                    <h2 style="font-size: 48px;">All Collections</h2>
+                    <p style="font-size: 18px; color: var(--text-muted);">Explore our full range of premium edible designs.</p>
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <select style="padding: 15px 30px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-main); font-weight: 700; cursor: pointer;">
+                        <option>All Categories</option>
+                        <option>Round Toppers</option>
+                        <option>Square Toppers</option>
+                    </select>
+                    <select style="padding: 15px 30px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-main); font-weight: 700; cursor: pointer;">
+                        <option>Sort by: Popularity</option>
+                        <option>Price: Low to High</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="category-grid" style="padding: 0;">
+                <div class="category-card">
+                    <img src="category_birthday_toppers_1777369655244.png" alt="Product">
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Birthday Pack (12)</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$24.99</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Birthday Pack', 24.99)">Add to Cart</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_corporate_toppers_1777369672917.png" alt="Product">
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Corporate Branding Set</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$34.99</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Corporate Set', 34.99)">Add to Cart</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_kids_toppers_extra.png" alt="Product">
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Kids Theme Pack</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$22.00</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Kids Pack', 22.00)">Add to Cart</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_anniversary_toppers_extra.png" alt="Product">
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Elegant Anniversary</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$28.50</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Anniversary Set', 28.50)">Add to Cart</button>
+                </div>
+                <div class="category-card">
+                    <img src="category_cupcake_sheets_extra.png" alt="Product">
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Bulk Icing Sheet</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$45.00</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Bulk Sheet', 45.00)">Add to Cart</button>
+                </div>
+                <div class="category-card">
+                    <div style="width:100%;height:300px;border-radius:16px;margin-bottom:25px;background:linear-gradient(145deg,#FDEEF5 0%,#F9D0E6 40%,#F0B3D4 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.4) 0%,transparent 60%);"></div>
+                        <div style="width:155px;height:155px;border-radius:50%;border:3px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.25);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 8px 32px rgba(255,64,129,0.15);">
+                            <i data-lucide="heart" style="width:34px;height:34px;color:#E91E8C;stroke-width:1.5;"></i>
+                            <span style="font-size:12px;font-weight:800;color:#C2177A;letter-spacing:1px;">J &amp; M</span>
+                            <span style="font-size:8px;color:rgba(194,23,122,0.6);font-weight:600;letter-spacing:0.1em;">WEDDING 2026</span>
+                        </div>
+                    </div>
+                    <h4 style="margin-bottom: 10px; font-size: 20px;">Wedding Monogram</h4>
+                    <p style="color: #FF4081; font-weight: 800; font-size: 28px; margin-bottom: 20px;">$32.00</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Wedding Topper', 32.00)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITOR VIEW — PROFESSIONAL DESIGN STUDIO -->
+    <div id="editor-view" class="view">
+
+        <!-- Top Bar -->
+        <div class="editor-topbar">
+            <div class="editor-topbar-left">
+                <div class="etb-back" onclick="switchView('home')"><i data-lucide="arrow-left" style="width:13px;height:13px;"></i></div>
+                <div style="width:1px;height:20px;background:rgba(255,255,255,0.1);"></div>
+                <i data-lucide="cake" style="width:14px;height:14px;color:#FF4081;"></i>
+                <span class="etb-filename">My Custom Topper — Design v1</span>
+                <span class="etb-saved"><i data-lucide="check" style="width:9px;height:9px;display:inline;"></i> Saved</span>
+            </div>
+            <div class="editor-topbar-center">
+                <div class="etb-tab active">Design</div>
+                <div class="etb-tab">Preview</div>
+                <div class="etb-tab">Export</div>
+            </div>
+            <div class="editor-topbar-right">
+                <button class="etb-btn etb-btn-ghost"><i data-lucide="undo-2" style="width:12px;height:12px;"></i></button>
+                <button class="etb-btn etb-btn-ghost"><i data-lucide="redo-2" style="width:12px;height:12px;"></i></button>
+                <div class="etb-divider"></div>
+                <select class="etb-zoom">
+                    <option>100%</option><option>75%</option><option>50%</option><option>150%</option>
+                </select>
+                <div class="etb-divider"></div>
+                <button class="etb-btn etb-btn-ghost"><i data-lucide="share-2" style="width:12px;height:12px;"></i> Share</button>
+                <button class="etb-btn etb-btn-teal" onclick="addToCart('Custom Topper', 35)"><i data-lucide="shopping-cart" style="width:12px;height:12px;"></i> Add to Cart — $35.00</button>
+                <button class="etb-btn etb-btn-primary"><i data-lucide="eye" style="width:12px;height:12px;"></i> Preview</button>
+            </div>
+        </div>
+
+        <!-- Editor Body -->
+        <div class="editor-body">
+
+            <!-- Vertical Tool Strip -->
+            <div class="editor-toolstrip">
+                <div class="tool-icon active" title="Select"><i data-lucide="mouse-pointer-2" style="width:15px;height:15px;"></i></div>
+                <div class="tool-sep"></div>
+                <div class="tool-icon" title="Move"><i data-lucide="move" style="width:15px;height:15px;"></i></div>
+                <div class="tool-icon" title="Text"><i data-lucide="type" style="width:15px;height:15px;"></i></div>
+                <div class="tool-icon" title="Image"><i data-lucide="image" style="width:15px;height:15px;"></i></div>
+                <div class="tool-icon" title="Shapes"><i data-lucide="shapes" style="width:15px;height:15px;"></i></div>
+                <div class="tool-sep"></div>
+                <div class="tool-icon" title="Zoom In"><i data-lucide="zoom-in" style="width:15px;height:15px;"></i></div>
+                <div class="tool-icon" title="Zoom Out"><i data-lucide="zoom-out" style="width:15px;height:15px;"></i></div>
+                <div class="tool-sep"></div>
+                <div class="tool-icon" title="Hand"><i data-lucide="hand" style="width:15px;height:15px;"></i></div>
+            </div>
+
+            <!-- Left Panel -->
+            <aside class="editor-sidebar">
+                <div class="editor-panel-tabs">
+                    <div class="ep-tab active">Templates</div>
+                    <div class="ep-tab">Layers</div>
+                    <div class="ep-tab">Media</div>
+                </div>
+                <div class="editor-panel-body">
+
+                    <!-- Template picker -->
+                    <div class="panel-section">
+                        <div class="panel-label">Topper Templates <span class="panel-label-add">+</span></div>
+                        <div class="template-grid">
+                            <div class="tpl-thumb selected">
+                                <div style="width:100%;height:100%;background:linear-gradient(135deg,#FFD6ED,#E91E8C);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:12% auto;width:76%;height:76%;"></div>
+                                <div class="tpl-name">Classic</div>
+                            </div>
+                            <div class="tpl-thumb">
+                                <div style="width:76%;height:76%;background:linear-gradient(135deg,#D6E8FF,#1E63E9);border-radius:50%;margin:12% auto;display:flex;align-items:center;justify-content:center;"></div>
+                                <div class="tpl-name">Corporate</div>
+                            </div>
+                            <div class="tpl-thumb">
+                                <div style="width:76%;height:76%;background:linear-gradient(135deg,#D6FFE8,#1EC465);border-radius:50%;margin:12% auto;"></div>
+                                <div class="tpl-name">Kids</div>
+                            </div>
+                            <div class="tpl-thumb">
+                                <div style="width:76%;height:76%;background:linear-gradient(135deg,#FFF4D6,#E9A81E);border-radius:50%;margin:12% auto;"></div>
+                                <div class="tpl-name">Birthday</div>
+                            </div>
+                            <div class="tpl-thumb">
+                                <div style="width:76%;height:76%;background:linear-gradient(135deg,#EDD6FF,#8B1EE9);border-radius:50%;margin:12% auto;"></div>
+                                <div class="tpl-name">Wedding</div>
+                            </div>
+                            <div class="tpl-thumb">
+                                <div style="width:76%;height:76%;background:linear-gradient(135deg,#FFD6D6,#E91E1E);border-radius:50%;margin:12% auto;"></div>
+                                <div class="tpl-name">Christmas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload zone -->
+                    <div class="panel-section">
+                        <div class="panel-label">Your Images (2/4) <span class="panel-label-add">+</span></div>
+                        <div class="upload-zone">
+                            <div class="uz-icon"><i data-lucide="upload-cloud" style="width:22px;height:22px;"></i></div>
+                            <p>Drag & drop or <strong>click to upload</strong><br>PNG, JPG up to 20MB</p>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;">
+                            <div style="aspect-ratio:1;background:linear-gradient(135deg,#FFD6ED,#FF80AB);border-radius:7px;border:2px solid rgba(255,64,129,0.4);overflow:hidden;">
+                                <img src="../hero_cupcakes_toppers_1777369631881.png" style="width:100%;height:100%;object-fit:cover;opacity:0.85;">
+                            </div>
+                            <div style="aspect-ratio:1;background:linear-gradient(135deg,#D6E8FF,#80ABFF);border-radius:7px;display:flex;align-items:center;justify-content:center;">
+                                <i data-lucide="plus" style="width:18px;height:18px;color:rgba(255,255,255,0.4);"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layers -->
+                    <div class="panel-section">
+                        <div class="panel-label">Layers <span class="panel-label-add">+</span></div>
+                        <div class="layer-row active">
+                            <i class="layer-icon" data-lucide="type" style="width:11px;height:11px;"></i>
+                            <span class="layer-name">Happy Birthday Text</span>
+                            <i class="layer-vis" data-lucide="eye" style="width:10px;height:10px;"></i>
+                        </div>
+                        <div class="layer-row">
+                            <i class="layer-icon" data-lucide="image" style="width:11px;height:11px;"></i>
+                            <span class="layer-name">Photo — Image 1</span>
+                            <i class="layer-vis" data-lucide="eye" style="width:10px;height:10px;"></i>
+                        </div>
+                        <div class="layer-row">
+                            <i class="layer-icon" data-lucide="circle" style="width:11px;height:11px;"></i>
+                            <span class="layer-name">Background Circle</span>
+                            <i class="layer-vis" data-lucide="eye" style="width:10px;height:10px;"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </aside>
+
+            <!-- Canvas Area -->
+            <main class="canvas-area">
+                <!-- Ruler top -->
+                <div class="canvas-ruler-h">
+                    <div class="ruler-tick" style="left:100px;height:8px;"><span class="ruler-num">100</span></div>
+                    <div class="ruler-tick" style="left:200px;height:8px;"><span class="ruler-num">200</span></div>
+                    <div class="ruler-tick" style="left:300px;height:8px;"><span class="ruler-num">300</span></div>
+                    <div class="ruler-tick" style="left:400px;height:8px;"><span class="ruler-num">400</span></div>
+                    <div class="ruler-tick" style="left:500px;height:8px;"><span class="ruler-num">500</span></div>
+                </div>
+                <div class="canvas-ruler-v"></div>
+
+                <!-- Canvas board -->
+                <div class="canvas-board" style="margin-top:20px;margin-left:20px;">
+                    <div class="canvas-safe-ring"></div>
+                    <div class="canvas-crosshair"></div>
+                    <div class="canvas-watermark"><span>PREVIEW ONLY</span></div>
+
+                    <!-- Placed text element -->
+                    <div class="canvas-el sel" style="top:120px;left:50%;transform:translateX(-50%);text-align:center;width:340px;">
+                        <div style="font-size:28px;font-weight:900;color:#E91E8C;line-height:1.1;letter-spacing:-0.5px;">Happy Birthday!</div>
+                        <div class="canvas-el-handles">
+                            <div class="handle handle-tl"></div>
+                            <div class="handle handle-tr"></div>
+                            <div class="handle handle-bl"></div>
+                            <div class="handle handle-br"></div>
+                        </div>
+                    </div>
+
+                    <!-- Placed image element -->
+                    <div class="canvas-el" style="top:190px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;overflow:hidden;border:3px solid rgba(233,30,140,0.2);">
+                        <img src="hero_cupcakes_toppers_1777369631881.png" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+
+                    <!-- Sub-text -->
+                    <div class="canvas-el" style="bottom:110px;left:50%;transform:translateX(-50%);text-align:center;width:280px;">
+                        <div style="font-size:13px;font-weight:600;color:#666;letter-spacing:0.5px;">Sarah — 8 Years Old</div>
+                    </div>
+                </div>
+
+                <!-- Status bar -->
+                <div class="canvas-status">
+                    <div class="cs-item"><i data-lucide="move" style="width:9px;height:9px;"></i> X: <span class="cs-value">260</span></div>
+                    <div class="cs-sep"></div>
+                    <div class="cs-item">Y: <span class="cs-value">120</span></div>
+                    <div class="cs-sep"></div>
+                    <div class="cs-item"><i data-lucide="maximize-2" style="width:9px;height:9px;"></i> <span class="cs-value">340 × 40</span></div>
+                    <div class="cs-sep"></div>
+                    <div class="cs-item"><i data-lucide="rotate-cw" style="width:9px;height:9px;"></i> <span class="cs-value">0°</span></div>
+                    <div class="cs-sep"></div>
+                    <div class="cs-item" style="color:rgba(0,196,140,0.9);"><i data-lucide="check-circle-2" style="width:9px;height:9px;"></i> Safe zone clear</div>
+                </div>
+            </main>
+
+            <!-- Right Properties Panel -->
+            <aside class="editor-right-bar">
+
+                <!-- Element info -->
+                <div class="prop-section">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                        <div style="width:28px;height:28px;background:rgba(255,64,129,0.15);border-radius:7px;display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="type" style="width:13px;height:13px;color:#FF80AB;"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,0.85);">Text Layer</div>
+                            <div style="font-size:9px;color:rgba(255,255,255,0.3);">Selected element</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Position & Size -->
+                <div class="prop-section">
+                    <div class="prop-title">Position &amp; Size</div>
+                    <div class="prop-grid-2" style="margin-bottom:6px;">
+                        <div class="prop-field"><div class="prop-field-label">X</div><input class="prop-input" value="260"></div>
+                        <div class="prop-field"><div class="prop-field-label">Y</div><input class="prop-input" value="120"></div>
+                    </div>
+                    <div class="prop-grid-2">
+                        <div class="prop-field"><div class="prop-field-label">W</div><input class="prop-input" value="340"></div>
+                        <div class="prop-field"><div class="prop-field-label">H</div><input class="prop-input" value="40"></div>
+                    </div>
+                </div>
+
+                <!-- Fill & Opacity -->
+                <div class="prop-section">
+                    <div class="prop-title">Fill &amp; Opacity</div>
+                    <div class="color-row" style="margin-bottom:10px;">
+                        <div class="color-thumb" style="background:#E91E8C;"><input type="color" value="#E91E8C"></div>
+                        <input class="hex-input" value="#E91E8C">
+                        <input class="opacity-val" value="100%">
+                    </div>
+                    <div class="color-swatches">
+                        <div class="color-swatch" style="background:#E91E8C;"></div>
+                        <div class="color-swatch" style="background:#FF4081;"></div>
+                        <div class="color-swatch" style="background:#00ACC1;"></div>
+                        <div class="color-swatch" style="background:#1A1A2E;"></div>
+                        <div class="color-swatch" style="background:#FFFFFF;border:1px solid #333;"></div>
+                        <div class="color-swatch" style="background:#FFC107;"></div>
+                        <div class="color-swatch" style="background:#4CAF50;"></div>
+                        <div class="color-swatch" style="background:#9C27B0;"></div>
+                    </div>
+                </div>
+
+                <!-- Typography -->
+                <div class="prop-section">
+                    <div class="prop-title">Typography</div>
+                    <select class="font-select" style="margin-bottom:7px;">
+                        <option>Outfit</option>
+                        <option>Playfair Display</option>
+                        <option>Dancing Script</option>
+                        <option>Montserrat</option>
+                        <option>Roboto</option>
+                    </select>
+                    <div class="prop-grid-2" style="margin-bottom:7px;">
+                        <div class="prop-field"><div class="prop-field-label">Size</div><input class="prop-input" value="28px"></div>
+                        <div class="prop-field"><div class="prop-field-label">Weight</div><input class="prop-input" value="900"></div>
+                    </div>
+                    <div class="font-style-row">
+                        <button class="font-style-btn active" style="font-weight:900;">B</button>
+                        <button class="font-style-btn" style="font-style:italic;">I</button>
+                        <button class="font-style-btn" style="text-decoration:underline;">U</button>
+                        <button class="font-style-btn">S</button>
+                    </div>
+                </div>
+
+                <!-- Opacity -->
+                <div class="prop-section">
+                    <div class="prop-title">Opacity <span style="color:rgba(255,255,255,0.5);">100%</span></div>
+                    <input type="range" class="slider" min="0" max="100" value="100">
+                </div>
+
+                <!-- Document info -->
+                <div class="prop-section">
+                    <div class="prop-title">Document</div>
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                            <span style="font-size:10px;color:rgba(255,255,255,0.35);">Format</span>
+                            <span style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);">8.5" Round</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                            <span style="font-size:10px;color:rgba(255,255,255,0.35);">Resolution</span>
+                            <span style="font-size:10px;font-weight:700;color:#00ACC1;">300 DPI</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-size:10px;color:rgba(255,255,255,0.35);">Safe Zone</span>
+                            <span style="font-size:10px;font-weight:700;color:#43A047;">Active ✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add to cart CTA -->
+                <div class="prop-section" style="border-bottom:none;">
+                    <button class="btn btn-primary" style="width:100%;padding:14px;font-size:11px;border-radius:10px;" onclick="addToCart('Custom Topper', 35)">
+                        <i data-lucide="shopping-cart" style="width:13px;height:13px;display:inline;margin-right:6px;"></i>
+                        Add to Cart — $35.00
+                    </button>
+                    <div style="text-align:center;margin-top:8px;font-size:9px;color:rgba(255,255,255,0.25);">
+                        High-quality JPEG · Printed with food-safe inks
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </div>
+
+    <!-- ABOUT VIEW - OUR STORY -->
+    <div id="about-view" class="view">
+        <section class="about-hero">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                <div style="width: 40px; height: 2px; background: #FF4081;"></div>
+                <span style="font-weight: 800; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; color: #FF4081;">Our Journey</span>
+                <div style="width: 40px; height: 2px; background: #FF4081;"></div>
+            </div>
+            <h1 style="font-size: 64px;">Pioneering Edible <br><span style="color: #FF4081;">Art Technology</span></h1>
+        </section>
+
+        <section class="about-grid">
+            <div class="about-image">
+                <img src="baker_lifestyle_kitchen_1777369694376.png" alt="Our Kitchen">
+            </div>
+            <div class="about-content">
+                <h2>Newcastle's Premier Edible Printing Studio</h2>
+                <p>Founded in the heart of Newcastle, Newy Edible Toppers began with a simple mission: to bridge the gap between digital design and artisanal baking. We recognized that every celebration deserves a centerpiece that is as unique as the story behind it.</p>
+                <p>Today, we utilize state-of-the-art high-definition printing technology and premium vegan-friendly icing sheets to deliver professional-grade results to bakeries, corporate partners, and home decorators across Australia.</p>
+                <button class="btn btn-primary" onclick="switchView('shop')" style="margin-top: 20px;">Explore Our Work</button>
+            </div>
+        </section>
+
+        <section class="mission-cards">
+            <div class="mission-card">
+                <i data-lucide="award" style="width: 40px; height: 40px;"></i>
+                <h4>Premium Quality</h4>
+                <p>We use only the finest edible inks and premium icing sheets to ensure vibrant colors and sharp details on every print.</p>
+            </div>
+            <div class="mission-card">
+                <i data-lucide="zap" style="width: 40px; height: 40px;"></i>
+                <h4>Fast Turnaround</h4>
+                <p>Based in Newcastle, we offer rapid shipping Australia-wide, ensuring your toppers arrive fresh and ready for your event.</p>
+            </div>
+            <div class="mission-card">
+                <i data-lucide="heart" style="width: 40px; height: 40px;"></i>
+                <h4>Bespoke Service</h4>
+                <p>From corporate logos to personal photos, our design studio allows you to create truly one-of-a-kind edible masterpieces.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="admin-view" class="view">
+        <div style="display: flex; height: calc(100vh - 90px); width: 100%;">
+            <aside class="admin-sidebar">
+                <div class="admin-side-brand">
+                    <div class="admin-brand-icon"><i data-lucide="shield-check"></i></div>
+                    <div class="admin-nav-text">
+                        <div class="admin-brand-name">ADMIN PORTAL</div>
+                        <div class="admin-brand-sub">Enterprise Management</div>
+                    </div>
+                </div>
+                <div class="admin-nav">
+                    <div class="admin-nav-group">
+                        <div class="admin-nav-group-title">Main Dashboard</div>
+                        <div class="admin-nav-item active" onclick="switchAdminTab('dashboard')"><i data-lucide="layout-dashboard"></i> Overview</div>
+                        <div class="admin-nav-item" onclick="switchAdminTab('collections')"><i data-lucide="layers"></i> Collections</div>
+                        <div class="admin-nav-item" onclick="switchAdminTab('orders')"><i data-lucide="shopping-cart"></i> Orders</div>
+                        <div class="admin-nav-item" onclick="switchAdminTab('crm')"><i data-lucide="users"></i> Customers</div>
+                    </div>
+                </div>
+            </aside>
+            <main class="admin-main">
+                <div id="admin-dashboard-tab" class="admin-tab active">
+                    <div class="admin-topbar-bar">
+                        <div class="admin-page-heading">Executive Overview</div>
+                    </div>
+                    <div class="admin-content-area">
+                        <div class="admin-stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-card-top">
+                                    <div class="stat-card-icon sci-pink"><i data-lucide="dollar-sign"></i></div>
+                                    <div class="stat-card-badge badge-up">+12.5%</div>
+                                </div>
+                                <div class="stat-card-val">$1.24M</div>
+                                <div class="stat-card-lbl">Total Portfolio Value</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-top">
+                                    <div class="stat-card-icon sci-teal"><i data-lucide="shopping-bag"></i></div>
+                                    <div class="stat-card-badge badge-up">+8.2%</div>
+                                </div>
+                                <div class="stat-card-val">1,842</div>
+                                <div class="stat-card-lbl">Orders This Month</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-top">
+                                    <div class="stat-card-icon sci-green"><i data-lucide="trending-up"></i></div>
+                                    <div class="stat-card-badge badge-up">+24%</div>
+                                </div>
+                                <div class="stat-card-val">$84.2K</div>
+                                <div class="stat-card-lbl">Net Revenue</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-top">
+                                    <div class="stat-card-icon sci-purple"><i data-lucide="users"></i></div>
+                                    <div class="stat-card-badge badge-up">+15%</div>
+                                </div>
+                                <div class="stat-card-val">528</div>
+                                <div class="stat-card-lbl">New Customers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-collections-tab" class="admin-tab">
+                    <div class="admin-topbar-bar">
+                        <div class="admin-page-heading">Collections Management</div>
+                    </div>
+                    <div class="admin-content-area">
+                        <div class="admin-card">
+                            <div class="admin-card-head">
+                                <div class="admin-card-title">Product Catalog</div>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="order-id">#NET-BD-01</td>
+                                        <td>Round Birthday Topper</td>
+                                        <td>Birthday Sets</td>
+                                        <td>$8.95</td>
+                                        <td>84 units</td>
+                                        <td>
+                                            <button class="action-btn ab-ghost"><i data-lucide="edit"></i></button>
+                                            <button class="action-btn ab-pink"><i data-lucide="trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="order-id">#NET-CL-05</td>
+                                        <td>Standard Corporate Logo</td>
+                                        <td>Corporate Logos</td>
+                                        <td>$15.95</td>
+                                        <td>In Production</td>
+                                        <td>
+                                            <button class="action-btn ab-ghost"><i data-lucide="edit"></i></button>
+                                            <button class="action-btn ab-pink"><i data-lucide="trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-orders-tab" class="admin-tab">
+                    <div class="admin-topbar-bar">
+                        <div class="admin-page-heading">Active Pipeline</div>
+                    </div>
+                    <div class="admin-content-area">
+                        <div class="admin-card">
+                            <div class="admin-card-head">
+                                <div class="admin-card-title">Recent Orders</div>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="order-id">#ORD-7842</td>
+                                        <td>Sarah Jenkins</td>
+                                        <td>Apr 28, 2024</td>
+                                        <td>$50.97</td>
+                                        <td><span class="status-pill status-processing">Processing</span></td>
+                                        <td><button class="action-btn ab-ghost"><i data-lucide="eye"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="order-id">#ORD-7841</td>
+                                        <td>Michael Chen</td>
+                                        <td>Apr 27, 2024</td>
+                                        <td>$124.50</td>
+                                        <td><span class="status-pill status-shipped">Shipped</span></td>
+                                        <td><button class="action-btn ab-ghost"><i data-lucide="eye"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="order-id">#ORD-7840</td>
+                                        <td>Emma Wilson</td>
+                                        <td>Apr 27, 2024</td>
+                                        <td>$32.15</td>
+                                        <td><span class="status-pill status-delivered">Delivered</span></td>
+                                        <td><button class="action-btn ab-ghost"><i data-lucide="eye"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-crm-tab" class="admin-tab">
+                    <div class="admin-topbar-bar">
+                        <div class="admin-page-heading">Client Base</div>
+                    </div>
+                    <div class="admin-content-area">
+                        <div class="admin-card">
+                            <div class="admin-card-head">
+                                <div class="admin-card-title">Customer Directory</div>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Email</th>
+                                        <th>Total Spent</th>
+                                        <th>Orders</th>
+                                        <th>Join Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 700;">Sarah Jenkins</td>
+                                        <td>sarah.j@example.com</td>
+                                        <td>$1,240</td>
+                                        <td>12</td>
+                                        <td>Jan 12, 2024</td>
+                                        <td><button class="action-btn ab-ghost"><i data-lucide="mail"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 700;">Michael Chen</td>
+                                        <td>m.chen@example.com</td>
+                                        <td>$842</td>
+                                        <td>5</td>
+                                        <td>Feb 20, 2024</td>
+                                        <td><button class="action-btn ab-ghost"><i data-lucide="mail"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- FOOTER - RESTORED & ENHANCED -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="logo-text" style="font-size: 32px; color: white; margin-bottom: 30px;">NEWY EDIBLE</div>
+                <p style="color: rgba(255,255,255,0.5); font-size: 16px; line-height: 1.8; max-width: 450px;">
+                    Australia's premier destination for high-definition edible printing. We empower bakeries and individuals with enterprise-grade technology to create unforgettable cake artistry.
+                </p>
+                <div style="display: flex; gap: 20px; margin-top: 40px;">
+                    <div style="width: 45px; height: 45px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i data-lucide="instagram" style="width: 18px;"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i data-lucide="facebook" style="width: 18px;"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i data-lucide="linkedin" style="width: 18px;"></i></div>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-title">Products</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 15px;">
+                    <li><a href="#" class="footer-link">Birthday Sets</a></li>
+                    <li><a href="#" class="footer-link">Corporate Logos</a></li>
+                    <li><a href="#" class="footer-link">Bulk Icing Sheets</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Enterprise</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 15px;">
+                    <li><a href="#" class="footer-link">Wholesale Access</a></li>
+                    <li><a href="#" class="footer-link">API Integration</a></li>
+                    <li><a href="#" class="footer-link">Franchise Info</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Newsletter</h4>
+                <p style="color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 25px;">Subscribe to receive exclusive designs and printing tips.</p>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" placeholder="Email address" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; flex: 1; font-family: var(--font-main);">
+                    <button class="btn btn-primary" style="padding: 15px 25px;"><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 50px; color: rgba(255,255,255,0.3); font-size: 13px; font-weight: 400; letter-spacing: 1px;">
+            © 2024 NEWY EDIBLE TOPPERS. ALL RIGHTS RESERVED. DESIGNED FOR ENTERPRISE.
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

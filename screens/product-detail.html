@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Round Birthday Cake Topper — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ── PRODUCT DETAIL LAYOUT ── */
+.product-detail-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 32px 80px; }
+.product-grid-2col { display: grid; grid-template-columns: 1fr 1.05fr; gap: 60px; align-items: start; }
+
+/* ── IMAGE GALLERY ── */
+.gallery-main {
+  border-radius: 20px; overflow: hidden; position: relative;
+  background: linear-gradient(135deg, #FFF0F9 0%, #FFDFF2 50%, #FFE8F5 100%);
+  aspect-ratio: 1;
+}
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-zoom-btn {
+  position: absolute; top: 16px; right: 16px;
+  width: 40px; height: 40px; background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--n600); font-size: 0.9rem; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.2s;
+}
+.gallery-zoom-btn:hover { background: #fff; color: var(--pink); }
+.gallery-share-btn {
+  position: absolute; top: 16px; left: 16px;
+  width: 40px; height: 40px; background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--n600); font-size: 0.9rem; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.2s;
+}
+.gallery-badge {
+  position: absolute; top: 60px; left: 16px;
+  background: var(--pink); color: #fff; font-size: 0.7rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+}
+.gallery-thumbs { display: flex; gap: 10px; margin-top: 14px; }
+.gallery-thumb {
+  width: 70px; height: 70px; border-radius: 12px; overflow: hidden;
+  border: 2.5px solid transparent; cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.gallery-thumb.active { border-color: var(--pink); box-shadow: 0 0 0 2px rgba(233,30,140,0.2); }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumb-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* ── PRODUCT INFO ── */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--n400); margin-bottom: 14px; }
+.breadcrumb a { color: var(--n500); } .breadcrumb a:hover { color: var(--pink); }
+.breadcrumb i { font-size: 0.6rem; }
+.product-headline { font-size: 1.7rem; font-weight: 900; color: var(--n900); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
+.product-rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.stars-lg { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; }
+.rating-num { font-size: 0.875rem; font-weight: 700; color: var(--n800); }
+.rating-count { font-size: 0.82rem; color: var(--pink); font-weight: 600; text-decoration: underline; cursor: pointer; }
+.rating-sep { color: var(--n300); }
+.sold-count { font-size: 0.82rem; color: var(--n500); }
+.verified-badge { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--teal); font-weight: 600; }
+
+.price-block { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.price-main { font-size: 2rem; font-weight: 900; color: var(--n900); }
+.price-orig { font-size: 1rem; color: var(--n400); text-decoration: line-through; }
+.price-badge { font-size: 0.8rem; font-weight: 700; color: #fff; background: var(--pink); padding: 4px 12px; border-radius: 999px; }
+.price-note { font-size: 0.78rem; color: var(--n500); margin-bottom: 20px; }
+
+/* ── OPTIONS ── */
+.option-block { margin-bottom: 22px; }
+.option-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.option-label-row .label { font-size: 0.85rem; font-weight: 700; color: var(--n800); margin: 0; }
+.option-label-row .selected-val { font-size: 0.82rem; color: var(--pink); font-weight: 600; }
+.size-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.size-btn {
+  padding: 9px 18px; border: 2px solid var(--n200); border-radius: 10px;
+  font-size: 0.82rem; font-weight: 600; color: var(--n600); cursor: pointer; transition: all 0.2s;
+  background: #fff;
+}
+.size-btn:hover { border-color: var(--pink); color: var(--pink); }
+.size-btn.active { border-color: var(--pink); background: var(--pink-pale); color: var(--pink); }
+.size-btn.out-stock { opacity: 0.45; cursor: not-allowed; text-decoration: line-through; }
+
+.paper-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.paper-btn {
+  display: flex; flex-direction: column; padding: 12px 16px; border: 2px solid var(--n200);
+  border-radius: 12px; cursor: pointer; transition: all 0.2s; text-align: left; background: #fff;
+}
+.paper-btn:hover { border-color: var(--teal); }
+.paper-btn.active { border-color: var(--teal); background: rgba(0,180,204,0.06); }
+.paper-btn-name { font-size: 0.82rem; font-weight: 700; color: var(--n800); }
+.paper-btn-sub  { font-size: 0.7rem; color: var(--n500); margin-top: 2px; }
+
+/* ── CUSTOM TEXT ── */
+.custom-text-box { background: var(--n50); border: 1.5px solid var(--n200); border-radius: 14px; padding: 18px; margin-bottom: 22px; }
+.custom-text-box label { font-size: 0.82rem; font-weight: 700; color: var(--n800); display: block; margin-bottom: 8px; }
+.custom-text-box input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--n200); border-radius: 10px; font-family: var(--font); font-size: 0.875rem; color: var(--n800); background: #fff; }
+.custom-text-box input:focus { border-color: var(--pink); outline: none; }
+.custom-text-hint { font-size: 0.72rem; color: var(--n400); margin-top: 6px; }
+.char-counter { font-size: 0.72rem; color: var(--n400); text-align: right; margin-top: 4px; }
+
+/* ── QUANTITY & CTA ── */
+.qty-add-row { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+.qty-control { display: flex; align-items: center; border: 2px solid var(--n200); border-radius: 12px; overflow: hidden; }
+.qty-btn { width: 44px; height: 52px; display: flex; align-items: center; justify-content: center; color: var(--n600); font-size: 1.1rem; cursor: pointer; transition: all 0.15s; background: #fff; border: none; }
+.qty-btn:hover { background: var(--n50); color: var(--n900); }
+.qty-val { width: 44px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700; color: var(--n900); border-left: 1px solid var(--n200); border-right: 1px solid var(--n200); }
+.btn-atc { flex: 1; padding: 16px 24px; font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-wishlist { width: 52px; height: 52px; border: 2px solid var(--n200); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--n400); font-size: 1.1rem; cursor: pointer; transition: all 0.2s; background: #fff; flex-shrink: 0; }
+.btn-wishlist:hover, .btn-wishlist.active { border-color: var(--pink); color: var(--pink); background: var(--pink-pale); }
+.btn-custom-order { width: 100%; padding: 14px; margin-bottom: 20px; font-size: 0.875rem; }
+
+/* Urgency bar */
+.urgency-bar {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+  border: 1.5px solid #FDE68A; border-radius: 12px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+}
+.urgency-bar i { color: #D97706; font-size: 0.9rem; flex-shrink: 0; }
+.urgency-bar span { font-size: 0.8rem; color: #92400E; font-weight: 600; }
+.urgency-bar strong { color: #D97706; }
+
+/* Stock indicator */
+.stock-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.stock-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+.stock-dot.low { background: #F59E0B; }
+.stock-text { font-size: 0.8rem; color: var(--n600); font-weight: 600; }
+
+/* Trust icons row */
+.trust-icons-row { display: flex; gap: 0; border: 1px solid var(--n100); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+.trust-icon-item { flex: 1; padding: 12px 8px; text-align: center; border-right: 1px solid var(--n100); }
+.trust-icon-item:last-child { border-right: none; }
+.trust-icon-item i { font-size: 1rem; color: var(--pink); display: block; margin-bottom: 4px; }
+.trust-icon-item span { font-size: 0.67rem; color: var(--n500); font-weight: 600; line-height: 1.3; display: block; }
+
+/* Shipping estimate */
+.shipping-est { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: var(--teal-pale); border: 1px solid rgba(0,180,204,0.2); border-radius: 12px; margin-bottom: 20px; }
+.shipping-est i { color: var(--teal); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+.shipping-est-text strong { font-size: 0.82rem; color: var(--n800); font-weight: 700; display: block; margin-bottom: 2px; }
+.shipping-est-text span { font-size: 0.78rem; color: var(--n600); }
+
+/* ── TABS ── */
+.product-tabs { max-width: 1200px; margin: 48px auto 0; padding: 0 32px; }
+.tab-nav { display: flex; gap: 0; border-bottom: 2px solid var(--n100); margin-bottom: 32px; }
+.tab-btn {
+  padding: 14px 24px; font-size: 0.875rem; font-weight: 600; color: var(--n500);
+  cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px;
+}
+.tab-btn:hover { color: var(--n800); }
+.tab-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
+
+/* Description tab */
+.desc-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.desc-text p { font-size: 0.9rem; color: var(--n600); line-height: 1.8; margin-bottom: 14px; }
+.desc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.desc-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--n700); }
+.desc-list li i { color: var(--teal); font-size: 0.85rem; margin-top: 2px; flex-shrink: 0; }
+.desc-specs { background: var(--n50); border-radius: 14px; padding: 24px; }
+.spec-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--n100); font-size: 0.85rem; }
+.spec-row:last-child { border-bottom: none; }
+.spec-key { color: var(--n500); font-weight: 600; }
+.spec-val { color: var(--n800); font-weight: 700; }
+
+/* Reviews tab */
+.reviews-summary { display: grid; grid-template-columns: auto 1fr; gap: 40px; margin-bottom: 36px; }
+.reviews-big-num { text-align: center; }
+.reviews-big-num .big { font-size: 4rem; font-weight: 900; color: var(--n900); line-height: 1; }
+.reviews-big-num .stars-xl { font-size: 1.3rem; color: #F59E0B; letter-spacing: 3px; }
+.reviews-big-num .sub { font-size: 0.8rem; color: var(--n400); margin-top: 4px; }
+.rating-bars { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.rating-bar-row { display: flex; align-items: center; gap: 10px; }
+.rbar-label { font-size: 0.78rem; color: var(--n500); width: 40px; text-align: right; flex-shrink: 0; }
+.rbar-track { flex: 1; height: 8px; background: var(--n100); border-radius: 999px; overflow: hidden; }
+.rbar-fill { height: 100%; background: #F59E0B; border-radius: 999px; }
+.rbar-count { font-size: 0.72rem; color: var(--n400); width: 30px; flex-shrink: 0; }
+
+.review-card { border: 1px solid var(--n100); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+.review-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.reviewer-info { display: flex; align-items: center; gap: 12px; }
+.reviewer-avatar { width: 42px; height: 42px; border-radius: 50%; font-weight: 800; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+.reviewer-name { font-size: 0.875rem; font-weight: 700; color: var(--n900); }
+.reviewer-meta { font-size: 0.72rem; color: var(--n400); margin-top: 2px; }
+.review-verified { font-size: 0.7rem; color: var(--teal); font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 3px; }
+.review-stars { color: #F59E0B; font-size: 0.78rem; margin-bottom: 8px; }
+.review-text { font-size: 0.875rem; color: var(--n600); line-height: 1.7; }
+.review-img-row { display: flex; gap: 8px; margin-top: 12px; }
+.review-img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; overflow: hidden; }
+.review-helpful { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
+.helpful-btn { font-size: 0.72rem; color: var(--n400); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+.helpful-btn:hover { color: var(--pink); }
+.review-date { font-size: 0.72rem; color: var(--n400); }
+
+/* ── RELATED PRODUCTS ── */
+.related-section { max-width: 1200px; margin: 56px auto 0; padding: 0 32px 80px; }
+.related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+@media (max-width: 900px) {
+  .product-grid-2col { grid-template-columns: 1fr; }
+  .desc-content { grid-template-columns: 1fr; }
+  .reviews-summary { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-pills">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Free Shipping Over $50</span>
+      <span><i class="fa-solid fa-clock"></i> Order before 12pm for same-day dispatch</span>
+    </div>
+    <div class="top-bar-actions">
+      <a href="login.html">My Account</a>
+      <a href="cart.html"><i class="fa-solid fa-cart-shopping" style="font-size:0.75rem;"></i> Cart (2)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="home.html" class="site-logo">
+      <div class="logo-icon"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="logo-words">
+        <div class="logo-name">Newy Edible Toppers</div>
+        <div class="logo-sub">Custom Edible Prints · Newcastle, NSW</div>
+      </div>
+    </a>
+    <nav class="primary-nav">
+      <a href="home.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <a href="shop.html" class="nav-link active">Shop <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+        <div class="nav-dropdown-panel">
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-birthday-cake"></i> Birthday Toppers</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-child-reaching"></i> Kids Themes</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-briefcase"></i> Corporate Logos</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-snowflake"></i> Seasonal Designs</a>
+          <a href="shop.html" class="nav-dropdown-item"><i class="fa-solid fa-heart"></i> Wedding &amp; Events</a>
+        </div>
+      </div>
+
+      <a href="#" class="nav-link">About Us</a>
+      <a href="#" class="nav-link">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <div class="header-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search products...">
+      </div>
+      <a href="my-account.html" class="icon-btn"><i class="fa-regular fa-user"></i></a>
+      <div class="icon-btn"><i class="fa-regular fa-heart"></i><span class="count">3</span></div>
+      <a href="cart.html" class="icon-btn"><i class="fa-solid fa-cart-shopping"></i><span class="count">2</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div style="background:#fff;border-bottom:1px solid var(--n100);padding:14px 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 32px;">
+    <div class="breadcrumb">
+      <a href="home.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="shop.html">Shop</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="shop.html">Birthday Toppers</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span style="color:var(--n700);">Round Birthday Cake Topper</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div class="product-detail-wrap">
+  <div class="product-grid-2col">
+
+    <!-- IMAGES -->
+    <div>
+      <div class="gallery-main">
+        <img src="../category_birthday_toppers_1777369655244.png" alt="Round Birthday Cake Topper">
+        <div class="gallery-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+        <div class="gallery-share-btn"><i class="fa-regular fa-share-from-square"></i></div>
+        <div class="gallery-badge">Best Seller</div>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb active">
+          <img src="../category_birthday_toppers_1777369655244.png" alt="View 1">
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#FFDFF2,#FFE8F5);">
+            <i class="fa-solid fa-birthday-cake" style="color:var(--pink);font-size:1.5rem;"></i>
+          </div>
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#FFF0F9,#FFDFF2);">
+            <i class="fa-solid fa-star" style="color:var(--pink);font-size:1.5rem;"></i>
+          </div>
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#E8F9FB,#C8F5F9);">
+            <i class="fa-solid fa-image" style="color:var(--teal);font-size:1.5rem;"></i>
+          </div>
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-placeholder" style="background:linear-gradient(135deg,#F0FFF4,#DCFCE7);">
+            <i class="fa-solid fa-cake-candles" style="color:#16A34A;font-size:1.5rem;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div>
+      <div class="breadcrumb" style="margin-bottom:10px;">
+        <a href="shop.html" style="color:var(--teal);font-weight:700;font-size:0.78rem;">
+          <i class="fa-solid fa-tag" style="margin-right:4px;"></i>Birthday Toppers
+        </a>
+      </div>
+
+      <h1 class="product-headline">Round Birthday Cake Topper —<br>Custom Name &amp; Age</h1>
+
+      <div class="product-rating-row">
+        <span class="stars-lg">★★★★★</span>
+        <span class="rating-num">4.9</span>
+        <span class="rating-sep">|</span>
+        <span class="rating-count">142 reviews</span>
+        <span class="rating-sep">|</span>
+        <span class="sold-count"><i class="fa-solid fa-fire" style="color:#FF6B35;margin-right:3px;font-size:0.75rem;"></i>2,847 sold</span>
+        <span class="verified-badge"><i class="fa-solid fa-shield-check" style="font-size:0.75rem;"></i>Verified</span>
+      </div>
+
+      <div class="price-block">
+        <span class="price-main">$8.95</span>
+        <span class="price-orig">$11.00</span>
+        <span class="price-badge">Save 19%</span>
+      </div>
+      <p class="price-note">Price includes personalisation. <a href="#" style="color:var(--pink);">View bulk pricing</a></p>
+
+      <!-- Urgency -->
+      <div class="urgency-bar">
+        <i class="fa-solid fa-fire-flame-curved"></i>
+        <span><strong>12 people</strong> are viewing this right now · <strong>Only 8 left</strong> at this price</span>
+      </div>
+
+      <!-- Size -->
+      <div class="option-block">
+        <div class="option-label-row">
+          <span class="label">Topper Size</span>
+          <span class="selected-val">8cm (Most Popular)</span>
+        </div>
+        <div class="size-options">
+          <button class="size-btn">6cm<br><span style="font-size:0.65rem;font-weight:400;color:var(--n400);">Mini cakes</span></button>
+          <button class="size-btn active">8cm<br><span style="font-size:0.65rem;font-weight:400;color:var(--pink);">Most popular</span></button>
+          <button class="size-btn">10cm<br><span style="font-size:0.65rem;font-weight:400;color:var(--n400);">Celebration</span></button>
+          <button class="size-btn out-stock">12cm<br><span style="font-size:0.65rem;font-weight:400;">Out of stock</span></button>
+        </div>
+      </div>
+
+      <!-- Paper Type -->
+      <div class="option-block">
+        <div class="option-label-row">
+          <span class="label">Paper Type</span>
+          <a href="#" style="font-size:0.75rem;color:var(--teal);">What's the difference?</a>
+        </div>
+        <div class="paper-options">
+          <button class="paper-btn active">
+            <span class="paper-btn-name">Wafer Paper</span>
+            <span class="paper-btn-sub">Light &amp; crispy finish</span>
+          </button>
+          <button class="paper-btn">
+            <span class="paper-btn-name">Fondant Sheet</span>
+            <span class="paper-btn-sub">Soft &amp; smooth finish</span>
+          </button>
+          <button class="paper-btn">
+            <span class="paper-btn-name">Sugar Sheet</span>
+            <span class="paper-btn-sub">Extra thick &amp; glossy</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Custom Text -->
+      <div class="custom-text-box">
+        <label for="nameInput"><i class="fa-solid fa-pencil" style="color:var(--pink);margin-right:6px;"></i>Personalise Your Topper</label>
+        <input type="text" id="nameInput" value="Happy Birthday Sarah! 🎉" placeholder="Enter name, age or message...">
+        <div style="display:flex;justify-content:space-between;margin-top:6px;">
+          <span class="custom-text-hint"><i class="fa-solid fa-circle-info" style="color:var(--teal);"></i> Use letters, numbers, emojis &amp; symbols.</span>
+          <span class="char-counter">25 / 40</span>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="stock-row">
+        <div class="stock-dot low"></div>
+        <span class="stock-text">Low stock — only 8 remaining. Order soon to avoid disappointment.</span>
+      </div>
+
+      <!-- Qty + ATC -->
+      <div class="qty-add-row">
+        <div class="qty-control">
+          <button class="qty-btn"><i class="fa-solid fa-minus" style="font-size:0.8rem;"></i></button>
+          <div class="qty-val">1</div>
+          <button class="qty-btn"><i class="fa-solid fa-plus" style="font-size:0.8rem;"></i></button>
+        </div>
+        <a href="cart.html" class="btn btn-pink btn-atc">
+          <i class="fa-solid fa-cart-plus"></i> Add to Cart — $8.95
+        </a>
+        <div class="btn-wishlist"><i class="fa-regular fa-heart"></i></div>
+      </div>
+
+
+
+      <!-- Trust Icons -->
+      <div class="trust-icons-row">
+        <div class="trust-icon-item"><i class="fa-solid fa-truck-fast"></i><span>Same-day Dispatch</span></div>
+        <div class="trust-icon-item"><i class="fa-solid fa-lock"></i><span>Secure Checkout</span></div>
+        <div class="trust-icon-item"><i class="fa-solid fa-rotate-left"></i><span>Easy Returns</span></div>
+        <div class="trust-icon-item"><i class="fa-solid fa-leaf"></i><span>100% Edible</span></div>
+      </div>
+
+      <!-- Shipping estimate -->
+      <div class="shipping-est">
+        <i class="fa-solid fa-truck-fast"></i>
+        <div class="shipping-est-text">
+          <strong>Estimated delivery: Wed 30 Apr – Fri 2 May</strong>
+          <span>Standard shipping $7.95 · Free on orders over $50 · Express available at checkout</span>
+        </div>
+      </div>
+
+      <!-- Social proof line -->
+      <div style="display:flex;align-items:center;gap:12px;padding-top:4px;border-top:1px solid var(--n100);flex-wrap:wrap;">
+        <div style="font-size:0.75rem;color:var(--n500);">Share:</div>
+        <div style="display:flex;gap:8px;">
+          <span style="width:30px;height:30px;background:var(--n100);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fa-brands fa-facebook-f" style="font-size:0.72rem;color:#1877F2;"></i></span>
+          <span style="width:30px;height:30px;background:var(--n100);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fa-brands fa-pinterest-p" style="font-size:0.72rem;color:#E60023;"></i></span>
+          <span style="width:30px;height:30px;background:var(--n100);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fa-regular fa-copy" style="font-size:0.72rem;color:var(--n600);"></i></span>
+        </div>
+        <div style="margin-left:auto;font-size:0.72rem;color:var(--n400);">SKU: NET-BD-08-WP</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="product-tabs">
+  <div class="tab-nav">
+    <div class="tab-btn active">Description &amp; Details</div>
+    <div class="tab-btn">Reviews (142)</div>
+    <div class="tab-btn">Shipping &amp; Returns</div>
+    <div class="tab-btn">Design Guidelines</div>
+  </div>
+
+  <!-- Description -->
+  <div class="desc-content">
+    <div class="desc-text">
+      <p>Our <strong>Round Birthday Cake Toppers</strong> are printed on premium edible wafer paper using food-safe, vibrant inks. Each topper is personalised with your choice of name, age, and message — making every celebration truly special.</p>
+      <p>Perfect for standard round cakes, they peel easily from the backing and apply directly onto icing, fondant, or buttercream. No special skills required — just peel, place, and celebrate!</p>
+      <ul class="desc-list">
+        <li><i class="fa-solid fa-circle-check"></i>Printed with premium, food-safe edible inks</li>
+        <li><i class="fa-solid fa-circle-check"></i>Available in 6cm, 8cm, and 10cm diameters</li>
+        <li><i class="fa-solid fa-circle-check"></i>Suitable for all icing types: fondant, buttercream, ganache</li>
+        <li><i class="fa-solid fa-circle-check"></i>Despatched same day if ordered before 12pm AEST</li>
+        <li><i class="fa-solid fa-circle-check"></i>Individually wrapped in food-safe packaging</li>
+        <li><i class="fa-solid fa-circle-check"></i>Made fresh in Newcastle, NSW — not overseas</li>
+        <li><i class="fa-solid fa-circle-check"></i>Shelf-stable for up to 6 months when stored correctly</li>
+        <li><i class="fa-solid fa-circle-check"></i>Gluten-free &amp; nut-free (wafer paper option)</li>
+      </ul>
+    </div>
+    <div class="desc-specs">
+      <div style="font-size:0.875rem;font-weight:800;color:var(--n900);margin-bottom:16px;">Product Specifications</div>
+      <div class="spec-row"><span class="spec-key">Product Type</span><span class="spec-val">Round Edible Topper</span></div>
+      <div class="spec-row"><span class="spec-key">Available Sizes</span><span class="spec-val">6cm, 8cm, 10cm</span></div>
+      <div class="spec-row"><span class="spec-key">Paper Options</span><span class="spec-val">Wafer, Fondant, Sugar</span></div>
+      <div class="spec-row"><span class="spec-key">Ink Type</span><span class="spec-val">FDA-approved edible ink</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val">1440 dpi print quality</span></div>
+      <div class="spec-row"><span class="spec-key">Personalisation</span><span class="spec-val">Name, Age, Message</span></div>
+      <div class="spec-row"><span class="spec-key">Shelf Life</span><span class="spec-val">Up to 6 months</span></div>
+      <div class="spec-row"><span class="spec-key">Allergens</span><span class="spec-val">Gluten-free (wafer), check fondant</span></div>
+      <div class="spec-row"><span class="spec-key">Origin</span><span class="spec-val">Made in Newcastle, NSW</span></div>
+    </div>
+  </div>
+
+  <!-- Reviews section (shown below tabs) -->
+  <div style="margin-top:44px;">
+    <div class="reviews-summary">
+      <div class="reviews-big-num">
+        <div class="big">4.9</div>
+        <div class="stars-xl">★★★★★</div>
+        <div class="sub">142 verified reviews</div>
+      </div>
+      <div>
+        <div class="rating-bars">
+          <div class="rating-bar-row"><span class="rbar-label">5 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:87%;"></div></div><span class="rbar-count">123</span></div>
+          <div class="rating-bar-row"><span class="rbar-label">4 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:9%;background:#90E0A8;"></div></div><span class="rbar-count">13</span></div>
+          <div class="rating-bar-row"><span class="rbar-label">3 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:3%;background:#FCD34D;"></div></div><span class="rbar-count">4</span></div>
+          <div class="rating-bar-row"><span class="rbar-label">2 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:1%;background:#FCA5A5;"></div></div><span class="rbar-count">1</span></div>
+          <div class="rating-bar-row"><span class="rbar-label">1 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:1%;background:#F87171;"></div></div><span class="rbar-count">1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review cards -->
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--pink),#FF9ED6);">JM</div>
+          <div>
+            <div class="reviewer-name">Jessica M.</div>
+            <div class="reviewer-meta">Sydney, NSW · 14 April 2025</div>
+            <div class="review-verified"><i class="fa-solid fa-circle-check" style="font-size:0.6rem;"></i> Verified Purchase</div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="review-stars">★★★★★</div>
+          <div style="font-size:0.7rem;color:var(--n400);">8cm · Wafer Paper</div>
+        </div>
+      </div>
+      <div class="review-text">Absolutely love these toppers! I ordered for my daughter's 5th birthday and they arrived the very next day. The print quality is stunning — colours so vibrant and the personalisation looks exactly like the preview. Everyone at the party asked where I got them. Will 100% order again!</div>
+      <div class="review-img-row">
+        <div class="review-img" style="background:linear-gradient(135deg,#FFF0F9,#FFDFF2);display:flex;align-items:center;justify-content:center;border-radius:8px;"><i class="fa-solid fa-birthday-cake" style="font-size:1.5rem;color:var(--pink);"></i></div>
+        <div class="review-img" style="background:linear-gradient(135deg,#E8F9FB,#C8F5F9);display:flex;align-items:center;justify-content:center;border-radius:8px;"><i class="fa-solid fa-star" style="font-size:1.5rem;color:var(--teal);"></i></div>
+      </div>
+      <div class="review-helpful">
+        <span class="helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Helpful (24)</span>
+        <span class="helpful-btn"><i class="fa-regular fa-flag"></i> Report</span>
+        <span class="review-date" style="margin-left:auto;">2 days ago</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--teal),#B2EFF7);">AP</div>
+          <div>
+            <div class="reviewer-name">Amanda P.</div>
+            <div class="reviewer-meta">Newcastle, NSW · 8 April 2025</div>
+            <div class="review-verified"><i class="fa-solid fa-circle-check" style="font-size:0.6rem;"></i> Verified Purchase</div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="review-stars">★★★★★</div>
+          <div style="font-size:0.7rem;color:var(--n400);">6cm · Fondant Sheet</div>
+        </div>
+      </div>
+      <div class="review-text">As a local Baker I've tried every edible topper supplier in Australia. Newy Edible Toppers are hands down the best quality — the fondant sheets don't crack, the colours stay true even in humidity, and the customer service is exceptional. Fast local dispatch too!</div>
+      <div class="review-helpful">
+        <span class="helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Helpful (18)</span>
+        <span class="helpful-btn"><i class="fa-regular fa-flag"></i> Report</span>
+        <span class="review-date" style="margin-left:auto;">8 days ago</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#9333EA,#C4B5FD);">TK</div>
+          <div>
+            <div class="reviewer-name">Tom K.</div>
+            <div class="reviewer-meta">Melbourne, VIC · 1 April 2025</div>
+            <div class="review-verified"><i class="fa-solid fa-circle-check" style="font-size:0.6rem;"></i> Verified Purchase</div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="review-stars">★★★★<i class="fa-regular fa-star" style="font-size:0.72rem;color:#F59E0B;"></i></div>
+          <div style="font-size:0.7rem;color:var(--n400);">10cm · Wafer Paper</div>
+        </div>
+      </div>
+      <div class="review-text">Great product, arrived quickly. The topper looked amazing on the cake! Only giving 4 stars because I would have liked a size guide image before ordering — the 10cm was a bit smaller than I imagined for a large celebration cake. But quality is excellent.</div>
+      <div class="review-helpful">
+        <span class="helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Helpful (7)</span>
+        <span class="helpful-btn"><i class="fa-regular fa-flag"></i> Report</span>
+        <span class="review-date" style="margin-left:auto;">15 days ago</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px;">
+      <button style="padding:12px 32px;border:2px solid var(--pink);border-radius:12px;color:var(--pink);font-weight:700;font-size:0.875rem;background:#fff;cursor:pointer;">
+        <i class="fa-solid fa-chevron-down" style="margin-right:6px;"></i>Load 10 more reviews
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<div class="related-section">
+  <div class="section-title-row">
+    <h2><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--pink);margin-right:8px;font-size:1rem;"></i>You Might Also Love</h2>
+    <a href="shop.html">View All Birthday Toppers</a>
+  </div>
+  <div class="related-grid">
+    <div class="product-card" style="cursor:pointer;">
+      <div class="product-img-wrap">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFF0F9,#FFDFF2);">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.5) 0%,transparent 60%);"></div>
+          <div class="img-inner" style="background:rgba(233,30,140,0.12);border-color:rgba(233,30,140,0.3);color:var(--pink);">
+            <i class="fa-solid fa-layer-group" style="font-size:1.6rem;color:var(--pink);margin-bottom:4px;"></i>
+            <span style="color:var(--pink);font-size:0.6rem;letter-spacing:0.1em;">24 PACK</span>
+          </div>
+        </div>
+        <span class="product-badge badge-popular"><i class="fa-solid fa-medal" style="font-size:0.6rem;"></i> Popular</span>
+        <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category-tag">Cupcake Sheets</div>
+        <div class="product-name">Birthday Cupcake Toppers Pack of 24</div>
+        <div class="product-price-row"><span class="price-current">$14.95</span></div>
+      </div>
+    </div>
+    <div class="product-card" style="cursor:pointer;">
+      <div class="product-img-wrap">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FAF5FF,#E9D5FF);">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+          <div class="img-inner" style="background:rgba(147,51,234,0.1);border-color:rgba(147,51,234,0.3);color:#9333EA;">
+            <i class="fa-solid fa-star" style="font-size:1.6rem;color:#9333EA;margin-bottom:4px;"></i>
+            <span style="color:#9333EA;font-size:0.6rem;letter-spacing:0.1em;">UNICORN</span>
+          </div>
+        </div>
+        <div class="wishlist-btn active"><i class="fa-solid fa-heart"></i></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category-tag">Kids Themes</div>
+        <div class="product-name">Magical Unicorn Birthday Topper</div>
+        <div class="product-price-row"><span class="price-current">$9.95</span></div>
+      </div>
+    </div>
+    <div class="product-card" style="cursor:pointer;">
+      <div class="product-img-wrap">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#E8F9FB,#C8F5F9);">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+          <div class="img-inner" style="background:rgba(0,180,204,0.12);border-color:rgba(0,180,204,0.35);color:var(--teal);">
+            <i class="fa-solid fa-camera" style="font-size:1.6rem;color:var(--teal);margin-bottom:4px;"></i>
+            <span style="color:var(--teal);font-size:0.6rem;letter-spacing:0.1em;">PHOTO</span>
+          </div>
+        </div>
+        <span class="product-badge badge-new">New</span>
+        <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category-tag">Custom Photo</div>
+        <div class="product-name">Custom Photo Cake Topper</div>
+        <div class="product-price-row"><span class="price-current">$12.95</span></div>
+      </div>
+    </div>
+    <div class="product-card" style="cursor:pointer;">
+      <div class="product-img-wrap">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(255,255,255,0.5) 0%,transparent 55%);"></div>
+          <div class="img-inner" style="background:rgba(217,119,6,0.1);border-color:rgba(217,119,6,0.3);color:#D97706;">
+            <i class="fa-solid fa-graduation-cap" style="font-size:1.6rem;color:#D97706;margin-bottom:4px;"></i>
+            <span style="color:#D97706;font-size:0.6rem;letter-spacing:0.1em;">GRAD</span>
+          </div>
+        </div>
+        <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
+      </div>
+      <div class="product-info">
+        <div class="product-category-tag">Graduation</div>
+        <div class="product-name">Class of 2025 Graduation Topper</div>
+        <div class="product-price-row"><span class="price-current">$10.95</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-icon" style="width:40px;height:40px;font-size:1rem;"><i class="fa-solid fa-cake-candles"></i></div>
+        <div class="logo-words">
+          <div class="logo-name" style="font-size:0.95rem;">Newy Edible Toppers</div>
+          <div class="logo-sub">Newcastle, NSW, Australia</div>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--n500);line-height:1.7;margin-top:14px;max-width:260px;">Handcrafted edible prints made with love in Newcastle. Delivered fresh to your door, Australia-wide.</p>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <div class="social-icon"><i class="fa-brands fa-instagram"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-facebook-f"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-tiktok"></i></div>
+        <div class="social-icon"><i class="fa-brands fa-pinterest-p"></i></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Shop</h4>
+      <a href="shop.html" class="footer-link">Birthday Toppers</a>
+      <a href="shop.html" class="footer-link">Kids Themes</a>
+      <a href="shop.html" class="footer-link">Wedding &amp; Events</a>
+      <a href="shop.html" class="footer-link">Corporate Logos</a>
+
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Help</h4>
+      <a href="#" class="footer-link">FAQ</a>
+      <a href="#" class="footer-link">Shipping Info</a>
+      <a href="#" class="footer-link">Returns &amp; Refunds</a>
+      <a href="#" class="footer-link">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Account</h4>
+      <a href="login.html" class="footer-link">Sign In</a>
+      <a href="register.html" class="footer-link">Create Account</a>
+      <a href="my-account.html" class="footer-link">My Orders</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p style="font-size:0.78rem;color:var(--n400);">© 2025 Newy Edible Toppers. All rights reserved. ABN 12 345 678 901</p>
+      <div style="display:flex;gap:16px;">
+        <a href="#" style="font-size:0.78rem;color:var(--n400);">Privacy Policy</a>
+        <a href="#" style="font-size:0.78rem;color:var(--n400);">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCREEN NAV -->
+<div class="screen-nav">
+  <a href="shop.html"><i class="fa-solid fa-chevron-left"></i> Shop</a>
+  <span class="screen-nav-center">Screen 10 / 15 — Product Detail</span>
+  <a href="cart.html">Cart <i class="fa-solid fa-chevron-right"></i></a>
+</div>
+
+</body>
+</html>

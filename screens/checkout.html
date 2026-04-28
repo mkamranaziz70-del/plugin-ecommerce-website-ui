@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body { background: #F7F8FA; }
+
+/* ── CHECKOUT HEADER ── */
+.checkout-header {
+  background: #fff; border-bottom: 1px solid var(--n100);
+  padding: 20px 0;
+}
+.checkout-header-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.checkout-logo { display: flex; align-items: center; gap: 10px; }
+.checkout-logo .logo-icon { width: 36px; height: 36px; font-size: 0.9rem; }
+.checkout-logo .logo-name { font-size: 0.95rem; font-weight: 800; color: var(--n900); }
+.checkout-logo .logo-sub { font-size: 0.65rem; color: var(--n400); }
+.checkout-secure { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--n500); }
+.checkout-secure i { color: var(--green); }
+.back-to-cart { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--n500); transition: color 0.2s; }
+.back-to-cart:hover { color: var(--pink); }
+
+/* ── PROGRESS STEPS ── */
+.checkout-progress {
+  background: #fff; border-bottom: 1px solid var(--n100); padding: 20px 0;
+}
+.checkout-progress-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: center; gap: 0;
+}
+.step-item { display: flex; align-items: center; gap: 10px; }
+.step-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 800; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.step-circle.done   { background: var(--green); color: #fff; }
+.step-circle.active { background: var(--pink); color: #fff; box-shadow: 0 0 0 4px rgba(233,30,140,0.15); }
+.step-circle.todo   { background: var(--n200); color: var(--n500); }
+.step-label { font-size: 0.82rem; font-weight: 600; }
+.step-label.done   { color: var(--green); }
+.step-label.active { color: var(--pink); }
+.step-label.todo   { color: var(--n400); }
+.step-line { width: 60px; height: 2px; background: var(--n200); margin: 0 8px; }
+.step-line.done { background: var(--green); }
+
+/* ── LAYOUT ── */
+.checkout-body { max-width: 1100px; margin: 32px auto 80px; padding: 0 32px; display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start; }
+
+/* ── FORM CARD ── */
+.form-card { background: #fff; border-radius: 18px; padding: 28px; margin-bottom: 20px; border: 1px solid var(--n100); }
+.form-card-title { font-size: 1rem; font-weight: 800; color: var(--n900); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.form-card-title i { color: var(--pink); font-size: 0.9rem; }
+.form-card-title .step-num { width: 26px; height: 26px; background: var(--pink); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0; }
+
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group:last-child { margin-bottom: 0; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--n700); }
+.form-group label .req { color: var(--pink); margin-left: 2px; }
+.form-group input, .form-group select {
+  padding: 11px 14px; border: 1.5px solid var(--n200); border-radius: 10px;
+  font-family: var(--font); font-size: 0.875rem; color: var(--n800);
+  background: #fff; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--pink); outline: none; box-shadow: 0 0 0 3px rgba(233,30,140,0.08); }
+.form-group input.valid { border-color: var(--green); }
+.input-icon-rel { position: relative; }
+.input-icon-rel input { padding-left: 38px; }
+.input-icon-rel .fi { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--n400); font-size: 0.85rem; }
+.form-hint { font-size: 0.72rem; color: var(--n400); }
+
+/* Express checkout */
+.express-checkout-row { display: flex; gap: 10px; margin-bottom: 24px; }
+.exp-btn {
+  flex: 1; padding: 13px; border-radius: 12px; border: 1.5px solid var(--n200);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; background: #fff;
+}
+.exp-btn:hover { border-color: var(--n400); background: var(--n50); }
+.exp-btn.apple { background: #000; color: #fff; border-color: #000; }
+.exp-btn.apple:hover { background: #222; }
+.exp-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; color: var(--n400); font-size: 0.78rem; }
+.exp-divider::before, .exp-divider::after { content: ''; flex: 1; height: 1px; background: var(--n200); }
+
+/* Delivery options */
+.delivery-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 0; }
+.delivery-option {
+  display: flex; align-items: center; padding: 14px 16px;
+  border: 2px solid var(--n200); border-radius: 12px; cursor: pointer;
+  transition: all 0.2s; gap: 14px;
+}
+.delivery-option:hover { border-color: var(--n400); }
+.delivery-option.selected { border-color: var(--pink); background: var(--pink-pale); }
+.delivery-radio {
+  width: 18px; height: 18px; border: 2px solid var(--n300); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.delivery-option.selected .delivery-radio { border-color: var(--pink); background: var(--pink); }
+.delivery-option.selected .delivery-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+.delivery-info { flex: 1; }
+.delivery-name { font-size: 0.85rem; font-weight: 700; color: var(--n800); }
+.delivery-sub  { font-size: 0.72rem; color: var(--n500); margin-top: 2px; }
+.delivery-price { font-size: 0.9rem; font-weight: 800; color: var(--n800); }
+.delivery-price.free { color: var(--green); }
+
+/* Payment section */
+.payment-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.pay-tab {
+  padding: 9px 16px; border: 2px solid var(--n200); border-radius: 10px;
+  font-size: 0.8rem; font-weight: 600; color: var(--n600); cursor: pointer;
+  display: flex; align-items: center; gap: 7px; transition: all 0.2s;
+}
+.pay-tab:hover { border-color: var(--n400); }
+.pay-tab.active { border-color: var(--pink); color: var(--pink); background: var(--pink-pale); }
+.card-preview {
+  background: linear-gradient(135deg, #1A1A2E 0%, #2D2D44 100%);
+  border-radius: 16px; padding: 22px; margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.card-preview::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(233,30,140,0.15) 0%, transparent 55%);
+}
+.card-chip { width: 32px; height: 24px; border: 2px solid rgba(255,215,0,0.4); border-radius: 4px; background: rgba(255,215,0,0.15); margin-bottom: 22px; display: flex; align-items: center; justify-content: center; }
+.card-chip-lines { width: 18px; height: 12px; display: grid; grid-template-rows: repeat(3, 1fr); gap: 2px; }
+.card-chip-line { background: rgba(255,215,0,0.5); border-radius: 1px; }
+.card-number { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 3px; margin-bottom: 16px; }
+.card-preview-row { display: flex; justify-content: space-between; }
+.card-label { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+.card-val   { font-size: 0.82rem; color: rgba(255,255,255,0.85); font-weight: 600; }
+.card-brand { position: absolute; bottom: 20px; right: 20px; font-size: 1.6rem; color: rgba(255,255,255,0.2); }
+
+/* Order note -->  */
+.order-note textarea {
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--n200); border-radius: 10px;
+  font-family: var(--font); font-size: 0.85rem; color: var(--n800); resize: vertical;
+  min-height: 80px;
+}
+.order-note textarea:focus { border-color: var(--pink); outline: none; }
+
+/* ── ORDER SUMMARY (right) ── */
+.checkout-summary { background: #fff; border-radius: 18px; padding: 24px; border: 1px solid var(--n100); position: sticky; top: 100px; }
+.checkout-summary h3 { font-size: 0.95rem; font-weight: 800; color: var(--n900); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.checkout-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+.checkout-item-img {
+  width: 60px; height: 60px; border-radius: 10px; flex-shrink: 0; position: relative; overflow: hidden;
+}
+.checkout-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.checkout-item-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.checkout-item-count {
+  position: absolute; top: -6px; right: -6px; width: 20px; height: 20px;
+  background: var(--n800); color: #fff; border-radius: 50%;
+  font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.checkout-item-info { flex: 1; }
+.checkout-item-name  { font-size: 0.82rem; font-weight: 700; color: var(--n800); line-height: 1.35; margin-bottom: 3px; }
+.checkout-item-opts  { font-size: 0.7rem; color: var(--n400); }
+.checkout-item-price { font-size: 0.9rem; font-weight: 800; color: var(--n900); flex-shrink: 0; }
+.checkout-divider { height: 1px; background: var(--n100); margin: 16px 0; }
+.checkout-summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
+.checkout-summary-row .k { color: var(--n500); }
+.checkout-summary-row .v { font-weight: 600; color: var(--n800); }
+.checkout-summary-row.disc .v { color: var(--green); }
+.checkout-total-row { display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--n100); margin-top: 4px; }
+.checkout-total-row .k { font-size: 0.95rem; font-weight: 800; color: var(--n900); }
+.checkout-total-row .v { font-size: 1.2rem; font-weight: 900; color: var(--n900); }
+
+.btn-place-order { width: 100%; padding: 16px; font-size: 0.95rem; font-weight: 800; margin-top: 18px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.checkout-legal { font-size: 0.72rem; color: var(--n400); text-align: center; margin-top: 12px; line-height: 1.6; }
+.checkout-legal a { color: var(--pink); }
+
+@media (max-width: 900px) {
+  .checkout-body { grid-template-columns: 1fr; }
+  .checkout-summary { position: static; }
+  .form-row-2 { grid-template-columns: 1fr; }
+  .form-row-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- CHECKOUT HEADER -->
+<div class="checkout-header">
+  <div class="checkout-header-inner">
+    <a href="home.html" class="checkout-logo">
+      <div class="logo-icon"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="logo-words">
+        <div class="logo-name">Newy Edible Toppers</div>
+        <div class="logo-sub">Secure Checkout</div>
+      </div>
+    </a>
+    <div class="checkout-secure"><i class="fa-solid fa-lock"></i> 256-bit SSL Encrypted</div>
+    <a href="cart.html" class="back-to-cart"><i class="fa-solid fa-arrow-left"></i> Back to Cart</a>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="checkout-progress">
+  <div class="checkout-progress-inner">
+    <div class="step-item">
+      <div class="step-circle done"><i class="fa-solid fa-check" style="font-size:0.75rem;"></i></div>
+      <span class="step-label done">Cart</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step-item">
+      <div class="step-circle active">2</div>
+      <span class="step-label active">Shipping</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-circle todo">3</div>
+      <span class="step-label todo">Payment</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-circle todo">4</div>
+      <span class="step-label todo">Confirm</span>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT BODY -->
+<div class="checkout-body">
+
+  <!-- LEFT FORM -->
+  <div>
+
+    <!-- Contact -->
+    <div class="form-card">
+      <div class="form-card-title">
+        <span class="step-num">1</span>
+        <i class="fa-solid fa-user"></i> Contact Information
+      </div>
+      <div class="express-checkout-row">
+        <button class="exp-btn">
+          <i class="fa-brands fa-google" style="color:#DB4437;font-size:1rem;"></i> Continue with Google
+        </button>
+        <button class="exp-btn apple">
+          <i class="fa-brands fa-apple" style="font-size:1rem;"></i> Continue with Apple
+        </button>
+      </div>
+      <div class="exp-divider">or fill in details below</div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" value="Sarah" class="valid">
+        </div>
+        <div class="form-group">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" value="Mitchell" class="valid">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address <span class="req">*</span></label>
+        <div class="input-icon-rel">
+          <i class="fi fa-regular fa-envelope"></i>
+          <input type="email" value="sarah@example.com.au" class="valid">
+        </div>
+        <span class="form-hint"><i class="fa-solid fa-circle-info" style="color:var(--teal);margin-right:3px;"></i>Order confirmation &amp; updates will be sent here.</span>
+      </div>
+      <div class="form-group">
+        <label>Phone Number <span class="req">*</span></label>
+        <div class="input-icon-rel">
+          <i class="fi fa-solid fa-phone"></i>
+          <input type="tel" value="+61 412 345 678" class="valid">
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <label class="checkbox-wrap">
+          <input type="checkbox" checked>
+          <span class="checkbox-label" style="font-size:0.8rem;color:var(--n600);">Create a free account to track orders &amp; save designs</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Shipping Address -->
+    <div class="form-card">
+      <div class="form-card-title">
+        <span class="step-num">2</span>
+        <i class="fa-solid fa-location-dot"></i> Shipping Address
+      </div>
+      <div class="form-group">
+        <label>Country <span class="req">*</span></label>
+        <select>
+          <option selected>Australia</option>
+          <option>New Zealand</option>
+          <option>United Kingdom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Street Address <span class="req">*</span></label>
+        <div class="input-icon-rel">
+          <i class="fi fa-solid fa-house"></i>
+          <input type="text" value="14 Darby Street" class="valid">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Apartment, suite, etc.</label>
+        <input type="text" placeholder="Unit 2, Floor 3, etc. (optional)">
+      </div>
+      <div class="form-row-3">
+        <div class="form-group">
+          <label>City <span class="req">*</span></label>
+          <input type="text" value="Newcastle" class="valid">
+        </div>
+        <div class="form-group">
+          <label>State <span class="req">*</span></label>
+          <select>
+            <option selected>NSW</option>
+            <option>VIC</option><option>QLD</option><option>WA</option>
+            <option>SA</option><option>TAS</option><option>ACT</option><option>NT</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Postcode <span class="req">*</span></label>
+          <input type="text" value="2300" class="valid">
+        </div>
+      </div>
+      <div style="margin-top:4px;">
+        <label class="checkbox-wrap">
+          <input type="checkbox" checked>
+          <span class="checkbox-label" style="font-size:0.8rem;color:var(--n600);">Save this address to my account</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Delivery Method -->
+    <div class="form-card">
+      <div class="form-card-title">
+        <span class="step-num">3</span>
+        <i class="fa-solid fa-truck-fast"></i> Delivery Method
+      </div>
+      <div class="delivery-options">
+        <div class="delivery-option">
+          <div class="delivery-radio"></div>
+          <div class="delivery-info">
+            <div class="delivery-name"><i class="fa-solid fa-truck" style="color:var(--n400);margin-right:6px;font-size:0.8rem;"></i>Standard Shipping</div>
+            <div class="delivery-sub">Estimated: 3–5 business days · AusPost</div>
+          </div>
+          <div class="delivery-price">$7.95</div>
+        </div>
+        <div class="delivery-option selected">
+          <div class="delivery-radio"></div>
+          <div class="delivery-info">
+            <div class="delivery-name"><i class="fa-solid fa-bolt" style="color:#F59E0B;margin-right:6px;font-size:0.8rem;"></i>Express Shipping <span style="font-size:0.7rem;background:rgba(245,158,11,0.1);color:#D97706;padding:2px 7px;border-radius:999px;margin-left:4px;font-weight:700;">Recommended</span></div>
+            <div class="delivery-sub">Estimated: 1–2 business days · AusPost Express</div>
+          </div>
+          <div class="delivery-price">$14.95</div>
+        </div>
+        <div class="delivery-option">
+          <div class="delivery-radio"></div>
+          <div class="delivery-info">
+            <div class="delivery-name"><i class="fa-solid fa-star" style="color:var(--pink);margin-right:6px;font-size:0.8rem;"></i>Overnight Priority</div>
+            <div class="delivery-sub">Order before 12pm for next-business-day delivery</div>
+          </div>
+          <div class="delivery-price">$22.95</div>
+        </div>
+        <div class="delivery-option">
+          <div class="delivery-radio"></div>
+          <div class="delivery-info">
+            <div class="delivery-name"><i class="fa-solid fa-store" style="color:var(--teal);margin-right:6px;font-size:0.8rem;"></i>Local Pickup — Newcastle</div>
+            <div class="delivery-sub">Ready in 2–4 hours · 14 Darby St, Newcastle NSW 2300</div>
+          </div>
+          <div class="delivery-price free">FREE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div class="form-card">
+      <div class="form-card-title">
+        <span class="step-num">4</span>
+        <i class="fa-solid fa-credit-card"></i> Payment Details
+      </div>
+
+      <!-- Card preview widget -->
+      <div class="card-preview">
+        <div class="card-chip">
+          <div class="card-chip-lines">
+            <div class="card-chip-line"></div>
+            <div class="card-chip-line"></div>
+            <div class="card-chip-line"></div>
+          </div>
+        </div>
+        <div class="card-number">•••• •••• •••• 4242</div>
+        <div class="card-preview-row">
+          <div><div class="card-label">Card Holder</div><div class="card-val">SARAH MITCHELL</div></div>
+          <div><div class="card-label">Expires</div><div class="card-val">09 / 28</div></div>
+          <div><div class="card-label">CVC</div><div class="card-val">•••</div></div>
+        </div>
+        <div class="card-brand"><i class="fa-brands fa-cc-visa"></i></div>
+      </div>
+
+      <div class="payment-tabs">
+        <div class="pay-tab active"><i class="fa-solid fa-credit-card"></i> Credit / Debit Card</div>
+        <div class="pay-tab"><i class="fa-brands fa-paypal"></i> PayPal</div>
+        <div class="pay-tab"><i class="fa-brands fa-apple-pay"></i> Apple Pay</div>
+        <div class="pay-tab"><i class="fa-brands fa-google-pay"></i> Google Pay</div>
+      </div>
+
+      <div class="form-group">
+        <label>Card Number <span class="req">*</span></label>
+        <div class="input-icon-rel">
+          <i class="fi fa-regular fa-credit-card"></i>
+          <input type="text" placeholder="1234 5678 9012 3456" value="4242 4242 4242 4242" class="valid">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Cardholder Name <span class="req">*</span></label>
+        <input type="text" value="Sarah Mitchell" class="valid">
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Expiry Date <span class="req">*</span></label>
+          <input type="text" placeholder="MM / YY" value="09 / 28" class="valid">
+        </div>
+        <div class="form-group">
+          <label>CVC / CVV <span class="req">*</span></label>
+          <div class="input-icon-rel">
+            <i class="fi fa-solid fa-question-circle" style="color:var(--teal);"></i>
+            <input type="text" placeholder="•••" value="•••">
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:4px;">
+        <label class="checkbox-wrap">
+          <input type="checkbox" checked>
+          <span class="checkbox-label" style="font-size:0.8rem;color:var(--n600);">Save card for faster future checkouts (PCI DSS compliant)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Order Note -->
+    <div class="form-card">
+      <div class="form-card-title">
+        <span class="step-num" style="background:var(--n300);">5</span>
+        <i class="fa-regular fa-comment-dots" style="color:var(--n500);"></i>
+        <span style="color:var(--n700);">Order Note <span style="font-size:0.72rem;color:var(--n400);font-weight:400;">(optional)</span></span>
+      </div>
+      <div class="order-note">
+        <textarea placeholder="Any special instructions, dietary requirements, or delivery notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SUMMARY -->
+  <div>
+    <div class="checkout-summary">
+      <h3><i class="fa-solid fa-bag-shopping" style="color:var(--pink);font-size:0.85rem;"></i>Order Summary</h3>
+
+      <div class="checkout-item">
+        <div class="checkout-item-img">
+          <img src="../category_birthday_toppers_1777369655244.png" alt="">
+          <div class="checkout-item-count">1</div>
+        </div>
+        <div class="checkout-item-info">
+          <div class="checkout-item-name">Round Birthday Topper — 8cm Wafer</div>
+          <div class="checkout-item-opts">"Happy Birthday Sarah! 🎉"</div>
+        </div>
+        <div class="checkout-item-price">$8.95</div>
+      </div>
+
+      <div class="checkout-item">
+        <div class="checkout-item-img">
+          <div class="checkout-item-img-placeholder" style="background:linear-gradient(135deg,#FAF5FF,#E9D5FF);border-radius:10px;width:60px;height:60px;">
+            <i class="fa-solid fa-star" style="color:#9333EA;font-size:1.5rem;"></i>
+          </div>
+          <div class="checkout-item-count">2</div>
+        </div>
+        <div class="checkout-item-info">
+          <div class="checkout-item-name">Unicorn Birthday Topper — 6cm Wafer</div>
+          <div class="checkout-item-opts">"Happy Birthday Lily! 🦄"</div>
+        </div>
+        <div class="checkout-item-price">$19.90</div>
+      </div>
+
+      <div class="checkout-item">
+        <div class="checkout-item-img">
+          <img src="../category_corporate_toppers_1777369672917.png" alt="">
+          <div class="checkout-item-count">1</div>
+        </div>
+        <div class="checkout-item-info">
+          <div class="checkout-item-name">Corporate Logo Toppers — 12 Pack</div>
+          <div class="checkout-item-opts">Fondant · AussieTech Logo</div>
+        </div>
+        <div class="checkout-item-price">$18.95</div>
+      </div>
+
+      <div class="checkout-divider"></div>
+
+      <div class="checkout-summary-row"><span class="k">Subtotal</span><span class="v">$47.80</span></div>
+      <div class="checkout-summary-row disc"><span class="k"><i class="fa-solid fa-tag" style="font-size:0.7rem;margin-right:3px;"></i>Discount (SWEET10)</span><span class="v">−$4.78</span></div>
+      <div class="checkout-summary-row"><span class="k">Express Shipping</span><span class="v">$14.95</span></div>
+      <div class="checkout-summary-row"><span class="k">GST (10%)</span><span class="v">$5.27</span></div>
+
+      <div class="checkout-total-row">
+        <span class="k">Total</span>
+        <span class="v">$57.97</span>
+      </div>
+      <div style="text-align:right;font-size:0.7rem;color:var(--n400);margin-top:3px;">AUD · Inc. GST</div>
+
+      <a href="order-confirmation.html" class="btn btn-pink btn-place-order">
+        <i class="fa-solid fa-lock"></i> Place Order — $57.97
+      </a>
+
+      <p class="checkout-legal">
+        By placing your order you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        Your card will be charged $57.97 AUD.
+      </p>
+
+      <div style="border-top:1px solid var(--n100);margin-top:16px;padding-top:14px;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+          <i class="fa-brands fa-cc-visa" style="font-size:1.4rem;color:#1A1F71;"></i>
+          <i class="fa-brands fa-cc-mastercard" style="font-size:1.4rem;color:#EB001B;"></i>
+          <i class="fa-brands fa-cc-amex" style="font-size:1.4rem;color:#007BC1;"></i>
+          <i class="fa-brands fa-cc-paypal" style="font-size:1.4rem;color:#003087;"></i>
+          <i class="fa-brands fa-apple-pay" style="font-size:1.4rem;color:#000;"></i>
+        </div>
+        <div style="text-align:center;margin-top:10px;font-size:0.72rem;color:var(--n400);">
+          <i class="fa-solid fa-lock" style="color:var(--green);margin-right:4px;"></i>Powered by Stripe · PCI DSS Level 1 Certified
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /checkout-body -->
+
+<!-- SCREEN NAV -->
+<div class="screen-nav">
+  <a href="cart.html"><i class="fa-solid fa-chevron-left"></i> Cart</a>
+  <span class="screen-nav-center">Screen 12 / 15 — Checkout</span>
+  <a href="order-confirmation.html">Order Confirmation <i class="fa-solid fa-chevron-right"></i></a>
+</div>
+
+</body>
+</html>

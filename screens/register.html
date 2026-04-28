@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body { background: #fff; }
+.auth-shell { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
+
+.auth-brand {
+  background: linear-gradient(145deg, #00B4CC 0%, #00D4C8 45%, #B2F0EA 100%);
+  position: relative; overflow: hidden; display: flex; flex-direction: column;
+  justify-content: space-between; padding: 48px;
+}
+.auth-brand::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 0%, transparent 50%);
+}
+.brand-top { position: relative; z-index: 1; }
+.brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+.brand-logo-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.25); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; border: 1px solid rgba(255,255,255,0.4); }
+.brand-logo-name { font-size: 1.05rem; font-weight: 800; color: #fff; }
+.brand-logo-sub  { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+
+.brand-headline { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
+.brand-sub { font-size: 0.975rem; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 380px; margin-bottom: 28px; }
+
+.brand-benefits { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 1; }
+.benefit-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 14px;
+  padding: 16px 18px;
+}
+.benefit-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(255,255,255,0.25); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.benefit-title { font-size: 0.875rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.benefit-desc  { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+
+.brand-bottom { position: relative; z-index: 1; }
+.existing-user { color: rgba(255,255,255,0.7); font-size: 0.84rem; }
+.existing-user a { color: #fff; font-weight: 700; text-decoration: underline; }
+
+/* Form side */
+.auth-form-side {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 48px 64px; background: #fff; overflow-y: auto;
+}
+.auth-form-box { width: 100%; max-width: 420px; }
+.back-link { display: flex; align-items: center; gap: 7px; color: var(--n500); font-size: 0.82rem; margin-bottom: 28px; transition: all 0.2s; }
+.back-link:hover { color: var(--pink); }
+.auth-title    { font-size: 1.7rem; font-weight: 900; color: var(--n900); letter-spacing: -0.01em; }
+.auth-subtitle { font-size: 0.875rem; color: var(--n500); margin-top: 6px; margin-bottom: 24px; }
+
+.social-login { display: flex; gap: 10px; margin-bottom: 20px; }
+.btn-social { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 1.5px solid var(--n200); border-radius: 10px; font-size: 0.84rem; font-weight: 600; color: var(--n700); background: #fff; cursor: pointer; transition: all 0.2s; }
+.btn-social:hover { background: var(--n50); transform: translateY(-1px); }
+.auth-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: var(--n400); font-size: 0.8rem; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--n200); }
+
+.form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-stack { display: flex; flex-direction: column; gap: 14px; }
+
+/* Password strength */
+.strength-bar { display: flex; gap: 4px; margin-top: 6px; }
+.strength-seg { height: 3px; flex: 1; background: var(--n200); border-radius: 999px; transition: background 0.3s; }
+.strength-seg.active-weak   { background: var(--red); }
+.strength-seg.active-medium { background: var(--yellow); }
+.strength-seg.active-strong { background: var(--green); }
+.strength-label { font-size: 0.72rem; color: var(--n400); margin-top: 4px; }
+
+.input-pass-wrap { position: relative; }
+.input-pass-wrap .input { padding-right: 44px; }
+.toggle-pass { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--n400); cursor: pointer; font-size: 0.9rem; }
+
+.terms-check { font-size: 0.82rem; color: var(--n600); }
+.terms-check a { color: var(--pink); font-weight: 600; }
+
+.btn-submit { width: 100%; padding: 14px; font-size: 0.95rem; margin-top: 4px; }
+
+.auth-switch { text-align: center; font-size: 0.875rem; color: var(--n500); margin-top: 20px; }
+.auth-switch a { color: var(--pink); font-weight: 700; }
+
+.auth-trust { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--n100); flex-wrap: wrap; }
+.trust-badge { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--n400); }
+.trust-badge i { color: var(--green); }
+
+@media (max-width: 900px) {
+  .auth-shell { grid-template-columns: 1fr; }
+  .auth-brand { display: none; }
+  .auth-form-side { padding: 40px 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="auth-shell">
+
+  <!-- BRAND PANEL -->
+  <div class="auth-brand">
+    <div class="brand-top">
+      <div class="brand-logo">
+        <div class="brand-logo-icon"><i class="fa-solid fa-cake-candles"></i></div>
+        <div>
+          <div class="brand-logo-name">Newy Edible Toppers</div>
+          <div class="brand-logo-sub">Custom Edible Prints</div>
+        </div>
+      </div>
+      <h2 class="brand-headline">Join the sweetest<br>community!</h2>
+      <p class="brand-sub">Create a free account and unlock the full Newy Edible Toppers experience.</p>
+    </div>
+
+    <div class="brand-benefits">
+      <div class="benefit-item">
+        <div class="benefit-icon"><i class="fa-solid fa-box-open"></i></div>
+        <div>
+          <div class="benefit-title">Track All Your Orders</div>
+          <div class="benefit-desc">See real-time updates from printing to your door.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><i class="fa-solid fa-download"></i></div>
+        <div>
+          <div class="benefit-title">Download Your Designs</div>
+          <div class="benefit-desc">Keep copies of all your custom designs forever.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div>
+          <div class="benefit-title">Faster Checkout</div>
+          <div class="benefit-desc">Saved addresses and payment details — order in seconds.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><i class="fa-solid fa-tag"></i></div>
+        <div>
+          <div class="benefit-title">Exclusive Member Deals</div>
+          <div class="benefit-desc">Get 10% off your first order and member-only offers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-bottom">
+      <p class="existing-user">Already have an account? <a href="login.html">Sign in here</a></p>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="auth-form-side">
+    <div class="auth-form-box">
+
+      <a href="home.html" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to store
+      </a>
+
+      <h1 class="auth-title">Create your free account</h1>
+      <p class="auth-subtitle">Join 5,000+ happy customers. Takes less than 60 seconds.</p>
+
+      <div class="social-login">
+        <button class="btn-social"><i class="fa-brands fa-google" style="color:#DB4437;"></i> Google</button>
+        <button class="btn-social"><i class="fa-brands fa-facebook-f" style="color:#1877F2;"></i> Facebook</button>
+        <button class="btn-social"><i class="fa-brands fa-apple" style="color:#333;"></i> Apple</button>
+      </div>
+
+      <div class="auth-divider">or register with email</div>
+
+      <form class="form-stack" onsubmit="return false;">
+        <div class="form-row">
+          <div class="field">
+            <label class="label label-required">First Name</label>
+            <input type="text" class="input" placeholder="Sarah">
+          </div>
+          <div class="field">
+            <label class="label label-required">Last Name</label>
+            <input type="text" class="input" placeholder="Mitchell">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label label-required">Email Address</label>
+          <div class="input-icon-wrap">
+            <i class="fa-regular fa-envelope input-icon"></i>
+            <input type="email" class="input" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label label-required">Password</label>
+          <div class="input-pass-wrap">
+            <input type="password" class="input" placeholder="Min. 8 characters">
+            <i class="fa-regular fa-eye toggle-pass"></i>
+          </div>
+          <div class="strength-bar">
+            <div class="strength-seg active-medium"></div>
+            <div class="strength-seg active-medium"></div>
+            <div class="strength-seg"></div>
+            <div class="strength-seg"></div>
+          </div>
+          <div class="strength-label">Medium strength — add symbols to make it stronger</div>
+        </div>
+
+        <div class="field">
+          <label class="label label-required">Confirm Password</label>
+          <div class="input-pass-wrap">
+            <input type="password" class="input" placeholder="Repeat your password">
+            <i class="fa-regular fa-eye toggle-pass"></i>
+          </div>
+        </div>
+
+        <label class="checkbox-wrap">
+          <input type="checkbox" checked>
+          <span class="terms-check">I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></span>
+        </label>
+
+        <label class="checkbox-wrap">
+          <input type="checkbox" checked>
+          <span class="terms-check">Send me exclusive deals, new designs &amp; sweet inspiration</span>
+        </label>
+
+        <a href="my-account.html" class="btn btn-teal btn-submit">
+          <i class="fa-solid fa-user-plus"></i> Create Account — It's Free
+        </a>
+      </form>
+
+      <div class="auth-switch">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+
+      <div class="auth-trust">
+        <div class="trust-badge"><i class="fa-solid fa-lock"></i> Secure</div>
+        <div class="trust-badge"><i class="fa-solid fa-shield-halved"></i> SSL encrypted</div>
+        <div class="trust-badge"><i class="fa-solid fa-eye-slash"></i> Never shared</div>
+        <div class="trust-badge"><i class="fa-solid fa-envelope-circle-check"></i> No spam</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN NAV -->
+<div class="screen-nav">
+  <a href="login.html"><i class="fa-solid fa-chevron-left"></i> Login</a>
+  <span class="screen-nav-center">Screen 08 / 15 — Register</span>
+  <a href="shop.html">Shop <i class="fa-solid fa-chevron-right"></i></a>
+</div>
+
+</body>
+</html>
