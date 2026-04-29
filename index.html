@@ -26,6 +26,9 @@
             <li><a href="#" onclick="switchView('admin')">Admin</a></li>
         </ul>
         <div class="nav-actions">
+            <div class="mobile-toggle" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            </div>
             <div onclick="switchView('cart')" style="cursor: pointer; position: relative;">
                 <i data-lucide="shopping-cart" style="color: #FF4081; width: 28px; height: 28px;"></i>
                 <span id="cart-badge" style="position: absolute; top: -12px; right: -12px; background: #FF4081; color: white; font-size: 11px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; border: 2.5px solid white;">0</span>
@@ -44,9 +47,9 @@
                 </div>
                 <h1>Bespoke Designs <br>For <span style="color: #FF4081;">Masterpiece</span> Cakes</h1>
                 <p>Leading Newcastle's edible print industry with high-definition technology. Professional quality for bakeries, corporate branding, and luxury events.</p>
-                <div style="display:flex; gap:25px; margin-top: 30px;">
-                    <button class="btn btn-primary" style="padding: 22px 50px; font-size: 14px;" onclick="switchView('shop')">Explore All Collections</button>
-                    <button class="btn btn-outline" style="padding: 22px 50px; font-size: 14px;" onclick="switchView('editor')">Design Custom Topper</button>
+                <div class="hero-cta-row" style="display:flex; gap:25px; margin-top: 30px; flex-wrap:wrap;">
+                    <button class="btn btn-primary hero-btn" onclick="switchView('shop')">Explore All Collections</button>
+                    <button class="btn btn-outline hero-btn" onclick="switchView('editor')">Design Custom Topper</button>
                 </div>
             </div>
             <div class="hero-image">
@@ -55,10 +58,10 @@
         </section>
 
         <!-- FEATURED GRID -->
-        <section style="padding: 120px 0;">
+        <section class="featured-section" style="padding: 120px 0;">
             <div style="text-align: center; margin-bottom: 80px;">
-                <h2 style="font-size: 48px;">Signature Collections</h2>
-                <p style="color: var(--text-muted); font-size: 20px;">Precision-crafted edible art for every milestone.</p>
+                <h2 class="featured-h2" style="font-size: 48px;">Signature Collections</h2>
+                <p class="featured-sub" style="color: var(--text-muted); font-size: 20px;">Precision-crafted edible art for every milestone.</p>
             </div>
             <div class="category-grid">
                 <div class="category-card">
@@ -110,13 +113,13 @@
 
     <!-- SHOP VIEW - FULL WIDTH -->
     <div id="shop-view" class="view">
-        <div style="padding: 60px 8%;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
+        <div class="shop-view-inner" style="padding: 60px 8%;">
+            <div class="shop-view-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
                 <div>
-                    <h2 style="font-size: 48px;">All Collections</h2>
+                    <h2 class="shop-view-h2" style="font-size: 48px;">All Collections</h2>
                     <p style="font-size: 18px; color: var(--text-muted);">Explore our full range of premium edible designs.</p>
                 </div>
-                <div style="display: flex; gap: 20px;">
+                <div class="shop-view-selects" style="display: flex; gap: 20px;">
                     <select style="padding: 15px 30px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--font-main); font-weight: 700; cursor: pointer;">
                         <option>All Categories</option>
                         <option>Round Toppers</option>
@@ -479,7 +482,7 @@
                 <span style="font-weight: 800; text-transform: uppercase; letter-spacing: 4px; font-size: 14px; color: #FF4081;">Our Journey</span>
                 <div style="width: 40px; height: 2px; background: #FF4081;"></div>
             </div>
-            <h1 style="font-size: 64px;">Pioneering Edible <br><span style="color: #FF4081;">Art Technology</span></h1>
+            <h1 class="about-hero-h1" style="font-size: 64px;">Pioneering Edible <br><span style="color: #FF4081;">Art Technology</span></h1>
         </section>
 
         <section class="about-grid">

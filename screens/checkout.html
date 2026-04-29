@@ -181,10 +181,24 @@ body { background: #F7F8FA; }
 .checkout-legal a { color: var(--pink); }
 
 @media (max-width: 900px) {
-  .checkout-body { grid-template-columns: 1fr; }
+  .checkout-body { grid-template-columns: 1fr; padding: 0 16px; margin: 24px auto 60px; }
   .checkout-summary { position: static; }
   .form-row-2 { grid-template-columns: 1fr; }
   .form-row-3 { grid-template-columns: 1fr 1fr; }
+  .checkout-header-inner { padding: 0 16px; }
+  .checkout-progress-inner { padding: 0 16px; gap: 0; }
+}
+@media (max-width: 600px) {
+  .form-row-3 { grid-template-columns: 1fr; }
+  .checkout-progress-inner { gap: 0; }
+  .step-label { font-size: 0.72rem; }
+  .step-circle { width: 30px; height: 30px; font-size: 0.75rem; }
+  .step-line { width: 28px; }
+  .payment-tabs { gap: 6px; }
+  .pay-tab { padding: 7px 10px; font-size: 0.75rem; }
+  .express-checkout-row { flex-direction: column; }
+  .form-card { padding: 20px 16px; }
+  .checkout-secure { display: none; }
 }
 </style>
 </head>

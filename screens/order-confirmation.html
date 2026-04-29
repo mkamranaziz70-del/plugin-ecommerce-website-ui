@@ -122,9 +122,23 @@ body { background: linear-gradient(180deg, #FFF0F9 0%, #FAFAFA 300px); }
 .btn-white-outline { background: transparent; color: #fff; font-weight: 700; padding: 12px 28px; border-radius: 12px; font-size: 0.875rem; border: 2px solid rgba(255,255,255,0.6); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
 .btn-white-outline:hover { background: rgba(255,255,255,0.1); }
 
+@media (max-width: 768px) {
+  .confirm-hero { padding: 0 16px; margin: 36px auto 0; }
+  .order-timeline { padding: 0 16px; }
+  .confirm-cards { padding: 0 16px; }
+  .confirm-2col { padding: 0 16px; }
+  .confirm-cta { padding: 0 16px; }
+  .confirm-header-inner { padding: 0 16px; }
+}
 @media (max-width: 600px) {
   .confirm-2col { grid-template-columns: 1fr; }
   .confirm-h1 { font-size: 1.6rem; }
+  .confirm-cta-box { padding: 28px 20px; }
+  .confirm-cta-btns { flex-direction: column; }
+  .btn-white, .btn-white-outline { width: 100%; justify-content: center; }
+  .success-ring { width: 80px; height: 80px; }
+  .success-ring i { font-size: 2rem; }
+  .confirm-num { flex-wrap: wrap; justify-content: center; font-size: 0.8rem; padding: 10px 16px; }
 }
 </style>
 </head>

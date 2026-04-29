@@ -18,6 +18,19 @@ function switchView(viewId) {
     if (window.lucide) {
         lucide.createIcons();
     }
+
+    // Close mobile menu if open
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+        navLinks.classList.remove('nav-active');
+    }
+}
+
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+        navLinks.classList.toggle('nav-active');
+    }
 }
 
 // Admin Tab Switching

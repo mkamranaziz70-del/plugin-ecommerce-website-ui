@@ -126,10 +126,29 @@
 .empty-cart p { font-size: 0.875rem; color: var(--n500); margin-bottom: 24px; }
 
 @media (max-width: 900px) {
-  .cart-layout { grid-template-columns: 1fr; }
+  .cart-page { padding: 0 16px; margin: 24px auto 40px; }
+  .cart-layout { grid-template-columns: 1fr; gap: 24px; }
   .order-summary { position: static; }
-  .cart-item { grid-template-columns: 72px 1fr; }
-  .cart-item-price { grid-column: 2; }
+  .cart-item { grid-template-columns: 72px 1fr; padding: 16px; gap: 14px; }
+  .cart-item-price { grid-column: 2; text-align: left; }
+  .cart-items-header { padding: 14px 16px; }
+  .coupon-row { flex-direction: column; padding: 16px; }
+  .btn-coupon { width: 100%; }
+  .express-btns { flex-direction: row; }
+}
+@media (max-width: 600px) {
+  .fbt-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .page-title { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .cart-item { grid-template-columns: 64px 1fr; padding: 12px; }
+  .item-name { font-size: 0.82rem; }
+  .item-meta { font-size: 0.7rem; }
+  .page-title { font-size: 1.35rem; }
+  .summary-total .value { font-size: 1.2rem; }
+  .trust-badges-row { flex-wrap: wrap; gap: 12px; }
+  .trust-badge { font-size: 0.72rem; }
+  .fbt-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
 }
 </style>
 </head>
@@ -174,9 +193,41 @@
       <a href="my-account.html" class="icon-btn"><i class="fa-regular fa-user"></i></a>
       <div class="icon-btn"><i class="fa-regular fa-heart"></i><span class="count">3</span></div>
       <a href="cart.html" class="icon-btn" style="color:var(--pink);"><i class="fa-solid fa-cart-shopping"></i><span class="count" style="background:var(--pink);">3</span></a>
+      <button class="nav-hamburger" onclick="document.body.classList.toggle('nav-open')"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-header">
+      <a href="home.html" class="site-logo">
+        <div class="logo-icon" style="width:36px;height:36px;font-size:0.85rem;"><i class="fa-solid fa-cake-candles"></i></div>
+        <div class="logo-words"><div class="logo-name" style="font-size:0.85rem;">Newy Edible Toppers</div></div>
+      </a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="home.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop All</a>
+      <div class="mobile-nav-section-label">Categories</div>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-birthday-cake"></i> Birthday Toppers</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-child-reaching"></i> Kids Themes</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-briefcase"></i> Corporate Logos</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-heart"></i> Wedding &amp; Events</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-snowflake"></i> Seasonal Designs</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="design-tool.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="#" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="#" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact Us</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="login.html" class="btn btn-outline" style="flex:1;text-align:center;justify-content:center;"><i class="fa-regular fa-user"></i> Sign In</a>
+      <a href="design-tool.html" class="btn btn-pink" style="flex:1;text-align:center;justify-content:center;"><i class="fa-solid fa-pen-nib"></i> Order Custom</a>
+    </div>
+  </div>
+</div>
 
 <!-- CART PAGE -->
 <div class="cart-page">
