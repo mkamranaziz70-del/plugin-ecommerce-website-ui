@@ -711,17 +711,98 @@ footer {
     padding: 120px 8% 50px;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 80px;
-    margin-bottom: 100px;
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: 1.8fr 1fr 1fr 1fr 1.5fr 2fr; 
+    gap: 40px; 
+    margin-bottom: 80px; 
 }
 
-.footer-link { color: rgba(255,255,255,0.6); text-decoration: none; transition: 0.3s; font-size: 15px; }
-.footer-link:hover { color: var(--primary); }
+.social-circle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255,255,255,0.6);
+}
 
-.footer-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 30px; }
+.social-circle i {
+    font-size: 18px;
+}
+
+.footer-link { 
+    color: rgba(255,255,255,0.6); 
+    text-decoration: none; 
+    transition: 0.3s; 
+    font-size: 15px; 
+}
+
+.footer-link:hover { 
+    color: var(--primary); 
+}
+
+.footer-title { 
+    font-size: 14px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    color: var(--primary); 
+    margin-bottom: 30px; 
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    padding-left: 5px;
+}
+
+.social-circle { 
+    width: 48px; 
+    height: 48px; 
+    border-radius: 50%; 
+    background: #111; 
+    border: 1px solid rgba(255,255,255,0.05); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: rgba(255,255,255,0.3); 
+    transition: all 0.3s ease; 
+    text-decoration: none;
+}
+
+.social-circle:hover { 
+    background: var(--primary); 
+    color: #fff; 
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(233, 30, 140, 0.4);
+}    text-decoration: none;
+}
+.social-circle:hover { 
+    background: var(--primary); 
+    color: #fff; 
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(233, 30, 140, 0.4);
+}
 
 /* About Section */
 .about-hero {
@@ -914,8 +995,14 @@ footer {
     .editor-canvas-area { height: 400px; }
     .editor-properties { width: 100%; border-left: none; border-top: 1px solid var(--border); }
 
-    .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-    .footer-title { margin-bottom: 15px; }
+    .footer-grid { 
+        grid-template-columns: 1fr 1fr; 
+        gap: 30px; 
+        text-align: left; 
+    }
+    .footer-grid > div:first-child { grid-column: span 2; margin-bottom: 10px; }
+    .footer-grid > div:last-child { grid-column: span 2; margin-top: 10px; }
+    .footer-title { margin-bottom: 15px; font-size: 13px; }
     .mission-cards { grid-template-columns: 1fr; }
 
     /* Hero CTA buttons */
@@ -946,6 +1033,16 @@ footer {
     .about-hero-h1 { font-size: 26px !important; }
     .category-grid { gap: 14px; padding: 0 14px 48px; }
     .hero h1 { font-size: 24px; }
+    .footer-grid { 
+        grid-template-columns: 1fr 1fr; 
+        gap: 24px; 
+        text-align: left; 
+    }
+    .footer-grid > div:first-child, .footer-grid > div:last-child { grid-column: span 2; }
+    .footer-grid p { font-size: 14px !important; line-height: 1.6; }
+    .footer-link { font-size: 13px; }
+    .logo-text { font-size: 24px !important; }
+    .footer-title { margin-top: 10px; }
 }
 
 /* Small Phones */
@@ -1097,7 +1194,7 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
 
 /* ── FOOTER ── */
 .footer { background: #0F0F1E; padding: 60px 0 0; font-family: var(--font); }
-.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px 48px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px 48px; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr; gap: 32px; }
 .footer-col-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
 .footer-link { display: block; font-size: 0.84rem; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
 .footer-link:hover { color: #fff; }
