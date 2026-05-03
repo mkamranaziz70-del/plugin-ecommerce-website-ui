@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+.about-body { padding: 60px 0 70px; background: #fff; }
+
+/* Story section */
+.story-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px; }
+.story-image { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; aspect-ratio: 5/4; background: var(--pink-bg); }
+.story-image img { width: 100%; height: 100%; object-fit: cover; }
+.story-image-tag { position: absolute; bottom: 18px; left: 18px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); padding: 11px 18px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; color: var(--pink-dark); display: flex; align-items: center; gap: 7px; box-shadow: var(--shadow); }
+.story-image-tag i { color: var(--pink); }
+.story-content .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.4rem; color: var(--pink-dark); margin-bottom: 8px; }
+.story-content .eyebrow i { color: var(--pink); font-size: 0.85rem; }
+.story-content h2 { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 18px; }
+.story-content h2 span { color: var(--pink-dark); }
+.story-content p { font-size: 0.95rem; color: var(--text-mid); margin-bottom: 14px; line-height: 1.8; }
+.story-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--border-soft); }
+.stat-num { font-family: var(--display); font-size: 1.85rem; color: var(--pink-dark); }
+.stat-text { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+
+/* Values section */
+.values-section { background: linear-gradient(180deg, var(--mint-soft) 0%, var(--pink-pale) 100%); padding: 70px 0; position: relative; overflow: hidden; }
+.values-section::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.4;
+  background-image: radial-gradient(circle, rgba(255,107,181,0.3) 2px, transparent 2.5px), radial-gradient(circle, rgba(0,180,204,0.25) 1.5px, transparent 2px);
+  background-size: 90px 90px, 120px 120px; background-position: 0 0, 45px 45px; }
+.values-section .container { position: relative; z-index: 1; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 32px; }
+.value-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,184,220,0.4); border-radius: var(--radius); padding: 32px 24px; text-align: center; transition: all 0.3s; }
+.value-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.value-icon { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--pink) 0%, var(--pink-mid) 100%); color: #fff; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; box-shadow: 0 8px 22px rgba(255,20,147,0.3); }
+.value-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.value-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; }
+
+/* Team section */
+.team-section { padding: 70px 0; background: #fff; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 32px; }
+.team-card { text-align: center; }
+.team-photo { aspect-ratio: 1; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, var(--pink-pale) 0%, var(--pink-bg) 100%); margin-bottom: 18px; position: relative; display: flex; align-items: center; justify-content: center; }
+.team-photo .avatar-art { width: 60%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; color: var(--pink-dark); font-size: 3rem; box-shadow: var(--shadow); }
+.team-photo .avatar-art.t2 { background: rgba(199,240,236,0.9); color: var(--teal-dark); }
+.team-photo .avatar-art.t3 { background: rgba(255,244,220,0.95); color: #D97706; }
+.team-name { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.team-role { font-size: 0.82rem; color: var(--pink-dark); font-weight: 600; margin-bottom: 12px; }
+.team-bio { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; }
+
+/* CTA */
+.about-cta { padding: 64px 0; background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 50%, var(--pink-mid) 100%); position: relative; overflow: hidden; }
+.about-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 55%); }
+.about-cta .container { position: relative; z-index: 1; text-align: center; color: #fff; }
+.about-cta h2 { font-family: var(--display); font-size: 2.5rem; margin-bottom: 12px; }
+.about-cta p { font-size: 1rem; opacity: 0.95; max-width: 580px; margin: 0 auto 26px; }
+.about-cta .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: #fff; color: var(--pink-dark); }
+.btn-white:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+.btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.6); }
+.btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+
+@media (max-width: 1000px) {
+  .story-grid { grid-template-columns: 1fr; gap: 36px; }
+  .values-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .story-content h2 { font-size: 1.5rem; }
+  .values-grid, .team-grid { grid-template-columns: 1fr; }
+  .story-stats { grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .stat-num { font-size: 1.4rem; }
+  .stat-text { font-size: 0.7rem; }
+  .about-cta h2 { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Edible &amp; Premium Quality</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="#"><i class="fa-regular fa-user"></i> My Account</a>
+      <span class="divider"></span>
+      <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">Newy Edible Toppers</span>
+        <span class="brand-tag">Custom Edible Prints · NSW</span>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
+      <a href="custom-order.html" class="nav-link">Custom Order</a>
+      <a href="about.html" class="nav-link active">About Us</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-search">
+      <input type="text" placeholder="Search products...">
+      <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <button class="nav-toggle" onclick="document.body.classList.add('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="brand"><div class="brand-mark" style="width:40px;height:40px;"><i class="fa-solid fa-cake-candles" style="font-size:1rem;"></i></div><span class="brand-name" style="font-size:1.05rem;">Newy Edible Toppers</span></a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
+      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="about.html" class="mobile-nav-link active"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
+    </nav>
+    <div class="mobile-nav-foot">
+      <a href="#" class="btn btn-outline"><i class="fa-regular fa-user"></i> Account</a>
+      <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-breadcrumbs"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>About Us</span></div>
+    <div class="page-hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Our Story <i class="fa-solid fa-sparkles"></i></div>
+    <h1>Made with <span>Love</span> in Newy</h1>
+    <p>A small Newcastle business with a big love for celebration — turning your favourite memories into edible art since 2021.</p>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="about-body">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-image">
+        <img src="baker_lifestyle_kitchen_1777369694376.png" alt="Our Newcastle studio">
+        <div class="story-image-tag"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW</div>
+      </div>
+      <div class="story-content">
+        <div class="eyebrow">Hello, we're Newy! <i class="fa-solid fa-heart"></i></div>
+        <h2>Bringing your <span>sweetest moments</span> to life, one topper at a time.</h2>
+        <p>Newy Edible Toppers started as a kitchen-table side project in Newcastle. We saw friends struggling to find <strong>quality edible prints</strong> that actually tasted good and looked vibrant on the cake.</p>
+        <p>Today we're a passionate small team using high-definition printing technology and premium icing sheets to deliver professional-grade results to home bakers, professional cake decorators and corporate clients across Australia.</p>
+        <p>Every topper is printed fresh, packaged carefully and shipped quickly — because your celebration deserves nothing less.</p>
+
+        <div class="story-stats">
+          <div><div class="stat-num">12k+</div><div class="stat-text">Happy customers</div></div>
+          <div><div class="stat-num">85k+</div><div class="stat-text">Toppers printed</div></div>
+          <div><div class="stat-num">4.9★</div><div class="stat-text">Average rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="container">
+    <div class="section-h2-wrap">
+      <i class="fa-solid fa-sparkles icon-l"></i>
+      <span class="section-h2">What We Stand For</span>
+      <i class="fa-solid fa-sparkles icon-r"></i>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon"><i class="fa-solid fa-leaf"></i></div>
+        <h4>100% Edible &amp; Safe</h4>
+        <p>Premium icing sheets and food-grade inks — safe for kids, allergy-friendly, and certified to Australian food standards.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fa-solid fa-palette"></i></div>
+        <h4>Vibrant, True-to-Life Colour</h4>
+        <p>HD printers calibrated weekly to make sure your character, photo or logo prints exactly as you imagined.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fa-solid fa-heart"></i></div>
+        <h4>Made with Love, in Newy</h4>
+        <p>Proudly local. Every topper is checked, packaged and dispatched personally from our Newcastle studio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="container">
+    <div class="section-h2-wrap">
+      <i class="fa-solid fa-sparkles icon-l"></i>
+      <span class="section-h2">Meet the Team</span>
+      <i class="fa-solid fa-sparkles icon-r"></i>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo"><div class="avatar-art"><i class="fa-solid fa-user"></i></div></div>
+        <div class="team-name">Emily Roberts</div>
+        <div class="team-role">Founder &amp; Head Designer</div>
+        <p class="team-bio">Started Newy from her home kitchen in 2021. Loves vintage cake design, watching her dog Coco eat anything that hits the floor.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="avatar-art t2"><i class="fa-solid fa-user"></i></div></div>
+        <div class="team-name">James Thompson</div>
+        <div class="team-role">Print &amp; Production Lead</div>
+        <p class="team-bio">Our colour calibration wizard. If your cake topper looks vibrant, James probably had a hand in it. Coffee-powered, perfectionist.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="avatar-art t3"><i class="fa-solid fa-user"></i></div></div>
+        <div class="team-name">Sarah Mitchell</div>
+        <div class="team-role">Customer Happiness</div>
+        <p class="team-bio">The friendly voice behind every email. Helps you upload artwork, fix files and hand-checks every order before it ships.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <div class="container">
+    <h2>Ready to make something sweet?</h2>
+    <p>Browse our designs or upload your own — we'll handle the rest. Same-day dispatch on every order placed before 12pm.</p>
+    <div class="btn-row">
+      <a href="shop.html" class="btn btn-white"><i class="fa-solid fa-store"></i> Shop Designs</a>
+      <a href="custom-order.html" class="btn btn-ghost"><i class="fa-solid fa-pen-nib"></i> Order Custom</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand-mark"><div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div><span class="foot-brand-name">Newy Edible Toppers</span></div>
+        <p class="foot-tagline">Custom edible toppers for every occasion. Made in Newy, Australia with love and sprinkles.</p>
+        <div class="foot-socials"><a href="#" class="foot-social"><i class="fa-brands fa-instagram"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-tiktok"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-pinterest-p"></i></a></div>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Quick Links</h5>
+        <a href="shop.html" class="foot-link">Shop All</a>
+        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="about.html" class="foot-link">About Us</a>
+        <a href="faq.html" class="foot-link">FAQ</a>
+        <a href="contact.html" class="foot-link">Contact Us</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Customer Care</h5>
+        <a href="#" class="foot-link">Shipping Information</a>
+        <a href="#" class="foot-link">Returns &amp; Refunds</a>
+        <a href="#" class="foot-link">How to Use</a>
+        <a href="#" class="foot-link">Storage Instructions</a>
+        <a href="#" class="foot-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Let's Stay in Touch!</h5>
+        <p class="foot-newsletter">Sign up for new designs, offers and sweet inspiration!</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Contact Us</h5>
+        <div class="foot-contact-row"><i class="fa-regular fa-envelope"></i> hello@newyedibletoppers.com.au</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW, Australia</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-phone"></i> 0412 345 678</div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div>© 2025 Newy Edible Toppers. All rights reserved.</div><div class="made">Made with <i class="fa-solid fa-heart"></i> in Newy</div></div>
+  </div>
+</footer>
+
+</body>
+</html>

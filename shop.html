@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ── SHOP LAYOUT ── */
+.shop-body { padding: 50px 0 70px; background: #fff; }
+.shop-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+
+/* Sidebar filters */
+.filter-panel { background: var(--pink-pale); border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; position: sticky; top: 110px; }
+.filter-head { padding: 18px 22px; background: linear-gradient(135deg, var(--pink-cream) 0%, var(--pink-bg) 100%); display: flex; justify-content: space-between; align-items: center; }
+.filter-head h3 { font-size: 0.95rem; font-weight: 800; color: var(--pink-dark); display: inline-flex; align-items: center; gap: 8px; }
+.filter-head h3 i { color: var(--pink); font-size: 0.8rem; }
+.filter-head a { font-size: 0.72rem; color: var(--pink); font-weight: 700; }
+.filter-section { padding: 18px 22px; border-top: 1px solid rgba(255,184,220,0.3); }
+.filter-section h4 { font-size: 0.78rem; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+.filter-option { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; cursor: pointer; transition: color 0.2s; font-size: 0.85rem; color: var(--text-mid); }
+.filter-option:hover { color: var(--pink-dark); }
+.filter-option .left { display: flex; align-items: center; gap: 9px; }
+.filter-check { width: 18px; height: 18px; border: 2px solid var(--pink-soft); border-radius: 5px; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.filter-check.checked { background: var(--pink); border-color: var(--pink); color: #fff; font-size: 0.65rem; }
+.filter-count { font-size: 0.72rem; color: var(--text-light); }
+.price-range-row { display: flex; align-items: center; gap: 10px; }
+.price-input { flex: 1; padding: 8px 10px; border: 1.5px solid var(--border-soft); border-radius: 8px; font-family: var(--font); font-size: 0.82rem; color: var(--text); background: #fff; outline: none; }
+.price-input:focus { border-color: var(--pink); }
+
+/* Sort/results bar */
+.shop-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+.shop-result-count { font-size: 0.85rem; color: var(--text-mid); font-weight: 600; }
+.shop-result-count strong { color: var(--pink-dark); }
+.toolbar-right { display: flex; gap: 12px; align-items: center; }
+.sort-select { padding: 9px 16px; border: 1.5px solid var(--border-soft); border-radius: 10px; background: #fff; font-family: var(--font); font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; transition: border-color 0.2s; }
+.sort-select:focus { border-color: var(--pink); }
+
+/* Product grid */
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.product-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; transition: all 0.3s; box-shadow: var(--shadow-sm); }
+.product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--pink-soft); }
+.product-img { aspect-ratio: 1; background: linear-gradient(135deg, var(--pink-pale) 0%, var(--pink-bg) 100%); position: relative; overflow: hidden; }
+.product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.product-card:hover .product-img img { transform: scale(1.06); }
+.product-badge { position: absolute; top: 12px; left: 12px; background: var(--pink); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em; }
+.product-badge.new { background: var(--teal); }
+.product-badge.sale { background: var(--yellow); }
+.product-fav { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; color: var(--pink-dark); cursor: pointer; transition: all 0.2s; font-size: 0.85rem; }
+.product-fav:hover { background: var(--pink); color: #fff; }
+.product-body { padding: 18px; }
+.product-cat { font-size: 0.7rem; color: var(--pink); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.product-name { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 8px; line-height: 1.3; }
+.product-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 0.78rem; color: var(--text-muted); }
+.product-rating .stars { color: var(--yellow); letter-spacing: 1.5px; }
+.product-bottom { display: flex; justify-content: space-between; align-items: center; }
+.product-price { font-size: 1.15rem; font-weight: 900; color: var(--pink-dark); }
+.product-price .orig { font-size: 0.82rem; color: var(--text-light); text-decoration: line-through; font-weight: 600; margin-left: 6px; }
+.product-add { width: 36px; height: 36px; border-radius: 50%; background: var(--pink); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(255,20,147,0.3); }
+.product-add:hover { background: var(--pink-dark); transform: scale(1.08); }
+
+/* Pagination */
+.pagination { display: flex; gap: 6px; justify-content: center; margin-top: 50px; }
+.pagination a { width: 38px; height: 38px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border-soft); color: var(--text-mid); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; transition: all 0.2s; }
+.pagination a:hover { border-color: var(--pink); color: var(--pink-dark); }
+.pagination a.active { background: var(--pink); color: #fff; border-color: var(--pink); }
+
+/* Featured strip */
+.featured-strip { background: linear-gradient(135deg, var(--mint-soft) 0%, var(--pink-pale) 100%); padding: 28px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.featured-strip-inner { display: flex; justify-content: space-around; gap: 24px; flex-wrap: wrap; }
+.featured-strip-item { display: flex; gap: 12px; align-items: center; }
+.featured-strip-item i { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--pink); font-size: 1rem; box-shadow: var(--shadow-sm); }
+.featured-strip-item .text { display: flex; flex-direction: column; }
+.featured-strip-item .text .t { font-size: 0.85rem; font-weight: 800; color: var(--text); }
+.featured-strip-item .text .s { font-size: 0.72rem; color: var(--text-muted); }
+
+@media (max-width: 1100px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .shop-grid { grid-template-columns: 1fr; gap: 24px; }
+  .filter-panel { position: static; }
+}
+@media (max-width: 600px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-body { padding: 12px; }
+  .product-name { font-size: 0.82rem; }
+  .product-price { font-size: 0.95rem; }
+  .shop-toolbar { padding: 10px 0; }
+  .shop-result-count { font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Edible &amp; Premium Quality</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="#"><i class="fa-regular fa-user"></i> My Account</a>
+      <span class="divider"></span>
+      <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">Newy Edible Toppers</span>
+        <span class="brand-tag">Custom Edible Prints · NSW</span>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link active">Shop <i class="fa-solid fa-chevron-down"></i></a>
+      <a href="custom-order.html" class="nav-link">Custom Order</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-search">
+      <input type="text" placeholder="Search products...">
+      <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <button class="nav-toggle" onclick="document.body.classList.add('nav-open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="brand">
+        <div class="brand-mark" style="width:40px;height:40px;"><i class="fa-solid fa-cake-candles" style="font-size:1rem;"></i></div>
+        <span class="brand-name" style="font-size:1.05rem;">Newy Edible Toppers</span>
+      </a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link active"><i class="fa-solid fa-store"></i> Shop</a>
+      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
+    </nav>
+    <div class="mobile-nav-foot">
+      <a href="#" class="btn btn-outline"><i class="fa-regular fa-user"></i> Account</a>
+      <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-breadcrumbs">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Shop All</span>
+    </div>
+    <div class="page-hero-eyebrow">
+      <i class="fa-solid fa-sparkles"></i> Sweet Collection <i class="fa-solid fa-sparkles"></i>
+    </div>
+    <h1>Shop Our <span>Edible Toppers</span></h1>
+    <p>Browse our full range of personalised edible cake toppers. Made fresh in Newcastle, shipped Australia-wide.</p>
+  </div>
+</section>
+
+<!-- FEATURED STRIP -->
+<div class="featured-strip">
+  <div class="container">
+    <div class="featured-strip-inner">
+      <div class="featured-strip-item"><i class="fa-solid fa-truck-fast"></i><div class="text"><span class="t">Free Shipping</span><span class="s">On orders over $50</span></div></div>
+      <div class="featured-strip-item"><i class="fa-solid fa-clock"></i><div class="text"><span class="t">Same-Day Dispatch</span><span class="s">Order before 12pm</span></div></div>
+      <div class="featured-strip-item"><i class="fa-solid fa-leaf"></i><div class="text"><span class="t">100% Edible</span><span class="s">Premium icing sheets</span></div></div>
+      <div class="featured-strip-item"><i class="fa-solid fa-headset"></i><div class="text"><span class="t">Friendly Support</span><span class="s">Always happy to help</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP BODY -->
+<section class="shop-body">
+  <div class="container">
+    <div class="shop-grid">
+
+      <!-- FILTERS -->
+      <aside class="filter-panel">
+        <div class="filter-head">
+          <h3><i class="fa-solid fa-sliders"></i> Filters</h3>
+          <a href="#">Clear all</a>
+        </div>
+        <div class="filter-section">
+          <h4>Category <i class="fa-solid fa-chevron-up" style="font-size:0.7rem;color:var(--text-light);"></i></h4>
+          <div class="filter-option"><div class="left"><div class="filter-check checked"><i class="fa-solid fa-check"></i></div><span>Birthday Toppers</span></div><span class="filter-count">28</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check checked"><i class="fa-solid fa-check"></i></div><span>Kids Themes</span></div><span class="filter-count">14</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Corporate Logos</span></div><span class="filter-count">11</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Wedding &amp; Events</span></div><span class="filter-count">9</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Seasonal Designs</span></div><span class="filter-count">12</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Cupcake Sheets</span></div><span class="filter-count">10</span></div>
+        </div>
+        <div class="filter-section">
+          <h4>Price Range</h4>
+          <div class="price-range-row">
+            <input type="number" class="price-input" value="0" min="0">
+            <span style="color:var(--text-light);">—</span>
+            <input type="number" class="price-input" value="50" min="0">
+          </div>
+        </div>
+        <div class="filter-section">
+          <h4>Shape</h4>
+          <div class="filter-option"><div class="left"><div class="filter-check checked"><i class="fa-solid fa-check"></i></div><span>Round</span></div><span class="filter-count">38</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Square</span></div><span class="filter-count">22</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Rectangle</span></div><span class="filter-count">14</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>Custom Cut</span></div><span class="filter-count">8</span></div>
+        </div>
+        <div class="filter-section">
+          <h4>Size</h4>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>6cm</span></div><span class="filter-count">16</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check checked"><i class="fa-solid fa-check"></i></div><span>8cm</span></div><span class="filter-count">28</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>15cm</span></div><span class="filter-count">22</span></div>
+          <div class="filter-option"><div class="left"><div class="filter-check"></div><span>20cm</span></div><span class="filter-count">18</span></div>
+        </div>
+      </aside>
+
+      <!-- PRODUCTS -->
+      <div>
+        <div class="shop-toolbar">
+          <div class="shop-result-count">Showing <strong>1–12</strong> of <strong>84</strong> products</div>
+          <div class="toolbar-right">
+            <select class="sort-select">
+              <option>Sort: Most Popular</option>
+              <option>Newest First</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Best Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <!-- 12 product cards -->
+          <div class="product-card">
+            <div class="product-img">
+              <span class="product-badge">Bestseller</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_birthday_toppers_1777369655244.png" alt="Happy Birthday Round Topper">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Birthday</div>
+              <div class="product-name">Happy Birthday Round Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (248)</div>
+              <div class="product-bottom"><span class="product-price">$8.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <span class="product-badge new">New</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_kids_toppers_extra.png" alt="Kids Character Pack">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Kids Themes</div>
+              <div class="product-name">Kids Character Pack (12)</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 (164)</div>
+              <div class="product-bottom"><span class="product-price">$14.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_corporate_toppers_1777369672917.png" alt="Custom Logo Topper">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Corporate</div>
+              <div class="product-name">Your Logo Custom Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 5.0 (89)</div>
+              <div class="product-bottom"><span class="product-price">$12.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <span class="product-badge sale">-20%</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_anniversary_toppers_extra.png" alt="Anniversary Elegance">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Wedding</div>
+              <div class="product-name">Anniversary Elegance Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (132)</div>
+              <div class="product-bottom"><span class="product-price">$9.99 <span class="orig">$12.49</span></span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <span class="product-badge">Bestseller</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_cupcake_sheets_extra.png" alt="Cupcake Sheet">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Cupcake</div>
+              <div class="product-name">Cupcake Topper Sheet (24)</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (412)</div>
+              <div class="product-bottom"><span class="product-price">$11.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="category_wedding_toppers_extra.png" alt="Wedding Monogram">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Wedding</div>
+              <div class="product-name">Wedding Monogram Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 5.0 (67)</div>
+              <div class="product-bottom"><span class="product-price">$13.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <span class="product-badge new">New</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <img src="hero_cupcakes_toppers_1777369631881.png" alt="Cupcake Variety Pack">
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Variety</div>
+              <div class="product-name">Cupcake Variety Pack (24)</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (203)</div>
+              <div class="product-bottom"><span class="product-price">$15.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img" style="background:linear-gradient(135deg,#FFE5F1 0%,#FFB8DC 100%);display:flex;align-items:center;justify-content:center;">
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <div style="width:65%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0%,#FFF0F8 100%);box-shadow:0 8px 28px rgba(255,20,147,0.18);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                <i class="fa-solid fa-heart" style="color:var(--pink);font-size:2.2rem;"></i>
+                <span style="font-family:var(--display);font-size:1.1rem;color:var(--pink-dark);">Love</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Romance</div>
+              <div class="product-name">Valentine's Heart Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 (98)</div>
+              <div class="product-bottom"><span class="product-price">$8.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img" style="background:linear-gradient(135deg,#E8F5E9 0%,#FFEBEE 100%);display:flex;align-items:center;justify-content:center;">
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <div style="width:65%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0%,#FFE4E1 100%);box-shadow:0 8px 28px rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;">
+                <i class="fa-solid fa-snowflake" style="color:#DC2626;font-size:1.9rem;"></i>
+                <span style="font-weight:900;font-size:0.65rem;color:#10B981;letter-spacing:0.1em;">MERRY</span>
+                <span style="font-weight:900;font-size:0.65rem;color:#DC2626;letter-spacing:0.1em;">XMAS</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Seasonal</div>
+              <div class="product-name">Christmas Magic Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (156)</div>
+              <div class="product-bottom"><span class="product-price">$9.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img" style="background:linear-gradient(135deg,#FFF3E0 0%,#FFE0B2 100%);display:flex;align-items:center;justify-content:center;">
+              <span class="product-badge sale">-15%</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <div style="width:65%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0%,#FFF8E1 100%);box-shadow:0 8px 28px rgba(245,158,11,0.18);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                <i class="fa-solid fa-baby" style="color:#F59E0B;font-size:1.9rem;"></i>
+                <span style="font-family:var(--display);font-size:1rem;color:#D97706;">Baby</span>
+                <span style="font-weight:700;font-size:0.6rem;color:#92400E;letter-spacing:0.1em;">SHOWER</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Baby</div>
+              <div class="product-name">Baby Shower Welcome Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 5.0 (74)</div>
+              <div class="product-bottom"><span class="product-price">$8.49 <span class="orig">$9.99</span></span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img" style="background:linear-gradient(135deg,#F3E5F5 0%,#E1BEE7 100%);display:flex;align-items:center;justify-content:center;">
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <div style="width:65%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0%,#F8E4F0 100%);box-shadow:0 8px 28px rgba(156,39,176,0.18);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                <i class="fa-solid fa-graduation-cap" style="color:#7B1FA2;font-size:1.9rem;"></i>
+                <span style="font-family:var(--display);font-size:1rem;color:#6A1B9A;">2025</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Graduation</div>
+              <div class="product-name">Graduation Class of 2025</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 (88)</div>
+              <div class="product-bottom"><span class="product-price">$10.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img" style="background:linear-gradient(135deg,#E1F5FE 0%,#B3E5FC 100%);display:flex;align-items:center;justify-content:center;">
+              <span class="product-badge new">New</span>
+              <div class="product-fav"><i class="fa-regular fa-heart"></i></div>
+              <div style="width:65%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0%,#E3F2FD 100%);box-shadow:0 8px 28px rgba(2,136,209,0.2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                <i class="fa-solid fa-rocket" style="color:#0277BD;font-size:1.9rem;"></i>
+                <span style="font-weight:900;font-size:0.65rem;color:#01579B;letter-spacing:0.1em;">SPACE</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-cat">Kids Themes</div>
+              <div class="product-name">Space Adventure Topper</div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 (62)</div>
+              <div class="product-bottom"><span class="product-price">$9.99</span><div class="product-add"><i class="fa-solid fa-plus"></i></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <a href="#"><i class="fa-solid fa-chevron-left"></i></a>
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#" style="border:none;color:var(--text-light);">…</a>
+          <a href="#">7</a>
+          <a href="#"><i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand-mark">
+          <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+          <span class="foot-brand-name">Newy Edible Toppers</span>
+        </div>
+        <p class="foot-tagline">Custom edible toppers for every occasion. Made in Newy, Australia with love and sprinkles.</p>
+        <div class="foot-socials">
+          <a href="#" class="foot-social"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="foot-social"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="foot-social"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="foot-social"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Quick Links</h5>
+        <a href="shop.html" class="foot-link">Shop All</a>
+        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="about.html" class="foot-link">About Us</a>
+        <a href="faq.html" class="foot-link">FAQ</a>
+        <a href="contact.html" class="foot-link">Contact Us</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Customer Care</h5>
+        <a href="#" class="foot-link">Shipping Information</a>
+        <a href="#" class="foot-link">Returns &amp; Refunds</a>
+        <a href="#" class="foot-link">How to Use</a>
+        <a href="#" class="foot-link">Storage Instructions</a>
+        <a href="#" class="foot-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Let's Stay in Touch!</h5>
+        <p class="foot-newsletter">Sign up for new designs, offers and sweet inspiration!</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Contact Us</h5>
+        <div class="foot-contact-row"><i class="fa-regular fa-envelope"></i> hello@newyedibletoppers.com.au</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW, Australia</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-phone"></i> 0412 345 678</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Newy Edible Toppers. All rights reserved.</div>
+      <div class="made">Made with <i class="fa-solid fa-heart"></i> in Newy</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

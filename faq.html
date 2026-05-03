@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+.faq-body { padding: 50px 0 70px; background: #fff; }
+.faq-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+
+/* Sidebar */
+.faq-side { background: linear-gradient(180deg, var(--pink-pale) 0%, var(--pink-cream) 100%); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 22px; position: sticky; top: 110px; }
+.faq-side h3 { font-family: var(--display); font-size: 1.3rem; color: var(--pink-dark); margin-bottom: 18px; }
+.faq-cat { display: flex; align-items: center; gap: 11px; padding: 11px 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 4px; }
+.faq-cat:hover { background: rgba(255,255,255,0.6); color: var(--pink-dark); }
+.faq-cat.active { background: #fff; color: var(--pink-dark); box-shadow: var(--shadow-sm); }
+.faq-cat i { width: 18px; color: var(--pink); flex-shrink: 0; }
+.faq-cat .num { margin-left: auto; font-size: 0.7rem; color: var(--text-light); font-weight: 600; }
+
+/* Help card */
+.help-card { background: #fff; border: 1px solid var(--pink-soft); border-radius: var(--radius); padding: 24px; text-align: center; margin-top: 20px; }
+.help-card i { color: var(--pink); font-size: 1.5rem; margin-bottom: 10px; }
+.help-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.help-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+.help-card .btn-sm { width: 100%; justify-content: center; }
+
+/* FAQ items */
+.faq-section-title { font-family: var(--display); font-size: 1.65rem; color: var(--pink-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.faq-section-title i { color: var(--pink); font-size: 1rem; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+
+.faq-item { background: #fff; border: 1.5px solid var(--border-soft); border-radius: 14px; overflow: hidden; transition: all 0.25s; }
+.faq-item.open { border-color: var(--pink); box-shadow: 0 8px 24px rgba(255,20,147,0.10); }
+.faq-q { padding: 18px 22px; font-size: 0.92rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.faq-q:hover { color: var(--pink-dark); }
+.faq-q .icon { width: 32px; height: 32px; border-radius: 50%; background: var(--pink-pale); color: var(--pink-dark); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; flex-shrink: 0; transition: all 0.25s; }
+.faq-item.open .faq-q .icon { background: var(--pink); color: #fff; transform: rotate(45deg); }
+.faq-a { display: none; padding: 0 22px 22px; font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; border-top: 1px dashed var(--border-soft); padding-top: 16px; }
+.faq-item.open .faq-a { display: block; }
+.faq-a strong { color: var(--text); font-weight: 700; }
+.faq-a a { color: var(--pink-dark); font-weight: 600; }
+.faq-a a:hover { text-decoration: underline; }
+.faq-a ul { padding-left: 18px; margin: 8px 0; }
+.faq-a li { margin-bottom: 4px; }
+
+/* Contact strip */
+.contact-strip { background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%); color: #fff; padding: 50px 0; position: relative; overflow: hidden; }
+.contact-strip::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12) 0%, transparent 50%); }
+.contact-strip-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; align-items: center; }
+.contact-strip h2 { font-family: var(--display); font-size: 2.2rem; margin-bottom: 8px; }
+.contact-strip p { font-size: 0.95rem; opacity: 0.95; }
+.contact-strip .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.btn-white { background: #fff; color: var(--pink-dark); }
+.btn-white:hover { background: var(--cream); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.6); }
+.btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+
+@media (max-width: 1000px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-side { position: static; }
+  .faq-cat-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+  .faq-cat-row .faq-cat { flex-shrink: 0; margin-bottom: 0; }
+}
+@media (max-width: 700px) {
+  .contact-strip-inner { grid-template-columns: 1fr; text-align: center; }
+  .contact-strip .btn-row { justify-content: center; }
+  .contact-strip h2 { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Edible &amp; Premium Quality</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="#"><i class="fa-regular fa-user"></i> My Account</a>
+      <span class="divider"></span>
+      <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="brand-text"><span class="brand-name">Newy Edible Toppers</span><span class="brand-tag">Custom Edible Prints · NSW</span></div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
+      <a href="custom-order.html" class="nav-link">Custom Order</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="faq.html" class="nav-link active">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-search"><input type="text" placeholder="Search FAQs..."><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
+    <button class="nav-toggle" onclick="document.body.classList.add('nav-open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="brand"><div class="brand-mark" style="width:40px;height:40px;"><i class="fa-solid fa-cake-candles" style="font-size:1rem;"></i></div><span class="brand-name" style="font-size:1.05rem;">Newy Edible Toppers</span></a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
+      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="mobile-nav-link active"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
+    </nav>
+    <div class="mobile-nav-foot">
+      <a href="#" class="btn btn-outline"><i class="fa-regular fa-user"></i> Account</a>
+      <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-breadcrumbs"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>FAQ</span></div>
+    <div class="page-hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Got Questions? <i class="fa-solid fa-sparkles"></i></div>
+    <h1>Frequently Asked <span>Questions</span></h1>
+    <p>Everything you need to know about ordering, printing, shipping and using your edible toppers.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-body">
+  <div class="container">
+    <div class="faq-grid">
+
+      <!-- Side: Categories -->
+      <aside class="faq-side">
+        <h3>Browse Topics</h3>
+        <div class="faq-cat-row" style="display:flex;flex-direction:column;">
+          <div class="faq-cat active"><i class="fa-solid fa-cart-shopping"></i> Ordering &amp; Pricing <span class="num">5</span></div>
+          <div class="faq-cat"><i class="fa-solid fa-pen-nib"></i> Custom Designs <span class="num">4</span></div>
+          <div class="faq-cat"><i class="fa-solid fa-truck-fast"></i> Shipping &amp; Delivery <span class="num">3</span></div>
+          <div class="faq-cat"><i class="fa-solid fa-cake-candles"></i> Using Your Topper <span class="num">4</span></div>
+          <div class="faq-cat"><i class="fa-solid fa-rotate-left"></i> Returns &amp; Refunds <span class="num">2</span></div>
+        </div>
+        <div class="help-card">
+          <i class="fa-solid fa-headset"></i>
+          <h4>Still Need Help?</h4>
+          <p>Our friendly team is here Mon–Fri, 9–5.</p>
+          <a href="contact.html" class="btn btn-pink btn-sm">Contact Us</a>
+        </div>
+      </aside>
+
+      <!-- FAQ content -->
+      <div>
+
+        <h2 class="faq-section-title"><i class="fa-solid fa-cart-shopping"></i> Ordering &amp; Pricing</h2>
+        <div class="faq-list">
+          <div class="faq-item open" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How do I place an order? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Simply browse our <a href="shop.html">shop</a> and pick the design you love, or use our <a href="custom-order.html">custom order</a> form to upload your own image, logo or text. Choose your size, sheet type and quantity, fill in your details, and we'll send a free artwork preview before printing. Most orders ship the same day if placed before 12pm.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How much do edible toppers cost? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Pricing starts from <strong>$6.99</strong> for a 6cm round topper and goes up based on size and finish. Custom designs from your photo or logo are <strong>$8.99</strong> for a standard 8cm round. Bulk pricing is available for orders of 10+ — just contact us.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Do you offer bulk or wholesale pricing? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Yes! We work with bakeries, event planners and corporate clients. Discounts kick in at 10+ toppers and we offer a dedicated wholesale program for regular orders. <a href="contact.html">Get in touch</a> for a quote.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Can I cancel or change my order after placing it? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">If we haven't started printing yet, absolutely — just email <a href="#">hello@newyedibletoppers.com.au</a> with your order number. Once printing has started we may not be able to make changes, so double-check your artwork preview!</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">What payment methods do you accept? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">We accept all major credit and debit cards — <strong>Visa, Mastercard and AMEX</strong> — securely processed via Stripe. All payments are encrypted end-to-end with 256-bit SSL.</div>
+          </div>
+        </div>
+
+        <h2 class="faq-section-title"><i class="fa-solid fa-pen-nib"></i> Custom Designs</h2>
+        <div class="faq-list">
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">What image formats do you accept? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">We accept <strong>JPG, PNG and PDF</strong>. For the best print quality, please upload at <strong>300 DPI minimum</strong>. PNG with a transparent background is ideal for logos.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Can you use a photo from my phone? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Absolutely — modern phone photos are usually high enough quality. Make sure the subject is in focus, well-lit and not cropped tightly. Our team will check the resolution before printing and email you if anything needs adjusting.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Do you do edits or design work? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Yes! Light edits like adding a name, changing colours or removing a background are included free with every custom order. More involved design work (creating from scratch, redrawing logos) is $15–$45 depending on complexity.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Are there any image restrictions? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">We can't print copyrighted character art (Disney, Marvel etc.) unless you can show licensed permission. Otherwise, we have plenty of original character-style designs available in our shop.</div>
+          </div>
+        </div>
+
+        <h2 class="faq-section-title"><i class="fa-solid fa-truck-fast"></i> Shipping &amp; Delivery</h2>
+        <div class="faq-list">
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How long does shipping take? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">
+              <ul>
+                <li><strong>Standard (Australia-wide):</strong> 3–5 business days · $6.95</li>
+                <li><strong>Express Post:</strong> 1–2 business days · $12.95</li>
+                <li><strong>Newcastle Local Pickup:</strong> Free · ready same day</li>
+              </ul>
+              Shipping is <strong>free on orders over $50</strong>.
+            </div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Do you ship internationally? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Currently we ship within Australia only — edible products have strict customs rules overseas. We're working on expanding to NZ in 2026!</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">When will my order be dispatched? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Pre-designed toppers placed before 12pm Mon–Fri ship the same day. Custom orders ship within 24 hours of you approving the artwork preview. You'll get tracking the moment we hand it to the courier.</div>
+          </div>
+        </div>
+
+        <h2 class="faq-section-title"><i class="fa-solid fa-cake-candles"></i> Using Your Topper</h2>
+        <div class="faq-list">
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How do I apply the topper to my cake? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Peel the topper away from the backing sheet just before applying. Place gently onto buttercream, fondant, ganache or whipped cream — the moisture activates a natural bond. Avoid placing on dry surfaces like dry sponge or chocolate (the topper needs moisture to stick).</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How long do toppers last? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Sealed in their original packaging, our toppers stay fresh for <strong>6–9 months</strong>. Once applied to the cake, the cake should be eaten within 2–3 days as normal.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">How should I store my topper before use? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Store in the original sealed bag at room temperature, away from direct sunlight, heat and moisture. Do <strong>not</strong> refrigerate — condensation will warp the icing sheet.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">Are toppers allergy-friendly? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Our standard icing is gluten-free, nut-free, dairy-free and vegetarian. We also offer a fully vegan wafer option. Always check the ingredients list on your packaging if you have specific allergies.</div>
+          </div>
+        </div>
+
+        <h2 class="faq-section-title"><i class="fa-solid fa-rotate-left"></i> Returns &amp; Refunds</h2>
+        <div class="faq-list">
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">What's your refund policy? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Because each topper is custom-made and edible, we don't accept change-of-mind returns. However, if your order arrives damaged, mis-printed, or different to what you approved, we'll reprint and ship a replacement at no cost — just send a photo within 48 hours.</div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-q">My topper arrived damaged — what now? <span class="icon"><i class="fa-solid fa-plus"></i></span></div>
+            <div class="faq-a">Email <a href="#">hello@newyedibletoppers.com.au</a> with your order number and a photo of the damaged item within 48 hours of delivery. We'll express-ship a replacement that same day, no questions asked.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact strip -->
+<section class="contact-strip">
+  <div class="container">
+    <div class="contact-strip-inner">
+      <div>
+        <h2>Couldn't find your answer?</h2>
+        <p>Our friendly team replies within 4 business hours. Pop us a message — we love a chat.</p>
+      </div>
+      <div class="btn-row">
+        <a href="contact.html" class="btn btn-white"><i class="fa-regular fa-envelope"></i> Send a Message</a>
+        <a href="tel:0412345678" class="btn btn-ghost"><i class="fa-solid fa-phone"></i> 0412 345 678</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand-mark"><div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div><span class="foot-brand-name">Newy Edible Toppers</span></div>
+        <p class="foot-tagline">Custom edible toppers for every occasion. Made in Newy, Australia with love and sprinkles.</p>
+        <div class="foot-socials"><a href="#" class="foot-social"><i class="fa-brands fa-instagram"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-tiktok"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-pinterest-p"></i></a></div>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Quick Links</h5>
+        <a href="shop.html" class="foot-link">Shop All</a>
+        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="about.html" class="foot-link">About Us</a>
+        <a href="faq.html" class="foot-link">FAQ</a>
+        <a href="contact.html" class="foot-link">Contact Us</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Customer Care</h5>
+        <a href="#" class="foot-link">Shipping Information</a>
+        <a href="#" class="foot-link">Returns &amp; Refunds</a>
+        <a href="#" class="foot-link">How to Use</a>
+        <a href="#" class="foot-link">Storage Instructions</a>
+        <a href="#" class="foot-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Let's Stay in Touch!</h5>
+        <p class="foot-newsletter">Sign up for new designs, offers and sweet inspiration!</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Contact Us</h5>
+        <div class="foot-contact-row"><i class="fa-regular fa-envelope"></i> hello@newyedibletoppers.com.au</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW, Australia</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-phone"></i> 0412 345 678</div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div>© 2025 Newy Edible Toppers. All rights reserved.</div><div class="made">Made with <i class="fa-solid fa-heart"></i> in Newy</div></div>
+  </div>
+</footer>
+
+</body>
+</html>

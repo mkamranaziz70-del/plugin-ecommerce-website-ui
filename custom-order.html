@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Studio — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&family=Lobster&family=Dancing+Script:wght@500;700&family=Playfair+Display:wght@500;700;900&family=Montserrat:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ── EDITOR LAYOUT ── */
+.editor-shell { background: linear-gradient(180deg, #FAFAFA 0%, #fff 280px); padding: 30px 0 60px; }
+.editor-grid {
+  display: grid; grid-template-columns: 92px 1fr 320px; gap: 16px; align-items: start;
+  background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(255,20,147,0.08); overflow: hidden;
+  min-height: 720px;
+}
+
+/* ── LEFT TOOL RAIL ── */
+.tool-rail { background: linear-gradient(180deg, var(--pink-pale) 0%, var(--pink-cream) 100%); padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid var(--border-soft); height: 100%; }
+.tool-btn {
+  width: 68px; padding: 12px 6px; border-radius: 12px; background: transparent;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  cursor: pointer; transition: all 0.2s; color: var(--text-mid);
+}
+.tool-btn:hover { background: rgba(255,255,255,0.7); color: var(--pink-dark); }
+.tool-btn.active { background: #fff; color: var(--pink-dark); box-shadow: 0 4px 12px rgba(255,20,147,0.15); }
+.tool-btn i { font-size: 1.1rem; }
+.tool-btn span { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; }
+.tool-divider { height: 1px; background: rgba(255,184,220,0.4); margin: 6px 4px; }
+
+/* ── CANVAS AREA ── */
+.canvas-wrap { display: flex; flex-direction: column; height: 100%; min-width: 0; }
+.canvas-toolbar {
+  display: flex; align-items: center; gap: 8px; padding: 12px 18px;
+  border-bottom: 1px solid var(--border-soft); background: #fff;
+  flex-wrap: wrap;
+}
+.tb-group { display: flex; align-items: center; gap: 4px; }
+.tb-btn {
+  width: 34px; height: 34px; border-radius: 8px; background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mid); cursor: pointer; transition: all 0.15s; font-size: 0.85rem;
+}
+.tb-btn:hover { background: var(--pink-pale); color: var(--pink-dark); }
+.tb-btn.disabled { opacity: 0.35; cursor: not-allowed; }
+.tb-divider { width: 1px; height: 22px; background: var(--border-soft); margin: 0 4px; }
+.tb-template-name { font-size: 0.82rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.tb-template-name .pill { padding: 3px 10px; background: var(--pink-pale); border-radius: 999px; font-size: 0.68rem; color: var(--pink-dark); font-weight: 700; }
+.tb-spacer { flex: 1; }
+.tb-zoom { display: flex; align-items: center; gap: 0; background: var(--pink-pale); border-radius: 8px; padding: 2px; }
+.tb-zoom button { width: 28px; height: 26px; border-radius: 6px; color: var(--pink-dark); }
+.tb-zoom button:hover { background: #fff; }
+.tb-zoom .level { padding: 0 10px; font-size: 0.78rem; font-weight: 700; color: var(--pink-dark); }
+.tb-action {
+  padding: 8px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer; transition: all 0.2s;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.tb-action.preview { background: var(--cream-mid); color: #8B6914; }
+.tb-action.preview:hover { background: var(--cream-warm); }
+.tb-action.save { background: var(--pink); color: #fff; box-shadow: 0 4px 12px rgba(255,20,147,0.3); }
+.tb-action.save:hover { background: var(--pink-dark); transform: translateY(-1px); }
+
+/* Canvas stage */
+.canvas-stage {
+  flex: 1; background:
+    repeating-conic-gradient(#F8F8F8 0% 25%, #fff 0% 50%) 50% / 22px 22px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 36px; position: relative; min-height: 540px;
+}
+.canvas-card {
+  width: 380px; height: 380px; border-radius: 50%; position: relative;
+  background:
+    radial-gradient(circle at 50% 35%, #FFF8FB 0%, #FFE5F1 70%, #FFB8DC 100%);
+  box-shadow: 0 30px 60px rgba(255,20,147,0.20), 0 0 0 1px rgba(255,184,220,0.5);
+  overflow: hidden;
+}
+/* Safe zone ring */
+.canvas-safe {
+  position: absolute; inset: 22px; border-radius: 50%;
+  border: 2px dashed rgba(0,180,204,0.5);
+  pointer-events: none;
+}
+.canvas-safe-tag {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  background: var(--teal); color: #fff; font-size: 0.6rem; font-weight: 800;
+  padding: 3px 9px; border-radius: 999px; letter-spacing: 0.08em; white-space: nowrap;
+}
+/* Watermark */
+.canvas-watermark {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  pointer-events: none; z-index: 5;
+}
+.canvas-watermark span {
+  font-family: var(--display); font-size: 4.6rem; color: rgba(255,20,147,0.10);
+  transform: rotate(-22deg); white-space: nowrap; letter-spacing: -0.02em;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+/* Sample design content */
+.design-text {
+  position: absolute; top: 30%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Pacifico', cursive; font-size: 2.3rem;
+  background: linear-gradient(135deg, #E91E8C 0%, #FF6BB5 60%, #FFB347 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  text-align: center; line-height: 0.95;
+  filter: drop-shadow(0 2px 4px rgba(255,20,147,0.2));
+  z-index: 2;
+  cursor: move;
+}
+.design-text.selected { outline: 2px solid var(--pink); outline-offset: 8px; border-radius: 4px; }
+.design-name {
+  position: absolute; top: 56%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 1.35rem; color: var(--text); z-index: 2;
+}
+.design-age {
+  position: absolute; top: 71%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  color: var(--pink-dark); letter-spacing: 0.18em; z-index: 2;
+}
+.design-deco {
+  position: absolute; top: 22%; left: 50%; transform: translate(-50%,-50%);
+  display: flex; gap: 8px; z-index: 2;
+}
+.design-deco i { color: var(--pink); font-size: 0.85rem; opacity: 0.7; }
+.design-deco i:nth-child(2) { font-size: 0.7rem; color: var(--teal); }
+.design-deco i:nth-child(3) { font-size: 0.85rem; color: var(--yellow); }
+
+/* Selection handles */
+.handle { position: absolute; width: 10px; height: 10px; background: #fff; border: 2px solid var(--pink); border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); z-index: 6; }
+.handle.tl { top: 22%; left: 26%; }
+.handle.tr { top: 22%; right: 26%; }
+.handle.bl { bottom: 64%; left: 26%; }
+.handle.br { bottom: 64%; right: 26%; }
+.handle.rotate { top: 17%; left: 50%; transform: translateX(-50%); background: var(--teal); border-color: var(--teal); }
+
+/* Canvas footer info bar */
+.canvas-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 18px; background: #FAFAFA; border-top: 1px solid var(--border-soft);
+  font-size: 0.75rem; color: var(--text-muted); flex-wrap: wrap; gap: 10px;
+}
+.canvas-footer .left { display: flex; gap: 16px; align-items: center; }
+.canvas-footer .left span { display: inline-flex; align-items: center; gap: 5px; }
+.canvas-footer .left i { color: var(--pink); }
+.canvas-footer .right { display: inline-flex; align-items: center; gap: 6px; color: var(--green); font-weight: 700; }
+.canvas-footer .right::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+
+/* ── RIGHT PROPERTIES PANEL ── */
+.props-panel { background: #FAFBFC; border-left: 1px solid var(--border-soft); height: 100%; display: flex; flex-direction: column; }
+.props-tabs { display: flex; border-bottom: 1px solid var(--border-soft); }
+.props-tab { flex: 1; padding: 14px 6px; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: all 0.2s; text-align: center; border-bottom: 2px solid transparent; }
+.props-tab.active { color: var(--pink-dark); border-bottom-color: var(--pink); background: #fff; }
+.props-body { padding: 20px; overflow-y: auto; flex: 1; }
+.prop-block { margin-bottom: 22px; }
+.prop-block:last-child { margin-bottom: 0; }
+.prop-label { font-size: 0.7rem; font-weight: 800; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 9px; display: flex; align-items: center; justify-content: space-between; }
+.prop-label .hint { font-weight: 500; color: var(--text-light); text-transform: none; letter-spacing: 0; }
+
+.prop-input {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-soft); border-radius: 9px;
+  font-family: var(--font); font-size: 0.82rem; color: var(--text); background: #fff; outline: none;
+  transition: border-color 0.2s;
+}
+.prop-input:focus { border-color: var(--pink); }
+.prop-row { display: flex; gap: 8px; }
+.prop-row .prop-input { flex: 1; }
+
+/* Font dropdown */
+.font-select {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-soft); border-radius: 9px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23E91E8C' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  appearance: none; cursor: pointer; outline: none;
+  font-family: 'Pacifico', cursive; font-size: 1.05rem; color: var(--pink-dark);
+}
+
+/* Size + numeric */
+.size-row { display: grid; grid-template-columns: 1fr 60px; gap: 8px; align-items: center; }
+.size-slider {
+  width: 100%; height: 4px; border-radius: 999px; background: var(--border-soft); appearance: none; outline: none;
+}
+.size-slider::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--pink); cursor: pointer; box-shadow: 0 2px 6px rgba(255,20,147,0.4); }
+
+/* Color swatches */
+.color-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.color-sw { width: 28px; height: 28px; border-radius: 8px; cursor: pointer; transition: transform 0.15s; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--border-soft); }
+.color-sw:hover { transform: scale(1.1); }
+.color-sw.active { box-shadow: 0 0 0 2px var(--pink); }
+.color-sw.add { background: linear-gradient(135deg, #fff 50%, #f5f5f5 100%); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.85rem; }
+
+/* Style toggles */
+.style-row { display: flex; gap: 6px; }
+.style-btn { flex: 1; padding: 10px; border: 1.5px solid var(--border-soft); border-radius: 9px; background: #fff; color: var(--text-mid); cursor: pointer; transition: all 0.15s; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+.style-btn:hover { border-color: var(--pink-soft); }
+.style-btn.active { background: var(--pink-pale); border-color: var(--pink); color: var(--pink-dark); }
+
+/* Alignment */
+.align-row { display: flex; gap: 4px; background: var(--pink-pale); padding: 4px; border-radius: 10px; }
+.align-btn { flex: 1; padding: 8px; border-radius: 7px; color: var(--text-mid); cursor: pointer; transition: all 0.15s; }
+.align-btn:hover { color: var(--pink-dark); }
+.align-btn.active { background: #fff; color: var(--pink-dark); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+
+/* Layers list */
+.layer { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border-soft); margin-bottom: 6px; cursor: pointer; transition: all 0.15s; }
+.layer:hover { border-color: var(--pink-soft); }
+.layer.active { border-color: var(--pink); background: var(--pink-pale); }
+.layer .ico { width: 28px; height: 28px; border-radius: 7px; background: var(--pink-pale); color: var(--pink-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; }
+.layer .ico.img { background: var(--mint-soft); color: var(--teal-dark); }
+.layer .name { flex: 1; font-size: 0.78rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.layer .vis { color: var(--text-light); font-size: 0.78rem; }
+.layer.active .vis { color: var(--pink); }
+
+/* Image slots */
+.upload-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.upload-slot {
+  aspect-ratio: 1; border: 2px dashed var(--pink-soft); border-radius: 12px;
+  background: var(--pink-pale); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px; color: var(--pink-dark);
+  cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+}
+.upload-slot:hover { border-color: var(--pink); background: var(--pink-cream); }
+.upload-slot i { font-size: 1.2rem; }
+.upload-slot span { font-size: 0.68rem; font-weight: 700; }
+.upload-slot.filled { padding: 0; border: 2px solid var(--pink); background: var(--pink-pale); }
+.upload-slot.filled .preview-art {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.upload-slot.filled .preview-art-1 { background: linear-gradient(135deg, #FFE5F1, #FFB8DC); }
+.upload-slot.filled .preview-art-2 { background: linear-gradient(135deg, #FFF3E0, #FFCCBC); }
+.upload-slot.filled .check { position: absolute; top: 4px; right: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--green); color: #fff; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; }
+.upload-slot.filled .ico-big { font-size: 1.6rem; color: rgba(255,255,255,0.9); }
+.upload-help { font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+/* ── BOTTOM ORDER BAR ── */
+.order-bar {
+  margin-top: 22px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius);
+  padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 24px; align-items: center;
+  box-shadow: 0 10px 30px rgba(255,20,147,0.06);
+}
+.order-bar-block label { display: block; font-size: 0.68rem; font-weight: 800; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.shape-row { display: flex; gap: 6px; }
+.shape-pill {
+  padding: 7px 12px; border: 1.5px solid var(--border-soft); border-radius: 8px;
+  font-size: 0.74rem; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 5px; background: #fff;
+}
+.shape-pill:hover { border-color: var(--pink-soft); }
+.shape-pill.active { background: var(--pink-pale); border-color: var(--pink); color: var(--pink-dark); }
+.size-row-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.qty-stepper { display: flex; align-items: center; gap: 0; background: var(--pink-pale); border-radius: 9px; padding: 3px; width: fit-content; }
+.qty-stepper button { width: 30px; height: 30px; border-radius: 7px; color: var(--pink-dark); font-size: 0.85rem; }
+.qty-stepper button:hover { background: #fff; }
+.qty-stepper .val { width: 36px; text-align: center; font-size: 0.9rem; font-weight: 800; color: var(--pink-dark); }
+.order-bar-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.price-line { font-size: 0.72rem; color: var(--text-muted); }
+.price-line strong { color: var(--pink-dark); font-size: 1.4rem; font-weight: 900; font-family: var(--font); margin-left: 6px; }
+
+/* Templates strip */
+.templates-section {
+  background: linear-gradient(135deg, var(--mint-soft) 0%, var(--pink-pale) 100%);
+  padding: 26px 0; margin-top: 22px; border-radius: var(--radius); border: 1px solid var(--border-soft); position: relative; overflow: hidden;
+}
+.templates-section::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.4;
+  background-image: radial-gradient(circle, rgba(255,107,181,0.3) 2px, transparent 2.5px);
+  background-size: 80px 80px;
+}
+.templates-section .container { position: relative; z-index: 1; max-width: none; padding: 0 26px; }
+.templates-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+.templates-head h3 { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 1.4rem; color: var(--pink-dark); }
+.templates-head h3 i { color: var(--pink); font-size: 0.9rem; }
+.templates-head .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.templates-head .filter-pill { padding: 6px 14px; background: rgba(255,255,255,0.6); border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: all 0.15s; }
+.templates-head .filter-pill:hover, .templates-head .filter-pill.active { background: var(--pink); color: #fff; }
+.templates-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.template-tile {
+  aspect-ratio: 1; border-radius: 14px; background: #fff;
+  position: relative; overflow: hidden; cursor: pointer; transition: all 0.25s;
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+}
+.template-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.template-tile.active { box-shadow: 0 0 0 3px var(--pink), var(--shadow); }
+.template-tile .badge { position: absolute; top: 6px; left: 6px; background: var(--pink); color: #fff; font-size: 0.55rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em; }
+.template-tile .badge.blank { background: var(--text); }
+.template-tile .badge.new { background: var(--teal); }
+.template-art { width: 80%; aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; position: relative; }
+.template-art.blank { background: repeating-linear-gradient(45deg, #F5F5F5 0 8px, #fff 8px 16px); border: 1.5px dashed var(--text-light); }
+.template-art.t1 { background: radial-gradient(circle at 50% 35%, #fff 0%, #FFE5F1 70%, #FFB8DC 100%); }
+.template-art.t2 { background: radial-gradient(circle at 50% 35%, #fff 0%, #E1F5FE 70%, #B3E5FC 100%); }
+.template-art.t3 { background: radial-gradient(circle at 50% 35%, #fff 0%, #FFF3E0 70%, #FFCCBC 100%); }
+.template-art.t4 { background: radial-gradient(circle at 50% 35%, #fff 0%, #F3E5F5 70%, #E1BEE7 100%); }
+.template-art.t5 { background: radial-gradient(circle at 50% 35%, #fff 0%, #E8F5E9 70%, #FFCDD2 100%); }
+.template-art .t-text { font-family: 'Pacifico', cursive; font-size: 0.95rem; }
+.template-art.t1 .t-text { color: var(--pink-dark); }
+.template-art.t2 .t-text { color: #0277BD; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.1em; }
+.template-art.t3 .t-text { color: #D97706; font-family: 'Playfair Display', serif; font-weight: 900; font-size: 0.78rem; }
+.template-art.t4 .t-text { color: #7B1FA2; font-family: 'Dancing Script', cursive; }
+.template-art.t5 .t-text { color: #DC2626; font-family: 'Lobster', cursive; font-size: 0.78rem; }
+.template-art .t-sub { font-size: 0.55rem; font-weight: 700; opacity: 0.7; }
+.template-art .t-deco { font-size: 0.85rem; }
+.template-tile .name { position: absolute; bottom: 6px; left: 6px; right: 6px; font-size: 0.68rem; font-weight: 700; color: var(--text); text-align: center; }
+
+/* Note for client */
+.client-note {
+  background: linear-gradient(135deg, #FFF8DC 0%, #FFEFD5 100%);
+  border: 1px solid #F0D89A; border-radius: 12px;
+  padding: 14px 18px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start;
+}
+.client-note i { color: #B7791F; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+.client-note .text { font-size: 0.82rem; color: #6B5818; line-height: 1.6; }
+.client-note strong { color: #5A4A0F; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .editor-grid { grid-template-columns: 1fr; }
+  .tool-rail { flex-direction: row; padding: 12px; height: auto; border-right: none; border-bottom: 1px solid var(--border-soft); overflow-x: auto; }
+  .tool-divider { width: 1px; height: 30px; margin: 4px 6px; }
+  .props-panel { border-left: none; border-top: 1px solid var(--border-soft); }
+  .templates-row { grid-template-columns: repeat(4, 1fr); }
+  .order-bar { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .canvas-card { width: 280px; height: 280px; }
+  .design-text { font-size: 1.7rem; }
+  .canvas-watermark span { font-size: 3.4rem; }
+  .templates-row { grid-template-columns: repeat(3, 1fr); }
+  .order-bar { grid-template-columns: 1fr; }
+  .order-bar-cta { align-items: stretch; }
+  .order-bar-cta .btn { width: 100%; justify-content: center; }
+  .canvas-toolbar { padding: 10px 12px; gap: 6px; }
+  .tb-template-name { font-size: 0.74rem; }
+  .canvas-stage { padding: 22px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Edible &amp; Premium Quality</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="#"><i class="fa-regular fa-user"></i> My Account</a>
+      <span class="divider"></span>
+      <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="brand-text"><span class="brand-name">Newy Edible Toppers</span><span class="brand-tag">Custom Edible Prints · NSW</span></div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
+      <a href="custom-order.html" class="nav-link active">Custom Order</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-search"><input type="text" placeholder="Search products..."><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
+    <button class="nav-toggle" onclick="document.body.classList.add('nav-open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="brand"><div class="brand-mark" style="width:40px;height:40px;"><i class="fa-solid fa-cake-candles" style="font-size:1rem;"></i></div><span class="brand-name" style="font-size:1.05rem;">Newy Edible Toppers</span></a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
+      <a href="custom-order.html" class="mobile-nav-link active"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
+    </nav>
+    <div class="mobile-nav-foot">
+      <a href="#" class="btn btn-outline"><i class="fa-regular fa-user"></i> Account</a>
+      <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-breadcrumbs"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Design Studio</span></div>
+    <div class="page-hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Bring Your Idea to Life <i class="fa-solid fa-sparkles"></i></div>
+    <h1>Design Your <span>Custom Topper</span></h1>
+    <p>Pick a template or start from a blank canvas — add your photos, choose your fonts, and watch your design come to life in real time.</p>
+  </div>
+</section>
+
+<!-- EDITOR -->
+<section class="editor-shell">
+  <div class="container">
+
+    <div class="client-note">
+      <i class="fa-solid fa-circle-info"></i>
+      <div class="text">
+        <strong>Design Studio Preview —</strong> Pick a template, add your text and up to 4 images, then preview before checkout. All previews include a watermark; the watermark is removed on the final print. Card payments are securely processed via Stripe.
+      </div>
+    </div>
+
+    <!-- Editor Grid -->
+    <div class="editor-grid">
+
+      <!-- LEFT TOOL RAIL -->
+      <aside class="tool-rail">
+        <button class="tool-btn"><i class="fa-solid fa-th-large"></i><span>Templates</span></button>
+        <button class="tool-btn active"><i class="fa-solid fa-font"></i><span>Text</span></button>
+        <button class="tool-btn"><i class="fa-regular fa-image"></i><span>Images</span></button>
+        <button class="tool-btn"><i class="fa-solid fa-shapes"></i><span>Shapes</span></button>
+        <button class="tool-btn"><i class="fa-solid fa-icons"></i><span>Elements</span></button>
+        <div class="tool-divider"></div>
+        <button class="tool-btn"><i class="fa-solid fa-layer-group"></i><span>Layers</span></button>
+        <button class="tool-btn"><i class="fa-solid fa-palette"></i><span>Theme</span></button>
+        <div class="tool-divider"></div>
+        <button class="tool-btn"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+      </aside>
+
+      <!-- CANVAS -->
+      <div class="canvas-wrap">
+        <div class="canvas-toolbar">
+          <div class="tb-group">
+            <button class="tb-btn" title="Undo"><i class="fa-solid fa-rotate-left"></i></button>
+            <button class="tb-btn" title="Redo"><i class="fa-solid fa-rotate-right"></i></button>
+          </div>
+          <div class="tb-divider"></div>
+          <div class="tb-template-name"><i class="fa-solid fa-file-image" style="color:var(--pink);"></i> Birthday Round 8cm <span class="pill">Template</span></div>
+          <div class="tb-spacer"></div>
+          <div class="tb-zoom">
+            <button title="Zoom out"><i class="fa-solid fa-minus"></i></button>
+            <span class="level">85%</span>
+            <button title="Zoom in"><i class="fa-solid fa-plus"></i></button>
+          </div>
+          <div class="tb-divider"></div>
+          <button class="tb-action preview"><i class="fa-regular fa-eye"></i> Preview</button>
+          <button class="tb-action save"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+        </div>
+
+        <!-- Canvas Stage -->
+        <div class="canvas-stage">
+          <div class="canvas-card">
+            <!-- Safe zone -->
+            <div class="canvas-safe">
+              <span class="canvas-safe-tag"><i class="fa-solid fa-shield-halved" style="margin-right:3px;font-size:0.55rem;"></i> SAFE ZONE</span>
+            </div>
+
+            <!-- Watermark -->
+            <div class="canvas-watermark"><span>NEWY · PREVIEW</span></div>
+
+            <!-- Sample design -->
+            <div class="design-deco">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-heart"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="design-text selected">Happy Birthday</div>
+            <!-- Selection handles for selected text -->
+            <div class="handle tl"></div>
+            <div class="handle tr"></div>
+            <div class="handle bl"></div>
+            <div class="handle br"></div>
+            <div class="handle rotate"></div>
+
+            <div class="design-name">Sarah</div>
+            <div class="design-age">TURNS · 7</div>
+          </div>
+        </div>
+
+        <!-- Canvas footer -->
+        <div class="canvas-footer">
+          <div class="left">
+            <span><i class="fa-solid fa-vector-square"></i> 8cm Round</span>
+            <span><i class="fa-solid fa-layer-group"></i> 4 layers</span>
+            <span><i class="fa-solid fa-circle-check" style="color:var(--green);"></i> Inside safe zone</span>
+            <span><i class="fa-solid fa-image"></i> 300 DPI</span>
+          </div>
+          <div class="right">Auto-saved</div>
+        </div>
+      </div>
+
+      <!-- RIGHT PROPERTIES -->
+      <aside class="props-panel">
+        <div class="props-tabs">
+          <div class="props-tab active">Text</div>
+          <div class="props-tab">Image</div>
+          <div class="props-tab">Layers</div>
+        </div>
+        <div class="props-body">
+
+          <div class="prop-block">
+            <div class="prop-label">Content</div>
+            <input type="text" class="prop-input" value="Happy Birthday">
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Font Family <span class="hint">25+ fonts</span></div>
+            <select class="font-select">
+              <option style="font-family:Pacifico;">Pacifico</option>
+              <option style="font-family:Poppins;font-weight:800;">Poppins Bold</option>
+              <option style="font-family:'Playfair Display';font-weight:900;">Playfair Display</option>
+              <option style="font-family:'Dancing Script';">Dancing Script</option>
+              <option style="font-family:Lobster;">Lobster</option>
+              <option style="font-family:'Bebas Neue';">Bebas Neue</option>
+              <option style="font-family:Montserrat;font-weight:900;">Montserrat Black</option>
+            </select>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Size <span class="hint">42px</span></div>
+            <div class="size-row">
+              <input type="range" class="size-slider" min="12" max="120" value="42">
+              <input type="number" class="prop-input" value="42" style="text-align:center;">
+            </div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Style</div>
+            <div class="style-row">
+              <button class="style-btn active"><i class="fa-solid fa-bold"></i></button>
+              <button class="style-btn"><i class="fa-solid fa-italic"></i></button>
+              <button class="style-btn"><i class="fa-solid fa-underline"></i></button>
+              <button class="style-btn"><i class="fa-solid fa-strikethrough"></i></button>
+            </div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Alignment</div>
+            <div class="align-row">
+              <button class="align-btn"><i class="fa-solid fa-align-left"></i></button>
+              <button class="align-btn active"><i class="fa-solid fa-align-center"></i></button>
+              <button class="align-btn"><i class="fa-solid fa-align-right"></i></button>
+              <button class="align-btn"><i class="fa-solid fa-align-justify"></i></button>
+            </div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Colour</div>
+            <div class="color-row">
+              <span class="color-sw active" style="background:linear-gradient(135deg,#E91E8C 0%,#FF6BB5 60%,#FFB347 100%);"></span>
+              <span class="color-sw" style="background:#FF1493;"></span>
+              <span class="color-sw" style="background:#1A1A1A;"></span>
+              <span class="color-sw" style="background:#fff;"></span>
+              <span class="color-sw" style="background:#00B4CC;"></span>
+              <span class="color-sw" style="background:#10B981;"></span>
+              <span class="color-sw" style="background:#F59E0B;"></span>
+              <span class="color-sw" style="background:#7B1FA2;"></span>
+              <span class="color-sw add"><i class="fa-solid fa-plus"></i></span>
+            </div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Your Images <span class="hint">2 / 4 used</span></div>
+            <div class="upload-slots">
+              <div class="upload-slot filled">
+                <div class="preview-art preview-art-1">
+                  <i class="fa-solid fa-cake-candles ico-big"></i>
+                  <span class="check"><i class="fa-solid fa-check"></i></span>
+                </div>
+              </div>
+              <div class="upload-slot filled">
+                <div class="preview-art preview-art-2">
+                  <i class="fa-solid fa-star ico-big"></i>
+                  <span class="check"><i class="fa-solid fa-check"></i></span>
+                </div>
+              </div>
+              <div class="upload-slot"><i class="fa-solid fa-plus"></i><span>Upload</span></div>
+              <div class="upload-slot"><i class="fa-solid fa-plus"></i><span>Upload</span></div>
+            </div>
+            <div class="upload-help"><strong>PNG or JPEG</strong> · max 25MB each · Best at 300 DPI</div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Layers</div>
+            <div class="layer"><div class="ico"><i class="fa-solid fa-star"></i></div><div class="name">Sparkle Decoration</div><i class="fa-regular fa-eye vis"></i></div>
+            <div class="layer active"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Happy Birthday"</div><i class="fa-regular fa-eye vis"></i></div>
+            <div class="layer"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Sarah"</div><i class="fa-regular fa-eye vis"></i></div>
+            <div class="layer"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Turns 7"</div><i class="fa-regular fa-eye vis"></i></div>
+            <div class="layer"><div class="ico img"><i class="fa-regular fa-image"></i></div><div class="name">Background</div><i class="fa-regular fa-eye vis"></i></div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- ORDER BAR -->
+    <div class="order-bar">
+      <div class="order-bar-block">
+        <label>Shape</label>
+        <div class="shape-row">
+          <span class="shape-pill active"><i class="fa-regular fa-circle"></i> Round</span>
+          <span class="shape-pill"><i class="fa-regular fa-square"></i> Square</span>
+          <span class="shape-pill"><i class="fa-solid fa-vector-square"></i> Rectangle</span>
+        </div>
+      </div>
+      <div class="order-bar-block">
+        <label>Size</label>
+        <div class="size-row-pills">
+          <span class="shape-pill">6cm</span>
+          <span class="shape-pill active">8cm</span>
+          <span class="shape-pill">15cm</span>
+          <span class="shape-pill">20cm</span>
+        </div>
+      </div>
+      <div class="order-bar-block">
+        <label>Quantity</label>
+        <div class="qty-stepper">
+          <button>−</button><span class="val">2</span><button>+</button>
+        </div>
+      </div>
+      <div class="order-bar-cta">
+        <div class="price-line">Total <strong>$17.98</strong></div>
+        <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</a>
+      </div>
+    </div>
+
+    <!-- TEMPLATES -->
+    <div class="templates-section">
+      <div class="container">
+        <div class="templates-head">
+          <h3><i class="fa-solid fa-sparkles"></i> Start From a Template</h3>
+          <div class="filters">
+            <span class="filter-pill active">All</span>
+            <span class="filter-pill">Birthday</span>
+            <span class="filter-pill">Kids</span>
+            <span class="filter-pill">Wedding</span>
+            <span class="filter-pill">Corporate</span>
+            <span class="filter-pill">Seasonal</span>
+          </div>
+        </div>
+        <div class="templates-row">
+          <div class="template-tile">
+            <span class="badge blank">Blank</span>
+            <div class="template-art blank"><i class="fa-solid fa-plus" style="color:var(--text-light);font-size:1.4rem;"></i></div>
+          </div>
+          <div class="template-tile active">
+            <span class="badge">In Use</span>
+            <div class="template-art t1">
+              <i class="fa-solid fa-star t-deco" style="color:var(--pink);"></i>
+              <span class="t-text">Happy Bday</span>
+              <span class="t-sub" style="color:var(--pink-dark);">SARAH · 7</span>
+            </div>
+          </div>
+          <div class="template-tile">
+            <div class="template-art t2">
+              <span class="t-text">SUPER 1ST</span>
+              <span class="t-sub" style="color:#0277BD;">BIRTHDAY</span>
+            </div>
+          </div>
+          <div class="template-tile">
+            <span class="badge new">New</span>
+            <div class="template-art t3">
+              <span class="t-text">Forever Yours</span>
+              <span class="t-sub" style="color:#92400E;">EST. 2025</span>
+            </div>
+          </div>
+          <div class="template-tile">
+            <div class="template-art t4">
+              <span class="t-text">Sweet 16</span>
+              <span class="t-sub" style="color:#6A1B9A;">CELEBRATION</span>
+            </div>
+          </div>
+          <div class="template-tile">
+            <div class="template-art t5">
+              <i class="fa-solid fa-snowflake t-deco" style="color:#DC2626;"></i>
+              <span class="t-text">Merry Xmas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand-mark"><div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div><span class="foot-brand-name">Newy Edible Toppers</span></div>
+        <p class="foot-tagline">Custom edible toppers for every occasion. Made in Newy, Australia with love and sprinkles.</p>
+        <div class="foot-socials"><a href="#" class="foot-social"><i class="fa-brands fa-instagram"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-tiktok"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-pinterest-p"></i></a></div>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Quick Links</h5>
+        <a href="shop.html" class="foot-link">Shop All</a>
+        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="about.html" class="foot-link">About Us</a>
+        <a href="faq.html" class="foot-link">FAQ</a>
+        <a href="contact.html" class="foot-link">Contact Us</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Customer Care</h5>
+        <a href="#" class="foot-link">Shipping Information</a>
+        <a href="#" class="foot-link">Returns &amp; Refunds</a>
+        <a href="#" class="foot-link">How to Use</a>
+        <a href="#" class="foot-link">Storage Instructions</a>
+        <a href="#" class="foot-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Let's Stay in Touch!</h5>
+        <p class="foot-newsletter">Sign up for new designs, offers and sweet inspiration!</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Contact Us</h5>
+        <div class="foot-contact-row"><i class="fa-regular fa-envelope"></i> hello@newyedibletoppers.com.au</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW, Australia</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-phone"></i> 0412 345 678</div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div>© 2025 Newy Edible Toppers. All rights reserved.</div><div class="made">Made with <i class="fa-solid fa-heart"></i> in Newy</div></div>
+  </div>
+</footer>
+
+</body>
+</html>

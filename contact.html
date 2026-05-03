@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Newy Edible Toppers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<style>
+.contact-body { padding: 50px 0 70px; background: #fff; }
+
+/* Contact info cards */
+.info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
+.info-card { background: linear-gradient(180deg, var(--pink-pale) 0%, var(--pink-cream) 100%); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 26px 22px; text-align: center; transition: all 0.25s; }
+.info-card:hover { transform: translateY(-4px); border-color: var(--pink-soft); box-shadow: var(--shadow); }
+.info-icon { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--pink) 0%, var(--pink-mid) 100%); color: #fff; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; box-shadow: 0 6px 16px rgba(255,20,147,0.25); }
+.info-card h4 { font-size: 0.85rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.info-card p { font-size: 0.85rem; color: var(--text-mid); font-weight: 600; line-height: 1.6; margin-bottom: 4px; }
+.info-card .small { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+
+/* Form + side */
+.contact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 36px; align-items: start; }
+.contact-form-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow-sm); }
+.contact-form-card h2 { font-family: var(--display); font-size: 1.85rem; color: var(--pink-dark); margin-bottom: 6px; }
+.contact-form-card .lead { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 26px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-row.full { grid-template-columns: 1fr; }
+.form-field label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-mid); margin-bottom: 6px; }
+.form-field label .req { color: var(--pink); }
+.form-field input, .form-field select, .form-field textarea {
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-soft); border-radius: 10px;
+  font-family: var(--font); font-size: 0.88rem; color: var(--text); background: #fff; outline: none;
+  transition: all 0.2s;
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,20,147,0.08); }
+.form-field textarea { resize: vertical; min-height: 130px; }
+
+/* Topic chips */
+.topic-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.topic-chip { padding: 8px 14px; border: 1.5px solid var(--border-soft); border-radius: 999px; background: #fff; font-size: 0.78rem; font-weight: 600; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+.topic-chip:hover { border-color: var(--pink-soft); }
+.topic-chip.active { background: var(--pink-pale); border-color: var(--pink); color: var(--pink-dark); }
+
+/* Side */
+.side-card { background: linear-gradient(135deg, var(--cream-mid) 0%, var(--cream-warm) 100%); border: 1px solid rgba(245,158,11,0.18); border-radius: var(--radius); padding: 30px; margin-bottom: 18px; }
+.side-card .display-h { font-family: var(--display); font-size: 1.5rem; color: var(--pink-dark); margin-bottom: 14px; }
+.side-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 14px; }
+
+/* Hours card */
+.hours-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 26px; }
+.hours-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 9px; }
+.hours-card h4 i { color: var(--pink); }
+.hours-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.85rem; border-bottom: 1px dashed var(--border-soft); }
+.hours-row:last-child { border-bottom: none; }
+.hours-row .day { color: var(--text-mid); font-weight: 600; }
+.hours-row .time { color: var(--text); font-weight: 700; }
+.hours-row.closed .time { color: var(--text-light); }
+.hours-row.now { color: var(--pink-dark); }
+.hours-row.now .day, .hours-row.now .time { color: var(--pink-dark); }
+.hours-now-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--green); color: #fff; font-size: 0.65rem; font-weight: 800; margin-top: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+.hours-now-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Map */
+.map-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; margin-top: 18px; }
+.map-art {
+  height: 240px; background:
+    radial-gradient(circle at 50% 55%, rgba(255,20,147,0.18) 0%, transparent 30%),
+    linear-gradient(135deg, #E1F5FE 0%, #FFF8FB 50%, #FFE5F1 100%);
+  position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.map-art::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.35;
+  background-image: linear-gradient(0deg, transparent 24%, rgba(180,180,180,0.4) 25%, rgba(180,180,180,0.4) 26%, transparent 27%, transparent 74%, rgba(180,180,180,0.4) 75%, rgba(180,180,180,0.4) 76%, transparent 77%),
+    linear-gradient(90deg, transparent 24%, rgba(180,180,180,0.4) 25%, rgba(180,180,180,0.4) 26%, transparent 27%, transparent 74%, rgba(180,180,180,0.4) 75%, rgba(180,180,180,0.4) 76%, transparent 77%);
+  background-size: 40px 40px;
+}
+.map-pin {
+  position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50% 50% 50% 0;
+  background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+  transform: rotate(-45deg); display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 22px rgba(255,20,147,0.4);
+}
+.map-pin i { transform: rotate(45deg); color: #fff; font-size: 1.2rem; }
+.map-pin::after { content: ''; position: absolute; bottom: -22px; left: 50%; transform: translate(-50%,0) rotate(45deg); width: 14px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.15); filter: blur(3px); }
+.map-card-foot { padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+.map-card-foot .addr { font-size: 0.88rem; }
+.map-card-foot .addr strong { color: var(--text); display: block; margin-bottom: 2px; }
+.map-card-foot .addr span { color: var(--text-muted); font-size: 0.78rem; }
+
+/* Form actions */
+.form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; gap: 14px; }
+.form-actions .privacy { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.form-actions .privacy i { color: var(--green); }
+
+@media (max-width: 1100px) {
+  .info-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .info-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-card { padding: 18px 14px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form-card { padding: 24px; }
+  .contact-form-card h2 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Made in Newy, Australia</span>
+      <span><i class="fa-solid fa-truck-fast"></i> Fast Shipping</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Edible &amp; Premium Quality</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="#"><i class="fa-regular fa-user"></i> My Account</a>
+      <span class="divider"></span>
+      <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div>
+      <div class="brand-text"><span class="brand-name">Newy Edible Toppers</span><span class="brand-tag">Custom Edible Prints · NSW</span></div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
+      <a href="custom-order.html" class="nav-link">Custom Order</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </nav>
+    <div class="header-search"><input type="text" placeholder="Search products..."><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
+    <button class="nav-toggle" onclick="document.body.classList.add('nav-open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav" onclick="document.body.classList.remove('nav-open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="brand"><div class="brand-mark" style="width:40px;height:40px;"><i class="fa-solid fa-cake-candles" style="font-size:1rem;"></i></div><span class="brand-name" style="font-size:1.05rem;">Newy Edible Toppers</span></a>
+      <div class="mobile-nav-close" onclick="document.body.classList.remove('nav-open')"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
+      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
+      <a href="contact.html" class="mobile-nav-link active"><i class="fa-solid fa-phone"></i> Contact</a>
+    </nav>
+    <div class="mobile-nav-foot">
+      <a href="#" class="btn btn-outline"><i class="fa-regular fa-user"></i> Account</a>
+      <a href="#" class="btn btn-pink"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-breadcrumbs"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Contact</span></div>
+    <div class="page-hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Let's Chat <i class="fa-solid fa-sparkles"></i></div>
+    <h1>Get in <span>Touch</span></h1>
+    <p>We'd love to hear from you. Reach out for custom orders, bulk enquiries, or just to say hi — we reply within 4 business hours.</p>
+  </div>
+</section>
+
+<!-- CONTACT BODY -->
+<section class="contact-body">
+  <div class="container">
+
+    <!-- Info cards -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-regular fa-envelope"></i></div>
+        <h4>Email Us</h4>
+        <p>hello@newyedibletoppers.com.au</p>
+        <span class="small">Replies within 4 business hours</span>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+        <h4>Give Us a Call</h4>
+        <p>0412 345 678</p>
+        <span class="small">Mon–Fri, 9am – 5pm AEST</span>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <h4>Visit the Studio</h4>
+        <p>Newcastle, NSW</p>
+        <span class="small">By appointment only</span>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-brands fa-instagram"></i></div>
+        <h4>Follow Us</h4>
+        <p>@newyedibletoppers</p>
+        <span class="small">DMs always open</span>
+      </div>
+    </div>
+
+    <!-- Form + side -->
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <div class="contact-form-card">
+        <h2>Send Us a Message</h2>
+        <p class="lead">Tell us a bit about your enquiry and we'll get back to you as fast as we can.</p>
+
+        <label class="form-field-label" style="font-size:0.78rem;font-weight:700;color:var(--text-mid);display:block;margin-bottom:9px;">What's it about?</label>
+        <div class="topic-row">
+          <span class="topic-chip active">General Enquiry</span>
+          <span class="topic-chip">Custom Order</span>
+          <span class="topic-chip">Bulk / Wholesale</span>
+          <span class="topic-chip">Order Issue</span>
+          <span class="topic-chip">Press &amp; Media</span>
+        </div>
+
+        <form onsubmit="event.preventDefault();">
+          <div class="form-row">
+            <div class="form-field">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" placeholder="Sarah">
+            </div>
+            <div class="form-field">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" placeholder="Mitchell">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" placeholder="sarah@example.com">
+            </div>
+            <div class="form-field">
+              <label>Phone (optional)</label>
+              <input type="tel" placeholder="0412 345 678">
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Subject <span class="req">*</span></label>
+              <input type="text" placeholder="Quick question about your custom toppers">
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Your Message <span class="req">*</span></label>
+              <textarea placeholder="Hi Newy team! I was wondering..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <span class="privacy"><i class="fa-solid fa-lock"></i> Your info is safe — we never spam.</span>
+            <button class="btn btn-pink" type="submit">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Side -->
+      <div>
+        <div class="side-card">
+          <div class="display-h">Quicker than email?</div>
+          <p>Slide into our DMs on Instagram <strong>@newyedibletoppers</strong> — we're usually fastest there.</p>
+          <a href="#" class="btn btn-pink btn-sm" style="width:100%;justify-content:center;"><i class="fa-brands fa-instagram"></i> Message on Instagram</a>
+        </div>
+
+        <div class="hours-card">
+          <h4><i class="fa-regular fa-clock"></i> Studio Hours</h4>
+          <div class="hours-row now"><span class="day">Monday <span style="font-weight:500;font-size:0.7rem;color:var(--green);">· today</span></span><span class="time">9:00 – 5:00</span></div>
+          <div class="hours-row"><span class="day">Tuesday</span><span class="time">9:00 – 5:00</span></div>
+          <div class="hours-row"><span class="day">Wednesday</span><span class="time">9:00 – 5:00</span></div>
+          <div class="hours-row"><span class="day">Thursday</span><span class="time">9:00 – 5:00</span></div>
+          <div class="hours-row"><span class="day">Friday</span><span class="time">9:00 – 4:00</span></div>
+          <div class="hours-row closed"><span class="day">Saturday</span><span class="time">Closed</span></div>
+          <div class="hours-row closed"><span class="day">Sunday</span><span class="time">Closed</span></div>
+          <div class="hours-now-tag">Open Now</div>
+        </div>
+
+        <div class="map-card">
+          <div class="map-art">
+            <div class="map-pin"><i class="fa-solid fa-cake-candles"></i></div>
+          </div>
+          <div class="map-card-foot">
+            <div class="addr">
+              <strong>Newy Edible Toppers Studio</strong>
+              <span>Newcastle, NSW 2300, Australia</span>
+            </div>
+            <a href="#" class="btn btn-outline btn-sm">Get Directions</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand-mark"><div class="brand-mark"><i class="fa-solid fa-cake-candles"></i></div><span class="foot-brand-name">Newy Edible Toppers</span></div>
+        <p class="foot-tagline">Custom edible toppers for every occasion. Made in Newy, Australia with love and sprinkles.</p>
+        <div class="foot-socials"><a href="#" class="foot-social"><i class="fa-brands fa-instagram"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-tiktok"></i></a><a href="#" class="foot-social"><i class="fa-brands fa-pinterest-p"></i></a></div>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Quick Links</h5>
+        <a href="shop.html" class="foot-link">Shop All</a>
+        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="about.html" class="foot-link">About Us</a>
+        <a href="faq.html" class="foot-link">FAQ</a>
+        <a href="contact.html" class="foot-link">Contact Us</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Customer Care</h5>
+        <a href="#" class="foot-link">Shipping Information</a>
+        <a href="#" class="foot-link">Returns &amp; Refunds</a>
+        <a href="#" class="foot-link">How to Use</a>
+        <a href="#" class="foot-link">Storage Instructions</a>
+        <a href="#" class="foot-link">Terms &amp; Conditions</a>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Let's Stay in Touch!</h5>
+        <p class="foot-newsletter">Sign up for new designs, offers and sweet inspiration!</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      </div>
+      <div>
+        <h5 class="foot-col-h">Contact Us</h5>
+        <div class="foot-contact-row"><i class="fa-regular fa-envelope"></i> hello@newyedibletoppers.com.au</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-location-dot"></i> Newcastle, NSW, Australia</div>
+        <div class="foot-contact-row"><i class="fa-solid fa-phone"></i> 0412 345 678</div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div>© 2025 Newy Edible Toppers. All rights reserved.</div><div class="made">Made with <i class="fa-solid fa-heart"></i> in Newy</div></div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.topic-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.topic-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
