@@ -135,7 +135,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background-position: 0 0, 30px 30px, 60px 10px;
 }
 .hero::before { top: 0; left: 0; right: 0; height: 100%; }
-.hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+.hero-inner { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
 .hero-arrow {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
   width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.85);
@@ -147,12 +147,19 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .hero-arrow.left  { left: 20px; }
 .hero-arrow.right { right: 20px; }
 
-.hero-content { padding: 20px 0; }
+.hero-content { padding: 0; }
 .hero-logo-img {
   max-width: 380px; width: 100%; height: auto; display: block; margin-bottom: 14px;
   filter: drop-shadow(0 12px 28px rgba(255,20,147,0.25));
 }
-.hero-h1 { font-size: 2rem; font-weight: 800; color: var(--text); margin: 16px 0 8px; line-height: 1.2; letter-spacing: -0.02em; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-size: 1.5rem; color: var(--pink-dark);
+  margin-bottom: 14px;
+}
+.hero-eyebrow i { color: var(--pink); font-size: 0.85rem; }
+.hero-h1 { font-size: 3rem; font-weight: 900; color: var(--text); margin: 0 0 14px; line-height: 1.1; letter-spacing: -0.025em; }
+.hero-h1 span { color: var(--pink-dark); }
 .hero-sub { font-size: 1.05rem; color: var(--text-mid); margin-bottom: 30px; font-weight: 500; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn {
@@ -176,6 +183,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   border-radius: var(--radius-lg); overflow: hidden;
   box-shadow: 0 30px 70px rgba(255,20,147,0.20);
   background: #fff; aspect-ratio: 1; position: relative;
+  max-width: 520px; margin-left: auto;
 }
 .hero-image-frame img { width: 100%; height: 100%; object-fit: cover; }
 .hero-dots { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
@@ -436,8 +444,10 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   .hero-arrow.left  { left: 8px; }
   .hero-arrow.right { right: 8px; }
   .hero-logo-img { max-width: 280px; margin-left: auto; margin-right: auto; }
-  .hero-h1 { font-size: 1.6rem; }
+  .hero-eyebrow { font-size: 1.2rem; }
+  .hero-h1 { font-size: 2rem; }
   .hero-sub { font-size: 0.95rem; }
+  .hero-image-frame { max-width: 100%; margin: 0 auto; }
 
   .how-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 20px; }
   .how-step:nth-child(2) .how-arrow { display: none; }
@@ -470,7 +480,8 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   .brand-name { font-size: 1.05rem; }
 
   .hero-logo-img { max-width: 240px; }
-  .hero-h1 { font-size: 1.35rem; }
+  .hero-eyebrow { font-size: 1.1rem; margin-bottom: 10px; }
+  .hero-h1 { font-size: 1.6rem; }
   .hero-sub { font-size: 0.88rem; margin-bottom: 22px; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
   .hero-actions .btn { justify-content: center; }
@@ -587,8 +598,8 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <img src="LOGO.png" alt="Newy Edible Toppers" class="hero-logo-img">
-        <h1 class="hero-h1">Custom Edible Toppers <br>for Every Occasion</h1>
+        <div class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Newy Edible Toppers <i class="fa-solid fa-sparkles"></i></div>
+        <h1 class="hero-h1">Custom Edible <span>Toppers</span> <br>for Every Occasion</h1>
         <p class="hero-sub">Personalised. Delicious. Unforgettable.</p>
         <div class="hero-actions">
           <a href="#" class="btn btn-pink btn-lg"><i class="fa-solid fa-cart-shopping"></i> Shop Now</a>
