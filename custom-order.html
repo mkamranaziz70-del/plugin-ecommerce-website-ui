@@ -6,7 +6,7 @@
 <title>Design Studio — Newy Edible Toppers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&family=Lobster&family=Dancing+Script:wght@500;700&family=Playfair+Display:wght@500;700;900&family=Montserrat:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Pacifico&family=Lobster&family=Dancing+Script:wght@500;700&family=Playfair+Display:wght@500;700;900&family=Montserrat:wght@400;700;900&family=Bebas+Neue&family=Great+Vibes&family=Sacramento&family=Caveat:wght@400;700&family=Permanent+Marker&family=Press+Start+2P&family=Cinzel:wght@400;900&family=Abril+Fatface&family=Righteous&family=Comfortaa:wght@400;700&family=Satisfy&family=Kalam:wght@400;700&family=Amatic+SC:wght@400;700&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -122,13 +122,11 @@
   font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
   color: var(--pink-dark); letter-spacing: 0.18em; z-index: 2;
 }
-.design-deco {
-  position: absolute; top: 22%; left: 50%; transform: translate(-50%,-50%);
-  display: flex; gap: 8px; z-index: 2;
+.design-curve {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(255,20,147,0.18));
 }
-.design-deco i { color: var(--pink); font-size: 0.85rem; opacity: 0.7; }
-.design-deco i:nth-child(2) { font-size: 0.7rem; color: var(--teal); }
-.design-deco i:nth-child(3) { font-size: 0.85rem; color: var(--yellow); }
 
 /* Selection handles */
 .handle { position: absolute; width: 10px; height: 10px; background: #fff; border: 2px solid var(--pink); border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); z-index: 6; }
@@ -191,6 +189,25 @@
 .color-sw:hover { transform: scale(1.1); }
 .color-sw.active { box-shadow: 0 0 0 2px var(--pink); }
 .color-sw.add { background: linear-gradient(135deg, #fff 50%, #f5f5f5 100%); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.85rem; }
+
+/* Text path / curve buttons */
+.path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+.path-btn {
+  padding: 12px 8px; border: 1.5px solid var(--border-soft); border-radius: 10px; background: #fff;
+  display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+  transition: all 0.15s; color: var(--text-mid); font-size: 0.7rem; font-weight: 700;
+}
+.path-btn:hover { border-color: var(--pink-soft); color: var(--pink-dark); }
+.path-btn.active { background: var(--pink-pale); border-color: var(--pink); color: var(--pink-dark); box-shadow: 0 4px 10px rgba(255,20,147,0.12); }
+.path-btn svg { color: inherit; }
+.curve-controls { background: var(--pink-pale); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 9px; }
+.curve-row { display: flex; align-items: center; gap: 10px; }
+.curve-label { font-size: 0.72rem; font-weight: 700; color: var(--pink-dark); width: 64px; flex-shrink: 0; }
+.curve-val { font-size: 0.72rem; font-weight: 800; color: var(--pink-dark); width: 28px; text-align: right; }
+.dir-toggle { display: flex; gap: 4px; flex: 1; background: #fff; border-radius: 7px; padding: 3px; }
+.dir-btn { flex: 1; height: 26px; border-radius: 5px; color: var(--text-mid); font-size: 1rem; cursor: pointer; transition: all 0.15s; }
+.dir-btn:hover { color: var(--pink-dark); }
+.dir-btn.active { background: var(--pink); color: #fff; }
 
 /* Style toggles */
 .style-row { display: flex; gap: 6px; }
@@ -366,7 +383,7 @@
     <nav class="main-nav">
       <a href="index.html" class="nav-link">Home</a>
       <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
-      <a href="custom-order.html" class="nav-link active">Custom Order</a>
+      <a href="custom-order.html" class="nav-link active">Design Studio</a>
       <a href="about.html" class="nav-link">About Us</a>
       <a href="faq.html" class="nav-link">FAQ</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -386,7 +403,7 @@
     <nav class="mobile-nav-links">
       <a href="index.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
       <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
-      <a href="custom-order.html" class="mobile-nav-link active"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="custom-order.html" class="mobile-nav-link active"><i class="fa-solid fa-pen-nib"></i> Design Studio</a>
       <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
       <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
       <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
@@ -415,7 +432,7 @@
     <div class="client-note">
       <i class="fa-solid fa-circle-info"></i>
       <div class="text">
-        <strong>Design Studio Preview —</strong> Pick a template, add your text and up to 4 images, then preview before checkout. All previews include a watermark; the watermark is removed on the final print. Card payments are securely processed via Stripe.
+        <strong>Design Studio Preview —</strong> Pick a template, add your text (with <strong>36 fonts</strong> and <strong>curve-on-edge</strong> wrapping), upload up to 4 images, then preview before checkout. All previews include a watermark; the watermark is removed on the final print. Card payments are securely processed via Stripe.
       </div>
     </div>
 
@@ -467,12 +484,22 @@
             <!-- Watermark -->
             <div class="canvas-watermark"><span>NEWY · PREVIEW</span></div>
 
+            <!-- Curved text along top edge -->
+            <svg class="design-curve" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <path id="topArcPath" d="M 60,200 A 130,130 0 0,1 320,200" fill="none"/>
+                <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#E91E8C"/>
+                  <stop offset="50%" stop-color="#FF6BB5"/>
+                  <stop offset="100%" stop-color="#FFB347"/>
+                </linearGradient>
+              </defs>
+              <text font-family="Pacifico, cursive" font-size="22" fill="url(#curveGrad)" font-weight="400">
+                <textPath href="#topArcPath" startOffset="50%" text-anchor="middle">★  Make a Wish, Sarah  ★</textPath>
+              </text>
+            </svg>
+
             <!-- Sample design -->
-            <div class="design-deco">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-heart"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
             <div class="design-text selected">Happy Birthday</div>
             <!-- Selection handles for selected text -->
             <div class="handle tl"></div>
@@ -490,7 +517,7 @@
         <div class="canvas-footer">
           <div class="left">
             <span><i class="fa-solid fa-vector-square"></i> 8cm Round</span>
-            <span><i class="fa-solid fa-layer-group"></i> 4 layers</span>
+            <span><i class="fa-solid fa-layer-group"></i> 5 layers</span>
             <span><i class="fa-solid fa-circle-check" style="color:var(--green);"></i> Inside safe zone</span>
             <span><i class="fa-solid fa-image"></i> 300 DPI</span>
           </div>
@@ -513,15 +540,41 @@
           </div>
 
           <div class="prop-block">
-            <div class="prop-label">Font Family <span class="hint">25+ fonts</span></div>
+            <div class="prop-label">Font Family <span class="hint">36 fonts available</span></div>
             <select class="font-select">
-              <option style="font-family:Pacifico;">Pacifico</option>
-              <option style="font-family:Poppins;font-weight:800;">Poppins Bold</option>
-              <option style="font-family:'Playfair Display';font-weight:900;">Playfair Display</option>
-              <option style="font-family:'Dancing Script';">Dancing Script</option>
-              <option style="font-family:Lobster;">Lobster</option>
-              <option style="font-family:'Bebas Neue';">Bebas Neue</option>
-              <option style="font-family:Montserrat;font-weight:900;">Montserrat Black</option>
+              <optgroup label="✦ Script &amp; Handwriting">
+                <option style="font-family:Pacifico;" selected>Pacifico</option>
+                <option style="font-family:'Dancing Script';font-weight:700;">Dancing Script</option>
+                <option style="font-family:'Great Vibes';">Great Vibes</option>
+                <option style="font-family:Sacramento;">Sacramento</option>
+                <option style="font-family:Satisfy;">Satisfy</option>
+                <option style="font-family:Caveat;font-weight:700;">Caveat</option>
+                <option style="font-family:Kalam;">Kalam</option>
+                <option style="font-family:'Permanent Marker';">Permanent Marker</option>
+              </optgroup>
+              <optgroup label="✦ Display &amp; Decorative">
+                <option style="font-family:Lobster;">Lobster</option>
+                <option style="font-family:'Abril Fatface';">Abril Fatface</option>
+                <option style="font-family:'Amatic SC';font-weight:700;">Amatic SC</option>
+                <option style="font-family:Righteous;">Righteous</option>
+                <option style="font-family:Fredoka;font-weight:700;">Fredoka</option>
+                <option style="font-family:'Press Start 2P';">Press Start 2P</option>
+                <option style="font-family:Cinzel;font-weight:900;">Cinzel</option>
+              </optgroup>
+              <optgroup label="✦ Serif &amp; Elegant">
+                <option style="font-family:'Playfair Display';font-weight:900;">Playfair Display</option>
+                <option style="font-family:'Playfair Display';font-style:italic;">Playfair Italic</option>
+                <option style="font-family:Georgia;">Georgia</option>
+                <option style="font-family:'Times New Roman';font-weight:700;">Times New Roman</option>
+              </optgroup>
+              <optgroup label="✦ Sans-serif &amp; Modern">
+                <option style="font-family:Poppins;font-weight:800;">Poppins Bold</option>
+                <option style="font-family:Montserrat;font-weight:900;">Montserrat Black</option>
+                <option style="font-family:'Bebas Neue';">Bebas Neue</option>
+                <option style="font-family:Comfortaa;font-weight:700;">Comfortaa</option>
+                <option style="font-family:Helvetica;">Helvetica</option>
+                <option style="font-family:Arial;">Arial</option>
+              </optgroup>
             </select>
           </div>
 
@@ -530,6 +583,59 @@
             <div class="size-row">
               <input type="range" class="size-slider" min="12" max="120" value="42">
               <input type="number" class="prop-input" value="42" style="text-align:center;">
+            </div>
+          </div>
+
+          <div class="prop-block">
+            <div class="prop-label">Text Path <span class="hint">Wrap on edge</span></div>
+            <div class="path-grid">
+              <button class="path-btn" title="Straight text">
+                <svg viewBox="0 0 40 28" width="36" height="24" fill="none">
+                  <line x1="6" y1="14" x2="34" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="20" y="11" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">Abc</text>
+                </svg>
+                <span>Straight</span>
+              </button>
+              <button class="path-btn active" title="Curve along top edge">
+                <svg viewBox="0 0 40 28" width="36" height="24" fill="none">
+                  <path d="M 6,22 A 14,14 0 0,1 34,22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="20" y="9" text-anchor="middle" font-size="6.5" font-weight="700" fill="currentColor">Abc</text>
+                </svg>
+                <span>Curve Top</span>
+              </button>
+              <button class="path-btn" title="Curve along bottom edge">
+                <svg viewBox="0 0 40 28" width="36" height="24" fill="none">
+                  <path d="M 6,8 A 14,14 0 0,0 34,8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="20" y="22" text-anchor="middle" font-size="6.5" font-weight="700" fill="currentColor">Abc</text>
+                </svg>
+                <span>Curve Bottom</span>
+              </button>
+              <button class="path-btn" title="Full circle">
+                <svg viewBox="0 0 40 28" width="36" height="24" fill="none">
+                  <circle cx="20" cy="14" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 1.6"/>
+                  <text x="20" y="16" text-anchor="middle" font-size="6" font-weight="700" fill="currentColor">A</text>
+                </svg>
+                <span>Full Circle</span>
+              </button>
+            </div>
+            <div class="curve-controls">
+              <div class="curve-row">
+                <span class="curve-label">Radius</span>
+                <input type="range" class="size-slider" min="40" max="160" value="130" style="flex:1;">
+                <span class="curve-val">130</span>
+              </div>
+              <div class="curve-row">
+                <span class="curve-label">Spacing</span>
+                <input type="range" class="size-slider" min="-2" max="12" value="2" style="flex:1;">
+                <span class="curve-val">2</span>
+              </div>
+              <div class="curve-row">
+                <span class="curve-label">Direction</span>
+                <div class="dir-toggle">
+                  <button class="dir-btn active" title="Read clockwise">↻</button>
+                  <button class="dir-btn" title="Read counter-clockwise">↺</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -591,7 +697,7 @@
 
           <div class="prop-block">
             <div class="prop-label">Layers</div>
-            <div class="layer"><div class="ico"><i class="fa-solid fa-star"></i></div><div class="name">Sparkle Decoration</div><i class="fa-regular fa-eye vis"></i></div>
+            <div class="layer"><div class="ico"><i class="fa-solid fa-circle-notch"></i></div><div class="name">Curved · "Make a Wish…"</div><i class="fa-regular fa-eye vis"></i></div>
             <div class="layer active"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Happy Birthday"</div><i class="fa-regular fa-eye vis"></i></div>
             <div class="layer"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Sarah"</div><i class="fa-regular fa-eye vis"></i></div>
             <div class="layer"><div class="ico"><i class="fa-solid fa-font"></i></div><div class="name">"Turns 7"</div><i class="fa-regular fa-eye vis"></i></div>
@@ -705,7 +811,7 @@
       <div>
         <h5 class="foot-col-h">Quick Links</h5>
         <a href="shop.html" class="foot-link">Shop All</a>
-        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="custom-order.html" class="foot-link">Design Studio</a>
         <a href="about.html" class="foot-link">About Us</a>
         <a href="faq.html" class="foot-link">FAQ</a>
         <a href="contact.html" class="foot-link">Contact Us</a>

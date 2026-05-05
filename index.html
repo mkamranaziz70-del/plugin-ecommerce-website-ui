@@ -149,18 +149,11 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .hero-content { padding: 0; }
 .hero-logo-img {
-  max-width: 380px; width: 100%; height: auto; display: block; margin-bottom: 14px;
-  filter: drop-shadow(0 12px 28px rgba(255,20,147,0.25));
+  max-width: 480px; width: 100%; height: auto; display: block; margin: -20px 0 14px -16px;
+  filter: drop-shadow(0 18px 36px rgba(255,20,147,0.28));
 }
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--display); font-size: 1.5rem; color: var(--pink-dark);
-  margin-bottom: 14px;
-}
-.hero-eyebrow i { color: var(--pink); font-size: 0.85rem; }
-.hero-h1 { font-size: 3rem; font-weight: 900; color: var(--text); margin: 0 0 14px; line-height: 1.1; letter-spacing: -0.025em; }
-.hero-h1 span { color: var(--pink-dark); }
-.hero-sub { font-size: 1.05rem; color: var(--text-mid); margin-bottom: 30px; font-weight: 500; }
+.hero-h1 { font-size: 1.85rem; font-weight: 800; color: var(--text); margin: 0 0 8px; line-height: 1.2; letter-spacing: -0.015em; }
+.hero-sub { font-size: 1rem; color: var(--text-mid); margin-bottom: 28px; font-weight: 500; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px;
@@ -443,9 +436,8 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   .hero-image { order: -1; max-width: 480px; margin: 0 auto; }
   .hero-arrow.left  { left: 8px; }
   .hero-arrow.right { right: 8px; }
-  .hero-logo-img { max-width: 280px; margin-left: auto; margin-right: auto; }
-  .hero-eyebrow { font-size: 1.2rem; }
-  .hero-h1 { font-size: 2rem; }
+  .hero-logo-img { max-width: 360px; margin: 0 auto 14px; }
+  .hero-h1 { font-size: 1.5rem; }
   .hero-sub { font-size: 0.95rem; }
   .hero-image-frame { max-width: 100%; margin: 0 auto; }
 
@@ -479,9 +471,8 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   .brand-mark i { font-size: 1.05rem; }
   .brand-name { font-size: 1.05rem; }
 
-  .hero-logo-img { max-width: 240px; }
-  .hero-eyebrow { font-size: 1.1rem; margin-bottom: 10px; }
-  .hero-h1 { font-size: 1.6rem; }
+  .hero-logo-img { max-width: 280px; }
+  .hero-h1 { font-size: 1.3rem; }
   .hero-sub { font-size: 0.88rem; margin-bottom: 22px; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
   .hero-actions .btn { justify-content: center; }
@@ -552,7 +543,7 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
     <nav class="main-nav">
       <a href="index.html" class="nav-link active">Home</a>
       <a href="shop.html" class="nav-link">Shop <i class="fa-solid fa-chevron-down"></i></a>
-      <a href="custom-order.html" class="nav-link">Custom Order</a>
+      <a href="custom-order.html" class="nav-link">Design Studio</a>
       <a href="about.html" class="nav-link">About Us</a>
       <a href="faq.html" class="nav-link">FAQ</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -579,7 +570,7 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
     <nav class="mobile-nav-links">
       <a href="index.html" class="mobile-nav-link active"><i class="fa-solid fa-house"></i> Home</a>
       <a href="shop.html" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Shop</a>
-      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Custom Order</a>
+      <a href="custom-order.html" class="mobile-nav-link"><i class="fa-solid fa-pen-nib"></i> Design Studio</a>
       <a href="about.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
       <a href="faq.html" class="mobile-nav-link"><i class="fa-regular fa-circle-question"></i> FAQ</a>
       <a href="contact.html" class="mobile-nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
@@ -598,8 +589,8 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> Newy Edible Toppers <i class="fa-solid fa-sparkles"></i></div>
-        <h1 class="hero-h1">Custom Edible <span>Toppers</span> <br>for Every Occasion</h1>
+        <img src="LOGO.png" alt="Newy Edible Toppers" class="hero-logo-img">
+        <h1 class="hero-h1">Custom Edible Toppers <br>for Every Occasion</h1>
         <p class="hero-sub">Personalised. Delicious. Unforgettable.</p>
         <div class="hero-actions">
           <a href="#" class="btn btn-pink btn-lg"><i class="fa-solid fa-cart-shopping"></i> Shop Now</a>
@@ -615,6 +606,46 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
           <span class="hero-dot"></span>
           <span class="hero-dot"></span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────  HOW IT WORKS  ───────────── -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="section-h2-wrap">
+      <i class="fa-solid fa-sparkles icon-l"></i>
+      <span class="section-h2">How It Works</span>
+      <i class="fa-solid fa-sparkles icon-r"></i>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+        <h4 class="how-title">Choose a Design</h4>
+        <p class="how-text">Browse our range or<br>select a custom option.</p>
+        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+        <h4 class="how-title">Upload Your Image</h4>
+        <p class="how-text">Add your image, logo<br>or text — it's easy!</p>
+        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-icon"><i class="fa-solid fa-print"></i></div>
+        <h4 class="how-title">We Print &amp; Ship</h4>
+        <p class="how-text">We print with care and<br>ship it straight to you.</p>
+        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-icon"><i class="fa-solid fa-cake-candles"></i></div>
+        <h4 class="how-title">You Decorate &amp; Enjoy</h4>
+        <p class="how-text">Add the perfect touch<br>to your sweet treats!</p>
       </div>
     </div>
   </div>
@@ -664,46 +695,6 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
           <div class="cat-card-name">Seasonal Designs</div>
           <a href="#" class="btn-shop">Shop Now</a>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────  HOW IT WORKS  ───────────── -->
-<section class="how-it-works">
-  <div class="container">
-    <div class="section-h2-wrap">
-      <i class="fa-solid fa-sparkles icon-l"></i>
-      <span class="section-h2">How It Works</span>
-      <i class="fa-solid fa-sparkles icon-r"></i>
-    </div>
-    <div class="how-grid">
-      <div class="how-step">
-        <div class="how-num">1</div>
-        <div class="how-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-        <h4 class="how-title">Choose a Design</h4>
-        <p class="how-text">Browse our range or<br>select a custom option.</p>
-        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
-      </div>
-      <div class="how-step">
-        <div class="how-num">2</div>
-        <div class="how-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-        <h4 class="how-title">Upload Your Image</h4>
-        <p class="how-text">Add your image, logo<br>or text — it's easy!</p>
-        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
-      </div>
-      <div class="how-step">
-        <div class="how-num">3</div>
-        <div class="how-icon"><i class="fa-solid fa-print"></i></div>
-        <h4 class="how-title">We Print &amp; Ship</h4>
-        <p class="how-text">We print with care and<br>ship it straight to you.</p>
-        <i class="fa-solid fa-arrow-right-long how-arrow"></i>
-      </div>
-      <div class="how-step">
-        <div class="how-num">4</div>
-        <div class="how-icon"><i class="fa-solid fa-cake-candles"></i></div>
-        <h4 class="how-title">You Decorate &amp; Enjoy</h4>
-        <p class="how-text">Add the perfect touch<br>to your sweet treats!</p>
       </div>
     </div>
   </div>
@@ -820,7 +811,7 @@ body.nav-open .mobile-nav-panel { transform: translateX(0); }
       <div>
         <h5 class="foot-col-h">Quick Links</h5>
         <a href="shop.html" class="foot-link">Shop All</a>
-        <a href="custom-order.html" class="foot-link">Custom Order</a>
+        <a href="custom-order.html" class="foot-link">Design Studio</a>
         <a href="about.html" class="foot-link">About Us</a>
         <a href="faq.html" class="foot-link">FAQ</a>
         <a href="contact.html" class="foot-link">Contact Us</a>
